@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컴퓨터 기술 소개</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1a6fb5;
+      --dark: #1a1a2e;
+      --light-bg: #f4f6fb;
+      --border: #c8d4e8;
+      --accent: #e8f0fb;
+      --text: #222;
+      --muted: #555;
+    }
+
+    body {
+      font-family: 'Nanum Gothic', sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      display: flex;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 36px auto;
+      padding: 0 16px;
+      align-items: flex-start;
+    }
+
+    /* ── Left: Main article ── */
+    .main-col {
+      flex: 1 1 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 18px 28px 14px;
+    }
+    header h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    /* audio bar */
+    .audio-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 28px 0;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .audio-bar .time { font-size: 12px; color: var(--muted); }
+    .audio-bar .track {
+      flex: 1;
+      height: 4px;
+      background: #d0d8e8;
+      border-radius: 2px;
+      position: relative;
+    }
+    .audio-bar .thumb {
+      position: absolute;
+      left: 14%;
+      top: -4px;
+      width: 12px; height: 12px;
+      background: var(--blue);
+      border-radius: 50%;
+    }
+    .audio-bar .vol { font-size: 18px; color: var(--muted); cursor: pointer; }
+
+    /* article body */
+    .article-body { padding: 20px 28px 28px; }
+
+    .article-body p { margin-bottom: 14px; color: #333; }
+
+    /* nav */
+    nav {
+      background: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 12px 20px;
+      margin-bottom: 22px;
+    }
+    nav h2 { font-size: 14px; font-weight: 800; margin-bottom: 6px; color: var(--blue); }
+    nav ul { list-style: disc; padding-left: 20px; }
+    nav ul li a { color: var(--blue); text-decoration: underline; font-size: 14px; }
+
+    /* sections */
+    section { margin-bottom: 26px; }
+
+    section h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* sample table */
+    .sample-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .sample-table caption {
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: left;
+      font-size: 14px;
+    }
+    .sample-table th, .sample-table td {
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .sample-table th { background: var(--accent); font-weight: 700; }
+
+    footer {
+      background: var(--accent);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── Right: Survey ── */
+    .survey-col {
+      width: 300px;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .survey-header {
+      background: var(--blue);
+      color: #fff;
+      padding: 14px 20px;
+    }
+    .survey-header h2 { font-size: 1.3rem; font-weight: 800; }
+    .survey-header p { font-size: 13px; margin-top: 4px; opacity: .88; }
+
+    .survey-body { padding: 18px 20px; }
+
+    .field-group { margin-bottom: 16px; }
+    .field-group label {
+      display: block;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    /* radio / checkbox rows */
+    .radio-row, .check-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+    .radio-row label, .check-row label {
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    /* select */
+    select {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: inherit;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    /* checkbox group (진로) */
+    .check-inline {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+    .check-inline label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    /* textarea */
+    textarea {
+      width: 100%;
+      height: 80px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: background .2s;
+    }
+    .submit-btn:hover { background: #145a96; }
+
+    .survey-footer {
+      border-top: 1px solid var(--border);
+      padding: 8px 20px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* Sidebar interest options as a vertical box (like in screenshot) */
+    .interest-box {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 8px 12px;
+      font-size: 14px;
+      background: var(--light-bg);
+    }
+    .interest-box p { margin: 2px 0; color: #333; }
+    .interest-box p.active { font-weight: 700; color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── LEFT: Main Content ── -->
+  <main class="main-col">
+    <header>
+      <h1>스마트폰</h1>
+    </header>
+
+    <div class="audio-bar">
+      <span class="time">0:02 / 2:23</span>
+      <div class="track"><div class="thumb"></div></div>
+      <span class="vol">🔊</span>
+    </div>
+
+    <div class="article-body">
+      <p>스마트폰은 컴퓨터를 결합한 무선 휴대전화기이다. PC에서 실행되는 운영체제보다 작게 만든 모바일 운영체제를 탑재하여 인터넷 검색, 전자우편, 간단한 문서 편집, 카메라, 오디오 및 비디오 재생 등 PC의 기능을 거의 모두 갖추고 있다.</p>
+
+      <nav>
+        <h2>목차</h2>
+        <ul>
+          <li><a href="#history">역사</a></li>
+          <li><a href="#android">안드로이드폰</a></li>
+          <li><a href="#iphone">아이폰</a></li>
+          <li><a href="#sample">샘플</a></li>
+        </ul>
+      </nav>
+
+      <section id="history">
+        <h2>역사</h2>
+        <p>최초의 스마트폰은 사이먼(Symon)으로 추정된다. IBM사가 1992년에 설계하여 그 해에 미국 네바다 주의 라스베이거스에서 열린 컴댁스에서 컨셉 제품으로 전시되었다.</p>
+      </section>
+
+      <section id="android">
+        <h2>안드로이드</h2>
+        <p>안드로이드(영어: Android)는 휴대 전화를 비롯한 휴대용 장치를 위한 운영 체제와 미들웨어, 사용자 인터페이스 그리고 표준 응용 프로그램(웹 브라우저, 이메일 클라이언트, 단문 메시지 서비스(SMS), 멀티미디어 메시지 서비스(MMS)등)을 포함하고 있는 소프트웨어 스택이자 모바일 운영 체제이다.</p>
+      </section>
+
+      <section id="iphone">
+        <h2>아이폰</h2>
+        <p>아이폰(영어: iphone)은 2007년 1월 9일, 애플이 발표한 휴대 전화 시리즈이다. 미국 샌프란시스코에서 열린 맥월드 2007에서 애플의 창업자 중 한명인 스티브 잡스가 발표했다.</p>
+      </section>
+
+      <section id="sample">
+        <h2>샘플</h2>
+        <table class="sample-table">
+          <caption>스마트폰샘플</caption>
+          <thead>
+            <tr>
+              <th>갤럭시7</th>
+              <th>아이폰6</th>
+              <th>타이젠</th>
+              <th>윈도우폰</th>
+              <th>노키아폰</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Samsung</td>
+              <td>Apple</td>
+              <td>Tizen OS</td>
+              <td>Microsoft</td>
+              <td>Nokia</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <footer>
+      설문조사 &nbsp;——————————————<br>
+      Copyright 2017 by Kitae
+    </footer>
+  </main>
+
+  <!-- ── RIGHT: Survey ── -->
+  <aside class="survey-col">
+    <div class="survey-header">
+      <h2>설문지</h2>
+      <p>소프트웨어 기술에 대한 의견을 듣습니다. 많은 참여 부탁드립니다.</p>
+    </div>
+
+    <div class="survey-body">
+
+      <div class="field-group">
+        <label>학년</label>
+        <div class="radio-row">
+          <label><input type="radio" name="grade" checked> 1학년</label>
+          <label><input type="radio" name="grade"> 2학년</label>
+          <label><input type="radio" name="grade"> 3학년</label>
+          <label><input type="radio" name="grade"> 4학년</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>성별</label>
+        <div class="radio-row">
+          <label><input type="radio" name="gender"> 남</label>
+          <label><input type="radio" name="gender"> 여</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>관심 분야</label>
+        <select>
+          <option>모바일 소프트웨어</option>
+          <option>웹 서비스</option>
+          <option>빅데이터</option>
+          <option>디지털 콘텐츠 및 가상 현실</option>
+        </select>
+        <div class="interest-box" style="margin-top:8px;">
+          <p class="active">모바일 소프트웨어</p>
+          <p>웹 서비스</p>
+          <p>빅데이터</p>
+          <p>디지털 콘텐츠 및 가상 현실</p>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>진로</label>
+        <div class="check-inline">
+          <label><input type="checkbox" checked> 개발</label>
+          <label><input type="checkbox"> 기획</label>
+          <label><input type="checkbox"> 영업</label>
+          <label><input type="checkbox"> 창업</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>남기고 싶은 말</label>
+        <textarea placeholder="글을 남겨주세요"></textarea>
+      </div>
+
+      <button class="submit-btn">제출하기</button>
+    </div>
+
+    <div class="survey-footer">Copyright 2017 by Kitae</div>
+  </aside>
+
+</div>
+
+</body>
+</html>
