@@ -6,127 +6,65 @@
 </head>
 <body>
 
-<!-- ── 페이지 1: 스마트폰 소개 ── -->
-<div id="page1">
+<header>
+  <h1>스마트폰</h1>
+  <audio controls>
+    <source src="../media/whitechristmas.mp3" type="audio/mpeg">
+  </audio>
+</header>
 
-  <header>
-    <h1>스마트폰</h1>
-    <audio controls>
-      <source src="../media/whitechristmas.mp3" type="audio/mpeg">
-    </audio>
-  </header>
+<p>스마트폰은 컴퓨터를 결합한 무선 휴대전화기이다. PC에서 실행되는 운영체제보다 작게 만든 모바일 운영체제를 탑재하여 인터넷 검색, 전자우편, 간단한 문서 편집, 카메라, 오디오 및 비디오 재생 등 PC의 기능을 거의 모두 갖추고 있다.</p>
 
-  <p>스마트폰은 컴퓨터를 결합한 무선 휴대전화기이다. PC에서 실행되는 운영체제보다 작게 만든 모바일 운영체제를 탑재하여 인터넷 검색, 전자우편, 간단한 문서 편집, 카메라, 오디오 및 비디오 재생 등 PC의 기능을 거의 모두 갖추고 있다.</p>
+<nav>
+  <h2>목차</h2>
+  <ul>
+    <li><a href="#" onclick="scrollTo('history'); return false;">역사</a></li>
+    <li><a href="#" onclick="scrollTo('android'); return false;">안드로이드폰</a></li>
+    <li><a href="#" onclick="scrollTo('iphone'); return false;">아이폰</a></li>
+    <li><a href="#" onclick="scrollTo('sample'); return false;">샘플</a></li>
+  </ul>
+</nav>
 
-  <nav>
-    <h2>목차</h2>
-    <ul>
-      <li><a href="#" onclick="scrollTo('history'); return false;">역사</a></li>
-      <li><a href="#" onclick="scrollTo('android'); return false;">안드로이드폰</a></li>
-      <li><a href="#" onclick="scrollTo('iphone'); return false;">아이폰</a></li>
-      <li><a href="#" onclick="scrollTo('sample'); return false;">샘플</a></li>
-    </ul>
-  </nav>
+<section>
+  <article id="history">
+    <h2>역사</h2>
+    <p>최초의 스마트폰은 사이먼(Symon)으로 추정된다. IBM사가 1992년에 설계하여 그 해에 미국 네바다 주의 라스베이거스에서 열린 컴댁스에서 컨셉 제품으로 전시되었다.</p>
+  </article>
 
-  <section>
-    <article id="history">
-      <h2>역사</h2>
-      <p>최초의 스마트폰은 사이먼(Symon)으로 추정된다. IBM사가 1992년에 설계하여 그 해에 미국 네바다 주의 라스베이거스에서 열린 컴댁스에서 컨셉 제품으로 전시되었다.</p>
-    </article>
+  <article id="android">
+    <h2>안드로이드</h2>
+    <p>안드로이드(영어: Android)는 휴대 전화를 비롯한 휴대용 장치를 위한 운영 체제와 미들웨어, 사용자 인터페이스 그리고 표준 응용 프로그램(웹 브라우저, 이메일 클라이언트, 단문 메시지 서비스(SMS), 멀티미디어 메시지 서비스(MMS)등)을 포함하고 있는 소프트웨어 스택이자 모바일 운영 체제이다.</p>
+  </article>
 
-    <article id="android">
-      <h2>안드로이드</h2>
-      <p>안드로이드(영어: Android)는 휴대 전화를 비롯한 휴대용 장치를 위한 운영 체제와 미들웨어, 사용자 인터페이스 그리고 표준 응용 프로그램(웹 브라우저, 이메일 클라이언트, 단문 메시지 서비스(SMS), 멀티미디어 메시지 서비스(MMS)등)을 포함하고 있는 소프트웨어 스택이자 모바일 운영 체제이다.</p>
-    </article>
+  <article id="iphone">
+    <h2>아이폰</h2>
+    <p>아이폰(영어: iphone)은 2007년 1월 9일, 애플이 발표한 휴대 전화 시리즈이다. 미국 샌프란시스코에서 열린 맥월드 2007에서 애플의 창업자 중 한명인 스티브 잡스가 발표했다.</p>
+  </article>
 
-    <article id="iphone">
-      <h2>아이폰</h2>
-      <p>아이폰(영어: iphone)은 2007년 1월 9일, 애플이 발표한 휴대 전화 시리즈이다. 미국 샌프란시스코에서 열린 맥월드 2007에서 애플의 창업자 중 한명인 스티브 잡스가 발표했다.</p>
-    </article>
+  <article id="sample">
+    <h2>샘플</h2>
+    <p>스마트폰샘플</p>
+    <table>
+      <tr>
+        <td><img src="../media/galaxys7.png" width="100" height="200"></td>
+        <td><img src="../media/iphone6.png" width="100" height="200"></td>
+        <td><img src="../media/tizen.png" width="100" height="200"></td>
+        <td><img src="../media/windowphone.png" width="100" height="200"></td>
+        <td><img src="../media/nokia.png" width="100" height="200"></td>
+      </tr>
+    </table>
+  </article>
+</section>
 
-    <article id="sample">
-      <h2>샘플</h2>
-      <p>스마트폰샘플</p>
-        <tr>
-          <td><img src="../media/galaxys7.png" width="100" height="200"></td>
-          <td><img src="../media/iphone6.png" width="100" height="200"></td>
-          <td><img src="../media/tizen.png" width="100" height="200"></td>
-          <td><img src="../media/windowphone.png" width="100" height="200"></td>
-          <td><img src="../media/nokia.png" width="100" height="200"></td>
-        </tr>
-    </article>
-  </section>
-
-  <footer>
-    <hr>
-    <a href="#" onclick="goSurvey(); return false;">설문조사</a><br>
-    Copyright 2017 by Kitae
-  </footer>
-
-</div>
-
-<!-- ── 페이지 2: 설문지 ── -->
-<div id="page2" style="display:none;">
-
-  <h1>설문지</h1>
-  <p>소프트웨어 기술에 대한 의견을 듣습니다. 많은 참여 부탁드립니다.</p>
-
-  <form>
-    <p>
-      학년
-      <input type="radio" name="grade" id="g1"><label for="g1">1학년</label>
-      <input type="radio" name="grade" id="g2"><label for="g2">2학년</label>
-      <input type="radio" name="grade" id="g3"><label for="g3">3학년</label>
-      <input type="radio" name="grade" id="g4"><label for="g4">4학년</label>
-    </p>
-
-    <p>
-      성별
-      <input type="radio" name="gender" id="male"><label for="male">남</label>
-      <input type="radio" name="gender" id="female"><label for="female">여</label>
-    </p>
-
-    <p>
-      관심 분야
-      <select>
-        <option>모바일 소프트웨어</option>
-        <option>웹 서비스</option>
-        <option>빅데이터</option>
-        <option>디지털 콘텐츠 및 가상 현실</option>
-      </select>
-    </p>
-
-    <p>
-      진로
-      <input type="checkbox" id="dev"><label for="dev">개발</label>
-      <input type="checkbox" id="plan"><label for="plan">기획</label>
-      <input type="checkbox" id="sales"><label for="sales">영업</label>
-      <input type="checkbox" id="startup"><label for="startup">창업</label>
-    </p>
-
-    <p>
-      남기고 싶은 말<br>
-      <textarea rows="4" cols="40" placeholder="글을 남겨주세요"></textarea>
-    </p>
-
-    <input type="submit" value="제출">
-  </form>
-
-  <footer>
-    <p>Copyright 2017 by Kitae</p>
-  </footer>
-
-</div>
+<footer>
+  <hr>
+  <a href="survey.html">설문조사</a><br>
+  Copyright 2017 by Kitae
+</footer>
 
 <script>
   function scrollTo(id) {
     document.getElementById(id).scrollIntoView();
-  }
-
-  function goSurvey() {
-    document.getElementById('page1').style.display = 'none';
-    document.getElementById('page2').style.display = 'block';
-    window.scrollTo(0, 0);
   }
 </script>
 
