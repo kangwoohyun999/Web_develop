@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>overflow 프로퍼티</title>
+<style>
+.float-frame {
+background : #E0E0E0;
+border: 1px solid #D0D0D0;
+padding: 10px;
+}
+.float-unit {
+width: 50px;
+background: #707070;
+color: #FFFFFF;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+padding: 15px 0;
+float: left;
+}
+.clear {
+clear: both; /* float 속성 해제 */
+}
+</style>
+</head>
+<body>
+<div class="float-frame">
+<div class="float-unit">A</div>
+<div class="float-unit">B</div>
+<div class="float-unit">C</div>
+<div class="float-unit">D</div>
+<div class="clear"> </div> <!-- float 속성 해제 -->
+</div>
+</body>
+</html>
+
+<!-- 
+
+<실습-1> .float-unit에 margin: 5px; 삽입하고 결과 확인
+<실습-2> clear: both; 부분을 주석 처리하고 결과 확인
+<실습-3> float: left; 부분을 주석 처리하고 결과 확인
+<실습-4> <실습-3>의 주석 처리를 삭제하고(원상 복구),
+.float-frame에 overflow: hidden; 속성 추가, .clear 모두 삭제
+<실습-5> .float-unit 속성을 아래와 같이 수정
+(height는 추가)
+width: 200px; height: 200px; padding: 15px;
+
+-->

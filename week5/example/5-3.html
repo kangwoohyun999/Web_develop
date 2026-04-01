@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><title>절대 배치</title>
+<style>
+div {
+display : inline-block;
+position : relative; /* 부모는 상대 배치 */
+border : 1px solid lightgray;
+}
+div > p { /* div의 자식 p */
+display : inline-block;
+position : absolute; /* 절대 배치 */
+height : 20px;
+width : 15px;
+background : lightgray;
+}
+</style>
+</head>
+<body>
+<h3>Merry Christmas!</h3>
+<hr>
+<p>예수님이 탄생하셨습니다.</p>
+<div>
+<img src="media/christmastree.png" width="200"
+height="200" alt="크리스마스 트리">
+<p style="left:50px; top:30px">M</p>
+<p style="left:100px; top:0px">E</p>
+<p style="left:100px; top:80px">R</p>
+<p style="left:150px; top:110px">R</p>
+<p style="left:30px; top:130px">Y</p>
+</div>
+</body>
+</html>
+
+<!-- 
+
+<실습-1> left, top 값을 바꿔서 글자 표시 위치를 변경
+<실습-2> p 태그의 스타일 시트에 글자 가운데 정렬 추가
+<실습-3> 바깥쪽 div 태그에 left:50px과 top:150px 추가
+<실습-4> style 속성을 모두 <style> 태그로 수정
+
+-->
