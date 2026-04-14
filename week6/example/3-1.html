@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><title>One True Layout</title>
+<style>
+* { margin: 0; padding: 0; }
+#container {
+width: 800px;
+margin: 10px auto;
+}
+#top { background: lightgreen; }
+#bottom { background: green; }
+#middle { overflow: hidden; } /* float 속성 해제 */
+#left { float: left; width: 200px; height: 200px; background: lightblue; } /* 디폴트는 block 속성 */
+#right { float: left; width: 600px; height: 200px; background: blue; } /* 디폴트는 block 속성 */
+</style>
+</head>
+<body>
+<div id="container">
+<div id="top">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elit elit, ornare non
+elementum ut, imperdiet nec felis. Proin leo felis, congue vitae facilisis id, ullamcorper vitae ipsum.</div>
+<div id="middle">
+<div id="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elit elit, ornare non
+elementum ut.</div>
+<div id="right">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elit elit, ornare non
+elementum ut, imperdiet nec felis. Proin leo felis, congue vitae facilisis id, ullamcorper vitae ipsum. Integer a
+risus sed libero imperdiet lacinia vel vel massa. Vestibulum tempus ullamcorper tellus vitae gravida.</div>
+</div>
+<div id="bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elit elit, ornare non
+elementum ut, imperdiet nec felis. Proin leo felis, congue vitae facilisis id, ullamcorper vitae ipsum.</div>
+</div>
+</body>
+</html>

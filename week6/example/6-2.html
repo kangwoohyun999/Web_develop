@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox Example</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh; margin: 0;
+}
+.container {
+display: flex;
+flex-direction: row-reverse; /* 항목들의 배치 방향을 역순으로 */
+justify-content: space-between; /* 항목들 사이에 수평으로 동일한 간격 */
+align-items: start; /* 항목들을 수직으로 위쪽에 정렬 */
+width: 80%; height: 200px;
+border: 2px solid #ccc;
+}
+.item {
+background-color: #f0f0f0;
+padding: 20px;
+border: 1px solid #ddd;
+text-align: center;
+flex-grow: 1; /* 항목들이 남은 공간을 동일하게(1) 차지 */
+}
+#item2 {
+order: -1; /*두 번째 항목을 첫 번째로 배치(역순)*/
+flex-grow: ２; /*다른 항목들보다 두 배 많은 공간 차지*/
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="item" id="item1">Item 1</div>
+<div class="item" id="item2">Item 2</div>
+<div class="item" id="item3">Item 3</div>
+<div class="item" id="item4">Item 4</div>
+</div>
+</body></html>

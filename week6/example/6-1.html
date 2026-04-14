@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox Example</title>
+<style> /* styles.css */
+body {
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center; /* 수평 가운데 정렬 */
+align-items: center; /* 수직 가운데 정렬 */
+height: 100vh; /* view height: 현재 화면에서 보이는 영역의 1%*/
+margin: 0;
+}
+.container {
+display: flex;
+justify-content: space-around; /* 항목들 사이에 수평으로 동일한 간격 */
+align-items: center; /* 항목들을 수직으로 가운데 정렬 */
+width: 80%; height: 200px;
+border: 2px solid #ccc;
+}
+.item {
+background-color: #f0f0f0;
+padding: 20px;
+border: 1px solid #ddd;
+text-align: center;
+}
+</style></head>
+<body>
+<div class="container">
+<div class="item">컴퓨터공학부</div>
+<div class="item">전자반도체공학부</div>
+<div class="item">인공지능융합공학부</div>
+</div>
+</body></html>

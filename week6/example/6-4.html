@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Flexbox GNB 예제</title>
+<style>
+body { margin: 0; padding: 0; }
+.flex-container { /* 전체 헤더 영역 Flexbox로 설정 */
+display: flex;
+align-items: center;
+padding: 10px 20px;
+background-color: #F8F8F8;
+border-bottom: 1px solid #D0D0D0;
+}
+.flex-item { /* 고정 크기의 flex 항목(img) */
+flex: none;
+}
+.flex-item img {
+height: 40px; /* 로고 이미지 크기 */
+}
+.flex-item-gnb {
+margin-left: auto; /* 오른쪽 영역 자동 밀어붙이기 */
+display: flex;
+align-items: center;
+gap: 20px; /* 검색창과 메뉴 간 간격 */
+}
+.search-box input { /*검색창 입력 필드 스타일 */
+padding: 5px 10px;
+font-size: 14px;
+}
+.gnb a { /* GNB(메뉴) 스타일 */
+text-decoration: none;
+color: #030303;
+background-color: lightgray;
+padding: 8px 12px;
+margin-left: 10px;
+}
+.gnb a:hover { /* 메뉴 hover 시 배경색 변경 */
+background-color: #505050;
+color: white;
+}
+</style>
+</head>
+<body>
+<header class="flex-container">
+<div class="flex-item logo">
+<img src="img/kangnam.jpg" alt="로고">
+</div>
+<div class="flex-item-gnb">
+<div class="search-box">
+<input type="text" placeholder="검색어를 입력하세요">
+</div>
+<nav class="gnb">
+<a href="#">메뉴-1</a>
+<a href="#">메뉴-2</a>
+<a href="#">메뉴-3</a>
+</nav>
+</div>
+</header>
+</body></html>

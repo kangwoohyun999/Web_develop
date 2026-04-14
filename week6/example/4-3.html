@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; }
+a { text-decoration: none; }
+li { list-style: none; }
+.outer-menu {
+margin: 10px; padding: 10px;
+background: lightgray;
+width: 345px;
+}
+.outer-menu-item {
+display: inline-block;
+width: 110px;
+background: white;
+color: black;
+position: relative; /* 기준 */
+}
+.outer-menu-item:hover {
+background: black;
+color: white
+}
+.menu-title {
+display: block;
+height: 30px;
+line-height: 30px;
+text-align: center;
+padding: 5px 20px;
+}
+.inner-menu {
+display: block; /* none/block */
+width: 100%;
+position: absolute; /* 절대 위치 */
+top: 40px; left: 0;
+background: white;
+box-shadow: 0 2px 6px gray;
+z-index: 1000;
+text-align: center
+}
+.inner-menu-item > a {
+display: block;
+padding: 5px 10px;
+color: black;
+}
+.inner-menu-item > a:hover {
+background: black;
+color: white;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<ul class="outer-menu">
+<li class="outer-menu-item">
+<span class="menu-title">HTML5</span>
+<ul class="inner-menu">
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+</ul>
+</li>
+<li class="outer-menu-item">
+<span class="menu-title">CSS3</span>
+<ul class="inner-menu">
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+</ul>
+</li>
+<li class="outer-menu-item">
+<span class="menu-title">JavaScript</span>
+<ul class="inner-menu">
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+<li class="inner-menu-item"><a href="#">데이터</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</body>
+</html>
