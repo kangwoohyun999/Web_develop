@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kangnam_main.html</title>
+    <title>index.html</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ==================== HEADER ==================== -->
     <div class="container">
         <header>
-            <!-- E. [로그인], [회원가입] float: right -->
             <div class="top-links">
                 <a href="login.html" target="_blank" class="login-btn">로그인</a>
                 <a href="#" class="signup-btn">회원가입</a>
             </div>
 
-            <!-- F. 학교 로고 float: left, GNB float: right -->
             <div class="logo-area">
                 <a href="https://web.kangnam.ac.kr" target="_blank">
                     <img src="image/Kangnam.gif" alt="강남대학교 로고" class="school-logo">
@@ -24,107 +21,67 @@
             </div>
 
             <nav class="gnb-area">
-                <!-- J. 메인 메뉴(GNB)는 목록으로 구현 -->
                 <ul class="gnb">
-                    <li><a href="#">대학소개</a></li>
-                    <li><a href="#">입학안내</a></li>
-                    <li><a href="#">학사정보</a></li>
-                    <li><a href="#">대학생활</a></li>
-                    <li><a href="#">커뮤니티</a></li>
+                    <li><a href="#">사업소개</a></li>
+                    <li><a href="#">지원내용</a></li>
+                    <li><a href="#">선발절차</a></li>
+                    <li><a href="#">공지사항</a></li>
                 </ul>
             </nav>
         </header>
 
-        <!-- ==================== MAIN IMAGE + OVERLAY ==================== -->
         <div class="main-visual">
-            <!-- main_picture.jpg 사용 -->
             <img src="image/main_picture.jpg" alt="메인 이미지" class="main-image">
-            
-            <!-- L. 그림 위의 텍스트는 그림 중앙에 오도록 배치하고, 투명도를 70% 설정 -->
             <div class="overlay-text">
-                강남대학교<br>
-                KANGNAM UNIVERSITY
+                강남대학교
             </div>
         </div>
 
-        <!-- ==================== APPLICATION FORM ==================== -->
-        <div class="form-section">
-            <!-- M. 라디오 버튼과 콤보박스의 위치는 position: absolute으로 구현 -->
-            <div class="form-box">
-                <h3>단국대학교</h3>
-                <p class="dept-title">빅데이터 AI 학과</p>
-                
-                <!-- 라디오 버튼들 (position absolute) -->
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="gender" value="male"> 남성
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="gender" value="female"> 여성
-                    </label>
+        <div class="radio-group">
+            <label class="radio-label">
+                <input type="radio" name="gender" value="male"> 남성
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="gender" value="female"> 여성
+            </label>
+        </div>
+
+        <div class="select-group">
+            <select class="year-select">
+                <option value="">1학년</option>
+                <option value="">2학년</option>
+                <option value="">3학년</option>
+                <option value="">4학년</option>
+            </select>
+        </div>
+
+        <div class="bottom-section">
+            <div class="bottom-box">
+                <img src="image/Dankook.png" alt="대학 로고" class="box-logo">
+                <div class="box-content">
+                    <h4>단국대학교</h4>
+                    <p>빅리더 AI 아카데미</p>
+                    <p>빅리더 아카데미는 한마디로 하면 내 인생의 터닝 포인트 만들기이다. 빅리더 아카데미는 한마디로 하면 내 인생의 터닝 포인트 만들기이다. 빅리더 아카데미는 한마디로 하면 내 인생의 터닝 포인트 만들기이다. 빅리더 아카데미는 한마디로 하면 내 인생의 터닝 포인트 만들기이다.</p>
                 </div>
-                
-                <!-- 콤보박스 (position absolute) -->
-                <div class="select-group">
-                    <select class="year-select">
-                        <option value="">학년 선택</option>
-                        <option value="1">1학년</option>
-                        <option value="2">2학년</option>
-                        <option value="3">3학년</option>
-                        <option value="4">4학년</option>
-                    </select>
-                </div>
-                
-                <!-- P. [신청] 버튼 -->
+            </div>
+
+            <div>
                 <button class="apply-btn">신청</button>
             </div>
-        </div>
-
-        <!-- ==================== BOTTOM 4 BOXES ==================== -->
-        <div class="bottom-section">
-            <!-- N. 아래쪽 네 개의 박스는 모두 동일한 모양으로, float: left로 구현 -->
-            <!-- O. 아래쪽 박스 안의 대학 로고는 position: absolute으로 구현 -->
-            <div class="bottom-box">
-                <img src="image/Dankook.png" alt="대학 로고" class="box-logo">
-                <div class="box-content">
-                    <h4>대학소개</h4>
-                    <p>강남대학교의 역사와 비전</p>
-                </div>
-            </div>
-            <div class="bottom-box">
-                <img src="image/Dankook.png" alt="대학 로고" class="box-logo">
-                <div class="box-content">
-                    <h4>입학안내</h4>
-                    <p>2026학년도 모집요강</p>
-                </div>
-            </div>
-            <div class="bottom-box">
-                <img src="image/Dankook.png" alt="대학 로고" class="box-logo">
-                <div class="box-content">
-                    <h4>학사정보</h4>
-                    <p>학사일정 및 규정</p>
-                </div>
-            </div>
-            <div class="bottom-box">
-                <img src="image/Dankook.png" alt="대학 로고" class="box-logo">
-                <div class="box-content">
-                    <h4>대학생활</h4>
-                    <p>캠퍼스 라이프</p>
-                </div>
-            </div>
+            
+            <div class="bottom-box"></div>
+            <div class="bottom-box"></div>
+            <div class="bottom-box"></div>
         </div>
     </div>
 
-    <!-- ==================== TOP BUTTON ==================== -->
-    <!-- Q. top.png 이미지를 오른쪽 하단(오른쪽에서 30px, 아래에서 30px)에 위치, 클릭하면 최상단으로 이동 -->
-    <!-- zip에 top.png이 없으므로 src를 그대로 두었습니다. 필요 시 image/top.png 파일을 추가해주세요. -->
     <a href="#" class="top-btn">
-        <img src="image/top.png" alt="TOP">
+        <p>TOP</p>
     </a>
 
-    <!-- ==================== FOOTER ==================== -->
     <footer>
-        <p>Copyright © 2019 Kangnam University. All rights reserved.</p>
+        <p>(16979) 경기도 용인시 기흥구 강남로 40(구갈동)<br>
+        Copyright © 2019 Kangnam University. All rights reserved.</p>
     </footer>
 
 </body>
