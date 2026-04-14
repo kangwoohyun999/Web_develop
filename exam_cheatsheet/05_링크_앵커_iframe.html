@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>05 링크 & 앵커 & iframe</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 링크 패턴 총정리
+     - 시험 단골: target, 앵커(#id), 이미지링크
+     ============================================= -->
+
+<h1>📌 링크(a 태그) 패턴 총정리</h1>
+
+<pre class="code">
+&lt;!-- ★ 새 창에서 열기 (target="_blank") --&gt;
+&lt;a href="http://sae.kangnam.ac.kr" target="_blank"&gt;새 창에서 열기&lt;/a&gt;
+
+&lt;!-- ★ 현재 창에서 열기 (기본값, target 생략 or "_self") --&gt;
+&lt;a href="http://kangnam.ac.kr"&gt;현재 창&lt;/a&gt;
+&lt;a href="http://kangnam.ac.kr" target="_self"&gt;현재 창&lt;/a&gt;
+
+&lt;!-- ★ 페이지 내 특정 위치로 이동 (앵커) --&gt;
+&lt;!-- 1단계: 이동할 목적지에 id 달기 --&gt;
+&lt;header id="top"&gt;...&lt;/header&gt;
+&lt;article id="sec1"&gt;...&lt;/article&gt;
+
+&lt;!-- 2단계: #id로 링크 --&gt;
+&lt;a href="#top"&gt;맨 위로&lt;/a&gt;
+&lt;a href="#sec1"&gt;섹션1로 이동&lt;/a&gt;
+
+&lt;!-- ★ 이미지 링크 (이미지를 클릭하면 이동) --&gt;
+&lt;a href="http://kangnam.ac.kr" target="_blank"&gt;
+    &lt;img src="img/kangnam.gif" alt="강남대"&gt;
+&lt;/a&gt;
+
+&lt;!-- ★ 이미지 클릭하면 현재 문서로 이동 (href="#" 또는 href="파일명.html") --&gt;
+&lt;a href="#"&gt;
+    &lt;img src="img/logo.png" width="200"&gt;
+&lt;/a&gt;
+
+&lt;!-- ★ top.png 클릭하면 맨 위로 이동 --&gt;
+&lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+
+&lt;!-- 파일 다운로드 --&gt;
+&lt;a href="file.pdf" download&gt;다운로드&lt;/a&gt;
+</pre>
+
+<pre class="code">
+/* ★ 링크 밑줄/색상 제거 - 항상 필수 */
+a {
+    text-decoration: none;  /* 밑줄 제거 */
+    color: inherit;         /* 색상 부모에서 상속 */
+}
+
+/* 이미지 링크 테두리 제거 */
+a img { border: none; }
+
+/* 특정 링크만 스타일 */
+nav a { color: black; text-decoration: none; }
+nav a:hover { background-color: #aaa; color: blue; }
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ iframe - 문서 안에 다른 문서 삽입
+     - 기출 2번: nav 클릭 → iframe에 표시
+     ============================================= -->
+
+<h1>📌 iframe 활용 (기출 2번 유형)</h1>
+
+<pre class="code">
+&lt;!-- ★ iframe 기본 --&gt;
+&lt;iframe src="other.html" width="400" height="300"&gt;&lt;/iframe&gt;
+
+&lt;!-- ★ 외부 사이트 삽입 --&gt;
+&lt;iframe src="http://etnews.co.kr" width="800px" height="600px"&gt;&lt;/iframe&gt;
+
+&lt;!-- ★ nav 링크 → 특정 iframe에 표시
+     핵심: iframe에 name 지정, a 태그에 target=name --&gt;
+
+&lt;!-- nav 메뉴 --&gt;
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;!-- target="left_frame" → name="left_frame" iframe에 표시 --&gt;
+        &lt;li&gt;&lt;a href="pc.html" target="left_frame"&gt;PC&lt;/a&gt;&lt;/li&gt;
+        &lt;!-- target="right_frame" → name="right_frame" iframe에 표시 --&gt;
+        &lt;li&gt;&lt;a href="http://etnews.co.kr" target="right_frame"&gt;신문사&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;article&gt;
+        &lt;!-- ★ name 속성으로 target과 연결 --&gt;
+        &lt;iframe src="" name="left_frame" width="200px" height="600px"&gt;&lt;/iframe&gt;
+    &lt;/article&gt;
+    &lt;article&gt;
+        &lt;iframe src="" name="right_frame" width="800px" height="600px"&gt;&lt;/iframe&gt;
+    &lt;/article&gt;
+&lt;/section&gt;
+</pre>
+
+<pre class="code">
+/* iframe이 있는 section article 나란히 배치 */
+section article {
+    float: left;         /* ★ 나란히 정렬 */
+    border: 1px solid gray;
+    margin: 5px;
+}
+
+/* iframe 자체 스타일 */
+iframe {
+    border: none;        /* 기본 테두리 제거 시 */
+    display: block;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 앵커 이동 패턴 - nav 메뉴 → 해당 article로 이동
+     ============================================= -->
+
+<h1>📌 페이지 내 앵커 이동 패턴 (기출 1번 B, C번)</h1>
+
+<pre class="code">
+&lt;!-- 전체 구조 --&gt;
+
+&lt;!-- 1. header에 id="top" 달기 (맨 위로 이동용) --&gt;
+&lt;header id="top"&gt;
+    &lt;h1&gt;ICT공학부&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;!-- 2. nav 메뉴에서 #id로 링크 --&gt;
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#intro"&gt;ICT공학부 소개&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#curriculum"&gt;교과과정&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#career"&gt;진출분야&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;!-- 3. 각 article에 해당 id 달기 --&gt;
+    &lt;article id="intro"&gt;
+        &lt;!-- ★ article 제목 오른쪽에 top.png 아이콘 --&gt;
+        &lt;h2&gt;ICT공학부 소개
+            &lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;p&gt;내용...&lt;/p&gt;
+        &lt;hr&gt;  &lt;!-- ★ 각 영역 아래쪽에 수평선 --&gt;
+    &lt;/article&gt;
+
+    &lt;article id="curriculum"&gt;
+        &lt;h2&gt;교과과정
+            &lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;!-- 표 내용 --&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+
+    &lt;article id="career"&gt;
+        &lt;h2&gt;진출분야
+            &lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;p&gt;내용...&lt;/p&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+&lt;/section&gt;
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ position: fixed로 TOP 버튼 구현
+     - 기출 16번, 17번 등
+     ============================================= -->
+
+<h1>📌 고정 TOP 버튼 (position: fixed)</h1>
+
+<pre class="code">
+&lt;!-- HTML: body 어디든 넣기 --&gt;
+&lt;a href="#top" id="top-btn"&gt;
+    &lt;img src="img/top.png" alt="TOP"&gt;
+&lt;/a&gt;
+&lt;!-- 또는 텍스트 버튼 --&gt;
+&lt;a href="#top" id="top-btn"&gt;TOP&lt;/a&gt;
+</pre>
+
+<pre class="code">
+/* ★ 오른쪽 하단 고정 TOP 버튼 */
+#top-btn {
+    position: fixed;     /* 스크롤해도 고정 */
+    right: 30px;         /* 오른쪽에서 30px */
+    bottom: 30px;        /* 아래에서 30px */
+    text-decoration: none;
+    cursor: pointer;
+}
+</pre>
+
+</body>
+</html>

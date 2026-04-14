@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>08 사진첩 & 카드 레이아웃</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 사진첩 (기출 mid-1번 유형)
+     - 이미지 클릭하면 새 창에 원본 표시
+     - hover 시 박스 쉐도우
+     - 브라우저 가로 줄이면 자동 정렬
+     ============================================= -->
+
+<h1>📌 사진첩 (기출 mid-1번 유형)</h1>
+
+<pre class="code">
+&lt;!-- === photo.html === --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;포토 앨범&lt;/title&gt;
+    &lt;style&gt;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { font-size: 15px; }
+
+        /* ★ 헤더: 25pt 굵게 */
+        header {
+            text-align: center;
+            padding: 15px;
+            border-bottom: 3px solid red;
+        }
+        header h1 { font-size: 25pt; font-weight: bold; }
+        header h1 a { text-decoration: none; color: purple; } /* 클릭하면 강남대 홈 */
+
+        /* ★ section: 사진 박스들 flex로 자동 정렬 */
+        section {
+            display: flex;
+            flex-wrap: wrap;   /* ★ 자동 줄바꿈 */
+            padding: 10px;
+            gap: 10px;
+        }
+
+        /* ★ 각 사진 박스 */
+        .photo-box {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        /* ★ 이미지 가로 200픽셀 */
+        .photo-box img { width: 200px; display: block; }
+
+        /* ★ 마우스 올리면 박스 쉐도우 */
+        .photo-box:hover {
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        /* ★ 사진 이름: 17pt 굵게 */
+        .photo-box p {
+            font-size: 17pt;
+            font-weight: bold;
+            color: blue;
+            margin-top: 5px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- 헤더: 클릭하면 강남대 홈 (현재 창) --&gt;
+&lt;header&gt;
+    &lt;h1&gt;&lt;a href="http://kangnam.ac.kr"&gt;포토 앨범&lt;/a&gt;&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;section id="A202001234"&gt;  &lt;!-- ★ id에 학번 --&gt;
+
+    &lt;!-- 사진 1: 클릭하면 새 창에 원본 표시 --&gt;
+    &lt;div class="photo-box"&gt;
+        &lt;a href="image/Desert.png" target="_blank"&gt;  &lt;!-- ★ 새 창에 원본 --&gt;
+            &lt;img src="image/Desert.png" alt="사막"&gt;
+        &lt;/a&gt;
+        &lt;p&gt;사막&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="photo-box"&gt;
+        &lt;a href="image/Jellyfish.png" target="_blank"&gt;
+            &lt;img src="image/Jellyfish.png" alt="해파리"&gt;
+        &lt;/a&gt;
+        &lt;p&gt;젤리피쉬&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="photo-box"&gt;
+        &lt;a href="image/Tulips.png" target="_blank"&gt;
+            &lt;img src="image/Tulips.png" alt="튤립"&gt;
+        &lt;/a&gt;
+        &lt;p&gt;튤립&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="photo-box"&gt;
+        &lt;a href="image/Penguins.png" target="_blank"&gt;
+            &lt;img src="image/Penguins.png" alt="펭귄"&gt;
+        &lt;/a&gt;
+        &lt;p&gt;팽귄&lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;/section&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 카드 3개씩 자동 정렬 (기출 11번, 12번, 15번 등)
+     ============================================= -->
+
+<h1>📌 카드 3개씩 자동 정렬 (강남대 프로그램 / 멜론 등)</h1>
+
+<pre class="code">
+&lt;!-- HTML: 카드 컨테이너 --&gt;
+&lt;div class="card-container"&gt;
+
+    &lt;div class="card"&gt;
+        &lt;img src="img/kangnam.gif" alt="강남대"&gt;
+        &lt;p class="dept"&gt;창의융합교육센터&lt;/p&gt;
+        &lt;p class="title"&gt;학생 설계 비교과 프로그램 '궁금해요'&lt;/p&gt;
+        &lt;span class="badge running"&gt;운영중&lt;/span&gt;
+        &lt;span class="date"&gt;2023.03.27~2023.12.31.&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+        &lt;img src="img/kangnam.gif" alt="강남대"&gt;
+        &lt;p class="dept"&gt;마음나눔센터&lt;/p&gt;
+        &lt;p class="title"&gt;폭력예방교육(4차)&lt;/p&gt;
+        &lt;span class="badge running"&gt;운영중&lt;/span&gt;
+        &lt;span class="date"&gt;2023.03.23~2023.04.28.&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+        &lt;img src="img/kangnam.gif" alt="강남대"&gt;
+        &lt;p class="dept"&gt;진로취창업센터&lt;/p&gt;
+        &lt;p class="title"&gt;2023-1학기 Job Crew&lt;/p&gt;
+        &lt;span class="badge recruit"&gt;모집중&lt;/span&gt;
+        &lt;span class="date"&gt;2023.05.01~2023.08.31.&lt;/span&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+
+<pre class="code">
+/* 카드 3개씩 자동 정렬 CSS */
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;        /* ★ 자동 줄바꿈 */
+    gap: 15px;
+    padding: 10px;
+}
+
+/* ★ 3개씩: width calc 방식 */
+.card {
+    width: calc(33.33% - 10px);
+    border: 1px solid lightgray;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* 또는 고정 너비 */
+.card { width: 220px; }
+
+/* 카드 안 이미지 */
+.card img { width: 100%; }
+
+/* 학과명 - 13px 굵게 olivedrab */
+.dept { font-size: 13px; font-weight: bold; color: olivedrab; }
+
+/* 제목 - 15px 굵게 */
+.title { font-size: 15px; font-weight: bold; }
+
+/* 날짜 - 14px 굵게 darkgray */
+.date { font-size: 14px; font-weight: bold; color: darkgray; }
+
+/* 상태 배지 */
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 13px;
+    border-radius: 10px;   /* ★ 둥근 모서리 */
+    color: white;
+}
+.badge.running { background-color: olivedrab; }  /* 운영중 */
+.badge.recruit { background-color: gray; }        /* 모집중 */
+.badge.waiting { background-color: orange; }      /* 대기중 */
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 음악 카드 (멜론 스타일, 기출 12번)
+     ============================================= -->
+
+<h1>📌 음악 카드 스타일 (기출 12번 멜론)</h1>
+
+<pre class="code">
+&lt;div class="music-container"&gt;
+
+    &lt;div class="music-card"&gt;
+        &lt;!-- 앨범 이미지 --&gt;
+        &lt;a href="#" target="_blank"&gt;
+            &lt;img src="img/imgUrl-1.jpg" alt="앨범"&gt;
+        &lt;/a&gt;
+        &lt;p class="song-title"&gt;4월의 봄, 커피향 진하게 나는 POP&lt;/p&gt;
+        &lt;p class="dj-name"&gt;&lt;span class="dj-label"&gt;DJ&lt;/span&gt; 손익분기점&lt;/p&gt;
+        &lt;p class="stats"&gt;
+            &lt;img src="img/red_heart.png" alt="좋아요" style="width:15px"&gt;
+            145 | 36곡
+        &lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+
+<pre class="code">
+/* 멜론 카드 CSS */
+.music-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.music-card {
+    width: calc(33.33% - 10px);
+    border: 1px solid lightgray;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.music-card img { width: 100%; display: block; }
+
+.song-title { font-size: 16px; margin-top: 5px; }
+
+.dj-name { font-size: 15px; color: darkorange; }
+.dj-label { font-weight: bold; color: darkorange; }
+
+.stats { font-size: 13px; color: #555; }
+
+/* 라디오 버튼 (슬라이더 점) */
+.slide-controls { text-align: right; }
+.slide-controls input[type="radio"] { cursor: pointer; }
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 검색바 + 버튼 (기출 11번, 15번 등)
+     ============================================= -->
+
+<h1>📌 검색바 스타일</h1>
+
+<pre class="code">
+&lt;!-- 검색 폼 --&gt;
+&lt;form class="search-form"&gt;
+    &lt;input type="text" placeholder="검색어를 입력하세요."&gt;
+    &lt;button type="submit"&gt;🔍&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- 콤보박스 + 검색 --&gt;
+&lt;form class="filter-form"&gt;
+    &lt;select&gt;
+        &lt;option&gt;기관유형&lt;/option&gt;
+        &lt;option&gt;대학&lt;/option&gt;
+        &lt;option&gt;정부/공공/지자체&lt;/option&gt;
+        &lt;option&gt;기업/기업연구소&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;select&gt;
+        &lt;option&gt;채용유형&lt;/option&gt;
+        &lt;option&gt;교수&lt;/option&gt;
+        &lt;option&gt;강사&lt;/option&gt;
+        &lt;option&gt;연구원&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;!-- 라디오 버튼 --&gt;
+    학력
+    &lt;input type="radio" name="degree" value="phd" checked&gt; 박사
+    &lt;input type="radio" name="degree" value="master"&gt; 석사
+    &lt;input type="radio" name="degree" value="bachelor"&gt; 학사
+    &lt;input type="text" placeholder="검색어"&gt;
+    &lt;button type="submit"&gt;검색&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+
+<pre class="code">
+/* 검색바 CSS */
+.search-form {
+    display: flex;
+    border: 2px solid #00CD3C;   /* 멜론 초록 */
+    border-radius: 20px;          /* ★ 둥근 모서리 */
+}
+
+.search-form input {
+    flex: 1;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+}
+
+.search-form button {
+    background-color: #00CD3C;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+}
+
+/* ★ 버튼 hover 시 커서 손 모양 */
+button:hover { cursor: pointer; }
+</pre>
+
+</body>
+</html>

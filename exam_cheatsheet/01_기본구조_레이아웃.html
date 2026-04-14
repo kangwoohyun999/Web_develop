@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>01 기본구조 & 레이아웃</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 시험 필수 템플릿: 기본 HTML 구조
+     - 항상 이 구조로 시작
+     ============================================= -->
+
+<h1>📌 기본 HTML 뼈대 (항상 복사해서 시작)</h1>
+<pre class="code">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;페이지 제목&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;  &lt;!-- 외부 CSS 연결 --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- 시맨틱 태그로 레이아웃 구성 --&gt;
+    &lt;header&gt;헤더&lt;/header&gt;
+    &lt;nav&gt;내비게이션&lt;/nav&gt;
+    &lt;section&gt;
+        &lt;article&gt;기사1&lt;/article&gt;
+        &lt;article&gt;기사2&lt;/article&gt;
+    &lt;/section&gt;
+    &lt;footer&gt;푸터&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 레이아웃 패턴 1: header + nav + section(articles) 세로 배치
+     → 기출 1번 유형 (ICT공학부 페이지)
+     ============================================= -->
+
+<h1>📌 레이아웃 패턴 1: 세로 배치 (기출 1번 유형)</h1>
+<p>구조: header → nav(가로 목록) → section > article들 (세로)</p>
+
+<pre class="code">
+&lt;!-- HTML --&gt;
+&lt;header id="top"&gt;  &lt;!-- id="top" : 나중에 상단으로 이동 앵커로 사용 --&gt;
+    &lt;h1&gt;&lt;a href="http://sae.kangnam.ac.kr" target="_blank"&gt;ICT공학부&lt;/a&gt;&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#sec1"&gt;ICT공학부 소개&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#sec2"&gt;교과과정&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#sec3"&gt;진출분야&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;article id="sec1"&gt;
+        &lt;h2&gt;ICT공학부 소개 &lt;a href="#top"&gt;&lt;img src="img/top.png"&gt;&lt;/a&gt;&lt;/h2&gt;
+        &lt;!-- 내용... --&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+
+    &lt;article id="sec2"&gt;
+        &lt;h2&gt;교과과정 &lt;a href="#top"&gt;&lt;img src="img/top.png"&gt;&lt;/a&gt;&lt;/h2&gt;
+        &lt;!-- 표 내용... --&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+
+    &lt;article id="sec3"&gt;
+        &lt;h2&gt;진출분야 &lt;a href="#top"&gt;&lt;img src="img/top.png"&gt;&lt;/a&gt;&lt;/h2&gt;
+        &lt;!-- 내용... --&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+&lt;/section&gt;
+</pre>
+
+<pre class="code">
+/* CSS - 레이아웃 패턴 1 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-size: 15px;          /* ★ 기본 폰트 크기 15px - 항상! */
+    background-color: #f5f5e8; /* 배경색 */
+    width: 100%;
+}
+
+/* 헤더 */
+header {
+    background-color: #003399;
+    padding: 20px;
+    text-align: center;
+}
+header h1 a {
+    color: #0044ff;
+    font-size: 30px;
+    text-decoration: none;    /* ★ 링크 밑줄 제거 */
+}
+
+/* 내비게이션 - 가로 목록 */
+nav { background-color: #e8e8d0; }
+nav ul {
+    list-style: none;         /* 목록 마커 제거 */
+    display: flex;            /* 가로 배치 */
+    padding: 5px;
+}
+nav ul li a {
+    display: block;
+    padding: 8px 20px;
+    text-decoration: none;    /* ★ 링크 밑줄 제거 */
+    color: black;
+}
+nav ul li a:hover {           /* ★ 마우스 올리면 배경색 변경 */
+    background-color: #aaaaff;
+}
+
+/* article 제목: 인라인-블록, 20px, bold */
+article h2 {
+    display: inline-block;    /* ★ 인라인-블록 */
+    font-size: 20px;          /* ★ 20픽셀 */
+    font-weight: bold;        /* ★ bold */
+    margin: 10px 0;
+}
+
+/* top.png 이미지 링크 */
+article h2 a img {
+    width: 20px;
+    vertical-align: middle;
+}
+article h2 a { text-decoration: none; } /* ★ 이미지 링크 테두리 없애기 */
+
+/* section 전체 */
+section { padding: 10px 20px; }
+article { margin-bottom: 20px; }
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 레이아웃 패턴 2: header + nav(세로) + section(iframe 2개 나란히)
+     → 기출 2번 유형 (iframe 활용)
+     ============================================= -->
+
+<h1>📌 레이아웃 패턴 2: nav 세로 + iframe 2개 (기출 2번 유형)</h1>
+
+<pre class="code">
+&lt;!-- HTML --&gt;
+&lt;header&gt;
+    &lt;table&gt;  &lt;!-- header 내용은 table로 구현 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;a href="http://kangnam.ac.kr" target="_blank"&gt;
+                &lt;img src="img/kangnam.gif"&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;h1&gt;Basic Web programming&lt;/h1&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="pc.html" target="left_frame"&gt;PC&lt;/a&gt;&lt;/li&gt;  &lt;!-- target으로 iframe 지정 --&gt;
+        &lt;li&gt;&lt;a href="http://etnews.co.kr" target="right_frame"&gt;신문사&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;article&gt;
+        &lt;!-- name 속성으로 target과 연결 --&gt;
+        &lt;iframe src="" name="left_frame" width="200px" height="600px"&gt;&lt;/iframe&gt;
+    &lt;/article&gt;
+    &lt;article&gt;
+        &lt;iframe src="" name="right_frame" width="800px" height="600px"&gt;&lt;/iframe&gt;
+    &lt;/article&gt;
+&lt;/section&gt;
+
+&lt;footer&gt;Copyright (c) 2020 웹개발기초, 홍길동&lt;/footer&gt;
+</pre>
+
+<pre class="code">
+/* CSS - 레이아웃 패턴 2 */
+body { font-size: 15px; }
+
+header table { width: 100%; }
+header img { text-decoration: none; border: none; } /* 이미지 링크 테두리 제거 */
+
+nav {
+    background-color: #333;   /* 진한 배경색 */
+    width: 200px;             /* ★ 너비를 계산해서 pixel 값 설정 */
+}
+nav ul { list-style: none; padding: 0; }
+nav ul li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+nav ul li a:hover { color: blue; } /* ★ 마우스 올리면 글자색 파란색 */
+
+/* section의 두 article을 나란히 */
+section { overflow: hidden; } /* float 해제용 */
+section article {
+    float: left;              /* ★ float: left로 나란히 */
+    margin: 5px;
+    border: 1px solid gray;
+}
+
+footer {
+    background-color: lightgray; /* ★ footer 배경색 */
+    font-size: 0.9em;            /* ★ 보통 글씨의 0.9배 */
+    font-style: italic;          /* ★ 이탤릭체 */
+    clear: both;
+    padding: 5px;
+}
+
+/* ★ 링크 기본 스타일 제거 */
+a { text-decoration: none; color: inherit; }
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 레이아웃 패턴 3: header + nav(세로 왼쪽) + section(오른쪽)
+     → 기출 8번, 10번 유형 (강의실/GIRO 등)
+     ============================================= -->
+
+<h1>📌 레이아웃 패턴 3: nav 왼쪽 고정 + section 오른쪽</h1>
+
+<pre class="code">
+&lt;!-- HTML --&gt;
+&lt;div id="wrap"&gt;   &lt;!-- 전체 너비 제한용 div --&gt;
+    &lt;header&gt;헤더 영역&lt;/header&gt;
+
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;메뉴1&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;메뉴2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;section&gt;섹션 내용&lt;/section&gt;
+
+    &lt;footer style="clear:both"&gt;푸터&lt;/footer&gt;
+&lt;/div&gt;
+</pre>
+
+<pre class="code">
+/* CSS - 패턴 3: nav 왼쪽 + section 오른쪽 */
+body { font-size: 15px; }
+
+#wrap {
+    width: 1000px;        /* 전체 너비 */
+    margin: 0 auto;       /* ★ 브라우저 중앙 정렬 */
+}
+
+header { width: 100%; background-color: #003399; }
+
+nav {
+    width: 200px;
+    float: left;          /* ★ nav를 왼쪽에 */
+    background-color: #eee;
+}
+
+section {
+    width: 800px;         /* 전체 - nav 너비 */
+    float: left;          /* ★ section도 왼쪽으로 (nav 옆에 붙음) */
+}
+
+footer {
+    clear: both;          /* ★ float 해제 */
+    width: 100%;
+}
+
+nav ul { list-style: none; padding: 0; margin: 0; }
+nav ul li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: black;
+}
+nav ul li a:hover {
+    background-color: aliceblue; /* 마우스 올리면 배경색 */
+    color: dodgerblue;
+    cursor: pointer;             /* ★ 손 모양 커서 */
+}
+</pre>
+
+</body>
+</html>

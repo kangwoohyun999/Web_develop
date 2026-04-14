@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>⭐ 빠른 참조 - 한눈에 보기</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        body { background: #1a1a2e; color: #eee; font-family: 'Courier New', monospace; }
+        h1 { color: #00d4ff; border-bottom: 2px solid #00d4ff; padding: 8px 0; margin: 20px 0 10px; }
+        h2 { color: #ffd700; margin: 15px 0 8px; }
+        pre { background: #16213e; border: 1px solid #0f3460; padding: 12px; border-radius: 6px; margin: 5px 0 12px; overflow-x: auto; }
+        .tag  { color: #ff6b6b; }
+        .prop { color: #4ecdc4; }
+        .val  { color: #ffe66d; }
+        .comment { color: #888; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th { background: #0f3460; color: #fff; padding: 8px; text-align: left; }
+        td { padding: 6px 8px; border-bottom: 1px solid #333; font-size: 13px; }
+        td:first-child { color: #4ecdc4; font-weight: bold; width: 30%; }
+        .badge { background: #e94560; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px; }
+    </style>
+</head>
+<body>
+<div style="max-width:1000px; margin:0 auto; padding:20px">
+
+<h1>⭐ 시험 직전 빠른 참조표</h1>
+
+<!-- ====================== CSS 속성 한눈에 보기 ====================== -->
+<h1>📌 CSS 핵심 속성 한눈에 보기</h1>
+<table>
+    <tr><th>속성</th><th>값 / 예시</th><th>설명</th></tr>
+    <tr><td>font-size</td><td>15px / 1.1em / 17pt</td><td>글자 크기 (기본 body 15px)</td></tr>
+    <tr><td>font-weight</td><td>bold / normal / 900</td><td>굵기</td></tr>
+    <tr><td>font-style</td><td>italic / oblique / normal</td><td>이탤릭</td></tr>
+    <tr><td>color</td><td>red / #003399 / rgb()</td><td>글자색</td></tr>
+    <tr><td>background-color</td><td>skyblue / #eee</td><td>배경색</td></tr>
+    <tr><td>text-decoration</td><td><b>none</b> / underline</td><td>★링크 밑줄 제거</td></tr>
+    <tr><td>text-align</td><td>center / left / right / justify</td><td>정렬</td></tr>
+    <tr><td>display</td><td>block / inline / inline-block / flex / none</td><td>표시 방식</td></tr>
+    <tr><td>float</td><td>left / right / none</td><td>좌우 배치</td></tr>
+    <tr><td>clear</td><td>both / left / right</td><td>float 해제</td></tr>
+    <tr><td>position</td><td>static/relative/absolute/fixed</td><td>배치 방식</td></tr>
+    <tr><td>top/right/bottom/left</td><td>30px / 0 / 50%</td><td>position 위치값</td></tr>
+    <tr><td>width / height</td><td>200px / 100% / auto</td><td>크기</td></tr>
+    <tr><td>margin</td><td>10px / 0 auto / 10px 20px</td><td>바깥 여백 / 중앙정렬</td></tr>
+    <tr><td>padding</td><td>10px / 5px 15px</td><td>안쪽 여백</td></tr>
+    <tr><td>border</td><td>1px solid lightgray</td><td>테두리</td></tr>
+    <tr><td>border-radius</td><td>10px / 50%</td><td>★둥근 모서리</td></tr>
+    <tr><td>border-collapse</td><td>collapse</td><td>★표 테두리 합치기</td></tr>
+    <tr><td>box-shadow</td><td>3px 3px 5px gray</td><td>★박스 그림자</td></tr>
+    <tr><td>cursor</td><td><b>pointer</b></td><td>★손 모양 커서</td></tr>
+    <tr><td>opacity</td><td>0.7 (70%)</td><td>투명도</td></tr>
+    <tr><td>overflow</td><td>hidden / auto / scroll</td><td>넘치는 내용 처리</td></tr>
+    <tr><td>list-style</td><td><b>none</b></td><td>★목록 마커 제거</td></tr>
+    <tr><td>vertical-align</td><td>middle / top / bottom</td><td>세로 정렬</td></tr>
+    <tr><td>transition</td><td>transform 0.5s</td><td>★애니메이션</td></tr>
+    <tr><td>transform</td><td>scale(1.1)</td><td>★1.1배 확대</td></tr>
+    <tr><td>flex-wrap</td><td>wrap</td><td>★자동 줄바꿈</td></tr>
+</table>
+
+<!-- ====================== 선택자 한눈에 보기 ====================== -->
+<h1>📌 CSS 선택자 한눈에 보기</h1>
+<table>
+    <tr><th>선택자</th><th>예시</th><th>설명</th></tr>
+    <tr><td>태그</td><td>p { }</td><td>모든 p 태그</td></tr>
+    <tr><td>.클래스</td><td>.box { }</td><td>class="box"</td></tr>
+    <tr><td>#아이디</td><td>#top { }</td><td>id="top"</td></tr>
+    <tr><td>태그.클래스</td><td>div.card { }</td><td>div이면서 card 클래스</td></tr>
+    <tr><td>부모 자식</td><td>nav ul li { }</td><td>nav 안의 ul 안의 li</td></tr>
+    <tr><td>:hover</td><td>a:hover { }</td><td>★마우스 올렸을 때</td></tr>
+    <tr><td>:focus</td><td>input:focus { }</td><td>★클릭/포커스 받을 때</td></tr>
+    <tr><td>:nth-child(n)</td><td>tr:nth-child(odd)</td><td>홀수/짝수 행</td></tr>
+    <tr><td>[속성]</td><td>input[type="text"]</td><td>type이 text인 input</td></tr>
+    <tr><td>::after</td><td>.box::after</td><td>가상 요소 (clearfix용)</td></tr>
+</table>
+
+<!-- ====================== 시험 패턴 체크리스트 ====================== -->
+<h1>📌 시험 문제 체크리스트 <span class="badge">꼭 확인!</span></h1>
+<table>
+    <tr><th>항목</th><th>코드</th></tr>
+    <tr><td>★ 기본 font-size</td><td>body { font-size: 15px; }</td></tr>
+    <tr><td>★ 링크 밑줄 제거</td><td>a { text-decoration: none; }</td></tr>
+    <tr><td>★ 이미지 링크 테두리</td><td>a img { border: none; }</td></tr>
+    <tr><td>★ 브라우저 중앙 정렬</td><td>#wrap { width: Npx; margin: 0 auto; }</td></tr>
+    <tr><td>★ 목록 마커 제거</td><td>ul { list-style: none; }</td></tr>
+    <tr><td>★ 가로 메뉴</td><td>nav ul { display: flex; } 또는 li { float: left; }</td></tr>
+    <tr><td>★ float 해제</td><td>footer { clear: both; } 또는 부모에 overflow: hidden</td></tr>
+    <tr><td>★ hover 배경색</td><td>a:hover { background-color: ??; }</td></tr>
+    <tr><td>★ hover 커서</td><td>:hover { cursor: pointer; }</td></tr>
+    <tr><td>★ focus 테두리</td><td>input:focus { border: 2px solid red; }</td></tr>
+    <tr><td>★ 표 테두리 합치기</td><td>table { border-collapse: collapse; }</td></tr>
+    <tr><td>★ 인라인블록 제목</td><td>h2 { display: inline-block; font-size: 20px; font-weight: bold; }</td></tr>
+    <tr><td>★ 앵커 이동</td><td>href="#id" / id="..." 짝 맞추기</td></tr>
+    <tr><td>★ 새 창 열기</td><td>target="_blank"</td></tr>
+    <tr><td>★ iframe target</td><td>a의 target = iframe의 name</td></tr>
+    <tr><td>★ 학번을 id로</td><td>&lt;table id="202001234"&gt;</td></tr>
+    <tr><td>★ TOP 버튼 고정</td><td>position: fixed; right: 30px; bottom: 30px;</td></tr>
+    <tr><td>★ 경로 표시</td><td>부모에 position:relative; .breadcrumb에 position:absolute; right:0;</td></tr>
+    <tr><td>★ 이미지 확대</td><td>img { transition: transform 0.5s; } img:hover { transform: scale(1.1); }</td></tr>
+    <tr><td>★ 3개씩 자동 정렬</td><td>display: flex; flex-wrap: wrap;</td></tr>
+    <tr><td>★ 박스 그림자</td><td>:hover { box-shadow: 3px 3px 10px rgba(0,0,0,0.4); }</td></tr>
+    <tr><td>★ 둥근 모서리</td><td>border-radius: 10px;</td></tr>
+    <tr><td>★ footer 스타일</td><td>background: lightgray; font-size: 0.9em; font-style: italic;</td></tr>
+    <tr><td>★ colgroup 너비</td><td>&lt;col style="width:15%"&gt;</td></tr>
+    <tr><td>★ colspan/rowspan</td><td>colspan(가로합치기) rowspan(세로합치기)</td></tr>
+</table>
+
+<!-- ====================== 자주 쓰는 색상 ====================== -->
+<h1>📌 자주 쓰는 색상 (시험 색상 힌트용)</h1>
+<table>
+    <tr><th>색상명</th><th>용도</th></tr>
+    <tr><td>lightgray / #ddd</td><td>테두리, footer 배경, 구분선</td></tr>
+    <tr><td>aliceblue</td><td>hover 시 연한 배경 (GIRO, 강남대)</td></tr>
+    <tr><td>dodgerblue</td><td>hover 글자색, 버튼 (GIRO, VERIUS)</td></tr>
+    <tr><td>deepskyblue</td><td>강조 파란색, 헤더 버튼</td></tr>
+    <tr><td>orange / darkorange</td><td>GNB 배경, DJ 이름 (멜론)</td></tr>
+    <tr><td>gold</td><td>LNB hover 배경 (은행)</td></tr>
+    <tr><td>brown / #553300</td><td>선택된 메뉴, 현재 활성 메뉴 (은행)</td></tr>
+    <tr><td>olivedrab</td><td>운영중 배지, nav 배경</td></tr>
+    <tr><td>royalblue</td><td>테이블 셀 배경, 버튼 (e-learning)</td></tr>
+    <tr><td>cyan / lightcyan</td><td>표 배경 (ICT 교과과정)</td></tr>
+    <tr><td>steelblue</td><td>표 thead 배경</td></tr>
+    <tr><td>#003399 / navy / darkblue</td><td>헤더 배경, 제목 색</td></tr>
+    <tr><td>#00CD3C</td><td>멜론 초록</td></tr>
+    <tr><td>#174792</td><td>e-learning 파란색</td></tr>
+    <tr><td>#4C4C4C</td><td>멜론 GNB 글자색</td></tr>
+    <tr><td>ghostwhite / whitesmoke</td><td>연한 배경</td></tr>
+</table>
+
+<!-- ====================== HTML 태그 빠른 참조 ====================== -->
+<h1>📌 HTML 태그 빠른 참조</h1>
+<table>
+    <tr><th>태그</th><th>용도</th></tr>
+    <tr><td>&lt;header&gt; &lt;nav&gt; &lt;section&gt; &lt;article&gt; &lt;footer&gt;</td><td>★시맨틱 구조 태그</td></tr>
+    <tr><td>&lt;ul&gt;&lt;li&gt; / &lt;ol&gt;&lt;li&gt;</td><td>순서없는/있는 목록</td></tr>
+    <tr><td>&lt;table&gt;&lt;thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;&lt;td&gt;</td><td>시맨틱 표</td></tr>
+    <tr><td>&lt;colgroup&gt;&lt;col&gt;</td><td>컬럼 너비 일괄 설정</td></tr>
+    <tr><td>colspan="2" rowspan="2"</td><td>가로/세로 셀 합치기</td></tr>
+    <tr><td>&lt;a href="#id"&gt;</td><td>같은 페이지 앵커 이동</td></tr>
+    <tr><td>target="_blank"</td><td>새 창 열기</td></tr>
+    <tr><td>&lt;iframe src="" name=""&gt;</td><td>다른 문서 삽입</td></tr>
+    <tr><td>&lt;input type="text/password/radio/checkbox/date"&gt;</td><td>입력 요소</td></tr>
+    <tr><td>&lt;select&gt;&lt;option&gt;</td><td>콤보박스</td></tr>
+    <tr><td>&lt;textarea&gt;</td><td>여러 줄 텍스트</td></tr>
+    <tr><td>&lt;fieldset&gt;&lt;legend&gt;</td><td>입력 그룹 묶기</td></tr>
+    <tr><td>&lt;button type="submit/reset/button"&gt;</td><td>버튼</td></tr>
+    <tr><td>&lt;hr&gt;</td><td>수평선</td></tr>
+    <tr><td>&lt;br&gt;</td><td>줄바꿈</td></tr>
+    <tr><td>placeholder=""</td><td>입력 전 안내 텍스트</td></tr>
+    <tr><td>checked / selected</td><td>기본 선택값</td></tr>
+</table>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>07 실전 템플릿 모음</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 실전 완성 코드: 기출 1번 유형
+     ICT공학부 소개 페이지
+     구조: header + nav + section(3개 article)
+     ============================================= -->
+
+<h1>📌 실전 완성코드 ① - ICT공학부 페이지 (기출 1번)</h1>
+<p>⬇ 이 코드를 그대로 복사해서 수정하면 됨</p>
+
+<pre class="code">
+&lt;!-- === index.html === --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;ICT공학부&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- 헤더 --&gt;
+&lt;header id="top"&gt;
+    &lt;h1&gt;
+        &lt;a href="http://sae.kangnam.ac.kr" target="_blank"&gt;ICT공학부&lt;/a&gt;
+    &lt;/h1&gt;
+    &lt;!-- 헤더 오른쪽에 이미지 --&gt;
+    &lt;img src="img/ICT_eng.png" alt="ICT"&gt;
+&lt;/header&gt;
+
+&lt;!-- 내비게이션 --&gt;
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#intro"&gt;ICT공학부 소개&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#curriculum"&gt;교과과정&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#career"&gt;진출분야&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+
+    &lt;!-- article 1: ICT공학부 소개 --&gt;
+    &lt;article id="intro"&gt;
+        &lt;h2&gt;ICT공학부 소개
+            &lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;div class="content-box"&gt;
+            &lt;h3&gt;ICT공학부&lt;/h3&gt;
+            &lt;p&gt;ICT공학부는 소프트웨어전공, 가상현실전공, IoT전자공학전공, 산업경영공학전공,
+            데이터사이언스전공으로 구성된 학부로 4차 산업혁명의 핵심이 되는 첨단 과학기술을
+            연구하고 교육함으로써 인공지능(AI), 가상·증강현실(VR/AR), 사물인터넷(IoT) 등
+            산업체의 다양한 요구에 대응할 수 있는 창의융합 인력을 양성하는 것을 목표로 합니다.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+
+    &lt;!-- article 2: 교과과정 (표) --&gt;
+    &lt;article id="curriculum"&gt;
+        &lt;h2&gt;교과과정
+            &lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;table&gt;
+            &lt;colgroup&gt;
+                &lt;col style="width:15%"&gt;
+                &lt;col style="width:15%"&gt;
+                &lt;col style="width:35%"&gt;
+                &lt;col style="width:35%"&gt;
+            &lt;/colgroup&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th rowspan="2"&gt;학년&lt;/th&gt;
+                    &lt;th rowspan="2"&gt;학기&lt;/th&gt;
+                    &lt;th&gt;소프트웨어전공&lt;/th&gt;
+                    &lt;th&gt;가상현실전공&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;
+                    &lt;td rowspan="2"&gt;1학년&lt;/td&gt;
+                    &lt;td&gt;1학기&lt;/td&gt;
+                    &lt;td&gt;소프트웨어개론&lt;/td&gt;
+                    &lt;td&gt;가상현실개론&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;2학기&lt;/td&gt;
+                    &lt;td&gt;C프로그래밍&lt;/td&gt;
+                    &lt;td&gt;가상현실콘텐츠기초&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td rowspan="2"&gt;2학년&lt;/td&gt;
+                    &lt;td&gt;1학기&lt;/td&gt;
+                    &lt;td&gt;자료구조 정보통신공학개론&lt;br&gt;디지털회로 자바프로그래밍&lt;/td&gt;
+                    &lt;td&gt;웹개발기초 기계학습기초&lt;br&gt;3D모델링 게임엔진기초&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;2학기&lt;/td&gt;
+                    &lt;td&gt;정보보호개론 객체지향프로그래밍&lt;br&gt;모바일프로그래밍 이산수학&lt;/td&gt;
+                    &lt;td&gt;가상현실프로그래밍 멀티미디어&lt;br&gt;딥러닝기초 웹개발응용&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+
+    &lt;!-- article 3: 진출분야 --&gt;
+    &lt;article id="career"&gt;
+        &lt;h2&gt;진출분야
+            &lt;a href="#top"&gt;&lt;img src="img/top.png" alt="top"&gt;&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;p&gt;AI 관련 개발자, 컴퓨터 프로그래머, 시스템 운영 관리자, 가상현실 전문가,
+        디지털 영상처리 전문가, 컴퓨터그래픽스전문가, 모바일 콘텐츠 개발자, 웹 엔지니어,
+        게임 기획자, 게임 운영자, 게임 프로그래머 등&lt;/p&gt;
+        &lt;hr&gt;
+    &lt;/article&gt;
+
+&lt;/section&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<pre class="code">
+/* === style.css (기출 1번용) === */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-size: 15px;              /* ★ 기본 15px */
+    background-color: #f5f5e8;
+    width: 100%;
+}
+
+/* ★ 링크 기본 스타일 제거 */
+a { text-decoration: none; color: inherit; }
+a img { border: none; }
+
+/* --- header --- */
+header {
+    background-color: #eef2d0;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+}
+
+header h1 a { color: #0000cc; font-size: 28px; font-weight: bold; }
+header img  { width: 100px; }
+
+/* --- nav --- */
+nav { background-color: #dde8c0; }
+
+nav ul {
+    list-style: none;
+    display: flex;               /* 가로 배치 */
+    padding: 0;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px 25px;
+    color: black;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #aaccff;  /* ★ 마우스 올리면 배경색 변경 */
+}
+
+/* --- section & article --- */
+section { padding: 15px 20px; }
+
+article { margin-bottom: 15px; }
+
+/* ★ article 제목: 인라인-블록, 20px, bold */
+article h2 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+article h2 a img { width: 20px; vertical-align: middle; margin-left: 5px; }
+
+/* --- 소개 박스 (파란 배경) --- */
+.content-box {
+    background-color: #1a3fa0;
+    color: white;
+    padding: 15px;
+    margin: 10px 0;
+    width: 70%;
+}
+.content-box h3 { font-size: 22px; font-weight: bold; margin-bottom: 10px; }
+
+/* --- 교과과정 표 --- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+}
+thead th {
+    background-color: #888;
+    color: white;
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+tbody td {
+    background-color: cyan;
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 실전 완성 코드: 기출 iframe 2번 유형
+     ============================================= -->
+
+<h1>📌 실전 완성코드 ② - iframe 레이아웃 (기출 2번)</h1>
+
+<pre class="code">
+&lt;!-- === index2.html === --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Basic Web Programming&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style2.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- header: table로 구현 --&gt;
+&lt;header&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;a href="http://kangnam.ac.kr" target="_blank"&gt;
+                    &lt;img src="img/kangnam.gif" alt="강남대"&gt;
+                &lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td&gt;&lt;h1&gt;Basic Web programming&lt;/h1&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/header&gt;
+
+&lt;!-- nav: 목록으로 구현, 글자색 파란색 hover --&gt;
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="pc.html" target="left_frame"&gt;PC&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="http://etnews.co.kr" target="right_frame"&gt;신문사&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- section: 2개 article (iframe) 나란히 --&gt;
+&lt;section&gt;
+    &lt;article&gt;
+        &lt;iframe src="" name="left_frame" width="200px" height="600px"&gt;&lt;/iframe&gt;
+    &lt;/article&gt;
+    &lt;article&gt;
+        &lt;iframe src="" name="right_frame" width="800px" height="600px"&gt;&lt;/iframe&gt;
+    &lt;/article&gt;
+&lt;/section&gt;
+
+&lt;!-- footer --&gt;
+&lt;footer&gt;Copyright (c) 2020 웹개발기초, 홍길동&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<pre class="code">
+/* === style2.css (기출 2번용) === */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-size: 15px; }
+a { text-decoration: none; }
+a img { border: none; }
+
+header { background-color: #ddd; padding: 5px; }
+header table { width: 100%; }
+header table td { padding: 5px 10px; vertical-align: middle; }
+header h1 { font-size: 22px; color: #333; }
+
+/* nav: 진한 배경 + 가로 목록 */
+nav {
+    background-color: #555;   /* ★ 진한 배경색 */
+    overflow: hidden;
+}
+nav ul { list-style: none; display: flex; }
+nav ul li a {
+    display: block;
+    padding: 10px 30px;
+    color: white;
+    text-decoration: none;
+}
+nav ul li a:hover { color: blue; } /* ★ 마우스 올리면 파란색 */
+
+/* section의 두 article 나란히 */
+section { overflow: hidden; }
+section article {
+    float: left;            /* ★ float: left로 나란히 */
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+
+/* footer */
+footer {
+    clear: both;
+    background-color: lightgray;  /* ★ 배경색 */
+    font-size: 0.9em;             /* ★ 0.9배 */
+    font-style: italic;           /* ★ 이탤릭 */
+    padding: 8px 15px;
+    color: #555;
+}
+</pre>
+
+<pre class="code">
+&lt;!-- === pc.html (PC 소개 별도 페이지) === --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;PC 정보&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;심플하고 슬림한 본체에&lt;br&gt;
+인텔코어 i9와 지포스&lt;br&gt;
+GTX 1660을 장착&lt;br&gt;
+RAM: 8GB&lt;br&gt;
+SDD: 256GB&lt;/p&gt;
+&lt;p&gt;가격: 950,000원&lt;/p&gt;
+&lt;button&gt;장바구니&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+</body>
+</html>

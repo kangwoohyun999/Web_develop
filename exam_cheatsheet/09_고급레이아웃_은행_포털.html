@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>09 고급 레이아웃 (은행/포털/강남대)</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 은행 레이아웃 (기출 16번 KB국민은행 유형)
+     - GNB 가로 목록 + LNB 세로 목록
+     - position: fixed TOP 버튼
+     - position: absolute 경로 표시
+     ============================================= -->
+
+<h1>📌 은행 레이아웃 (기출 16번 유형)</h1>
+
+<pre class="code">
+&lt;!-- === bank.html === --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;KB국민은행&lt;/title&gt;
+    &lt;link rel="stylesheet" href="bank.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- ★ TOP 버튼: position fixed, 오른쪽 하단 30px --&gt;
+&lt;a href="#top" id="top-btn"&gt;
+    &lt;img src="image/top.png" alt="TOP"&gt;
+&lt;/a&gt;
+
+&lt;div id="wrap" id="top"&gt;
+
+    &lt;!-- GNB (상단 메인 메뉴) --&gt;
+    &lt;nav class="gnb"&gt;
+        &lt;ul&gt;
+            &lt;li class="active"&gt;&lt;a href="#"&gt;조회&lt;/a&gt;&lt;/li&gt;  &lt;!-- 현재 선택 메뉴 --&gt;
+            &lt;li&gt;&lt;a href="#"&gt;이체&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;공과금&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;금융상품&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- 헤더: 로고(float:left) + 버튼(float:right) --&gt;
+    &lt;header&gt;
+        &lt;!-- 로고: float left --&gt;
+        &lt;div class="logo"&gt;
+            &lt;a href="https://web.kangnam.ac.kr"&gt;
+                &lt;img src="image/kb_logo.png" alt="KB국민은행"&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;!-- 개인/기업/돋보기: float right --&gt;
+        &lt;div class="header-right"&gt;
+            &lt;a href="#"&gt;개인&lt;/a&gt;
+            &lt;a href="#"&gt;기업&lt;/a&gt;
+            &lt;button&gt;로그아웃&lt;/button&gt;
+            &lt;button&gt;인증센터&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- 서브 타이틀 --&gt;
+    &lt;div class="page-header"&gt;
+        &lt;h2&gt;조회&lt;/h2&gt;
+        &lt;!-- ★ 경로 표시: position absolute --&gt;
+        &lt;div class="breadcrumb"&gt;개인 &gt; 계좌조회 &gt; 간편조회&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 콘텐츠 영역: LNB(왼쪽) + 본문(오른쪽) --&gt;
+    &lt;div class="content-wrap"&gt;
+
+        &lt;!-- LNB (세로 서브 메뉴) --&gt;
+        &lt;nav class="lnb"&gt;
+            &lt;ul&gt;
+                &lt;li class="active"&gt;&lt;a href="#"&gt;간편조회&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;상세조회&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;달력으로 보기&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+
+        &lt;!-- 본문 --&gt;
+        &lt;section class="main-content"&gt;
+            &lt;h3&gt;계좌조회&lt;/h3&gt;
+            &lt;table&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;계좌조회&lt;/td&gt;
+                    &lt;td&gt;계좌선택
+                        &lt;input type="radio" name="acct" value="saving" checked&gt; 저축예금
+                        &lt;input type="radio" name="acct" value="deposit"&gt; 정기예금
+                        &lt;input type="radio" name="acct" value="other"&gt; 기타예금
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;다른금융 조회&lt;/td&gt;
+                    &lt;td&gt;월별조회
+                        &lt;select&gt;&lt;option&gt;2025&lt;/option&gt;&lt;option&gt;2024&lt;/option&gt;&lt;/select&gt; 년
+                        &lt;select&gt;&lt;option&gt;04&lt;/option&gt;&lt;option&gt;03&lt;/option&gt;&lt;/select&gt; 월
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;휴면계좌 조회&lt;/td&gt;
+                    &lt;td&gt;조회기간
+                        &lt;input type="date"&gt; ~
+                        &lt;input type="date"&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;조회내용
+                        &lt;input type="checkbox" checked&gt; 입금내역
+                        &lt;input type="checkbox" checked&gt; 출금내역
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+
+            &lt;div class="btn-area"&gt;
+                &lt;button class="btn-query"&gt;조회&lt;/button&gt;
+                &lt;button class="btn-detail"&gt;상세검색&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+
+    &lt;/div&gt;&lt;!-- .content-wrap --&gt;
+
+    &lt;!-- footer --&gt;
+    &lt;footer&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;이용상담&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;개인정보처리방침&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;경영공시&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/footer&gt;
+
+&lt;/div&gt;&lt;!-- #wrap --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<pre class="code">
+/* === bank.css === */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-size: 15px; }
+a { text-decoration: none; color: inherit; }
+
+#wrap {
+    width: 720px;           /* ★ 문제 지정 너비 */
+    margin: 0 auto;         /* ★ 브라우저 중앙 */
+}
+
+/* ★ GNB: 배경색(orange), hover 배경색 변경 */
+.gnb { background-color: orange; }
+.gnb ul { list-style: none; display: flex; }
+.gnb ul li a {
+    display: block;
+    padding: 10px 25px;
+    color: white;
+    font-weight: bold;
+}
+.gnb ul li a:hover { background-color: darkorange; cursor: pointer; }
+.gnb ul li.active a { background-color: #553300; } /* ★ 현재 선택 메뉴 #553300 */
+
+/* header */
+header { overflow: hidden; padding: 10px; border-bottom: 1px solid #ddd; }
+.logo { float: left; }            /* ★ 로고: float left */
+.header-right { float: right; }   /* ★ 개인/기업/버튼: float right */
+
+.header-right a:hover, .header-right button:hover {
+    color: blue;
+    cursor: pointer;
+}
+.header-right button {
+    border: 1px solid #ccc;
+    padding: 3px 8px;
+    border-radius: 10px;  /* ★ 둥근 모서리 */
+    background: white;
+    cursor: pointer;
+}
+
+/* 페이지 헤더 (서브 타이틀 + 경로) */
+.page-header {
+    position: relative;  /* ★ breadcrumb의 기준 */
+    padding: 10px;
+    border-bottom: 2px solid orange;
+}
+.page-header h2 { font-size: 20px; }
+
+/* ★ 경로 표시: position absolute */
+.breadcrumb {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 13px;
+    color: gray;
+}
+
+/* 콘텐츠 영역 */
+.content-wrap { display: flex; }
+
+/* ★ LNB: 세로 목록 */
+.lnb { width: 150px; background-color: #f5f5f5; }
+.lnb ul { list-style: none; }
+.lnb ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+/* ★ LNB hover: 배경색(gold) + 손 모양 */
+.lnb ul li a:hover { background-color: gold; cursor: pointer; }
+.lnb ul li.active a { background-color: #553300; color: white; font-weight: bold; }
+
+/* 본문 */
+.main-content { flex: 1; padding: 15px; }
+
+/* 버튼 */
+.btn-area { margin-top: 15px; text-align: center; }
+/* ★ 조회/상세검색 hover: 배경색(brown), 글씨색(white), 손 모양 */
+.btn-query, .btn-detail {
+    padding: 8px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.btn-query:hover, .btn-detail:hover {
+    background-color: brown;
+    color: white;
+    cursor: pointer;
+}
+
+/* footer */
+footer {
+    clear: both;
+    border-top: 1px solid lightgray;
+    padding: 10px;
+    text-align: center;
+}
+footer ul { list-style: none; display: flex; justify-content: center; gap: 20px; }
+footer ul li a { color: gray; font-size: 13px; }
+
+/* ★ TOP 버튼: position fixed */
+#top-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 포털/강남대 레이아웃 (기출 13~15번)
+     - 1500px 가로, 브라우저 중앙
+     - 코딩 스타일 주석 필수
+     ============================================= -->
+
+<h1>📌 포털/대학 레이아웃 (기출 13~15번 유형)</h1>
+
+<pre class="code">
+/* ★ 기출 13번 이후: 코딩 스타일 반드시 지키기
+   - 블록별로 주석(comment) 달기
+   - html 순서와 css 순서 일치
+   - 레벨에 맞추어 &lt;tab&gt;으로 들여쓰기         */
+
+/* === index.css === */
+
+/* 기본 설정 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-size: 15px; }
+a { text-decoration: none; color: inherit; }
+
+/* 전체 래퍼 */
+#wrap {
+    width: 1500px;          /* ★ 1500px */
+    margin: 0 auto;         /* ★ 브라우저 중앙 */
+}
+
+/* ─── header ─── */
+header {
+    background-color: #003;
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+/* 로고: float left */
+header .logo { float: left; }
+
+/* GNB: float right */
+header .gnb { float: right; }
+header .gnb ul { list-style: none; display: flex; }
+header .gnb ul li a { color: white; padding: 5px 15px; }
+/* ★ GNB hover: 파란색 밑줄, 굵은 글씨 */
+header .gnb ul li a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    color: blue;
+}
+
+/* ─── 배너 이미지 (그림 위 텍스트, 투명도 70%) ─── */
+.banner { position: relative; }
+.banner img { width: 100%; display: block; }
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0.7;           /* ★ 투명도 70% */
+    font-size: 40px;
+    font-weight: bold;
+}
+
+/* ─── 콘텐츠: 박스 4개 float left ─── */
+.boxes { overflow: hidden; }
+.box {
+    float: left;            /* ★ float left */
+    width: 25%;
+    position: relative;     /* ★ 내부 로고 absolute용 */
+    border: 1px solid #ddd;
+    overflow: auto;         /* ★ 스크롤 auto */
+    height: 250px;
+}
+
+/* 박스 내 로고: position absolute */
+.box .university-logo {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+/* ★ [신청] 버튼 hover: 배경색(blue), 글씨색(white) */
+.box .btn-apply {
+    display: block;
+    padding: 8px;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.box .btn-apply:hover {
+    background-color: blue;
+    color: white;
+}
+
+/* ─── footer ─── */
+footer {
+    clear: both;
+    padding: 10px;
+    font-size: 13px;
+    color: gray;
+    text-align: center;
+}
+
+/* ─── TOP 버튼 ─── */
+#top-btn {
+    position: fixed;        /* ★ position fixed */
+    right: 30px;
+    bottom: 30px;
+    cursor: pointer;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 웹툰 레이아웃 특이점 (기출 13번)
+     ============================================= -->
+
+<h1>📌 웹툰 레이아웃 특이점 (기출 13번)</h1>
+
+<pre class="code">
+/* ★ 검색창 + 로그인 버튼: position absolute */
+.header-search {
+    position: absolute;
+    top: 10px;
+    right: 150px;
+}
+
+/* ★ "전체보기 >" 링크: position absolute */
+.see-all {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 13px;
+    color: gray;
+}
+/* 사용할 때 부모에 position: relative 필요 */
+.section-header { position: relative; }
+
+/* ★ 이미지 hover 0.5초 1.1배 확대 */
+.webtoon-list li img {
+    transition: transform 0.5s;  /* ★ 0.5초 */
+}
+.webtoon-list li img:hover {
+    transform: scale(1.1);       /* ★ 1.1배 */
+}
+
+/* 좌측 2개만 구현, 나머지는 테두리만 */
+.webtoon-list li {
+    float: left;
+    width: 25%;
+    border: 1px solid #ddd;  /* 테두리만 있는 빈 박스 */
+    height: 400px;
+}
+/* 첫 번째, 두 번째만 내용 구현 */
+.webtoon-list li:nth-child(1),
+.webtoon-list li:nth-child(2) {
+    /* 내용 있음 */
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 강남대 로그인 팝업 (기출 17번)
+     - 클릭하면 새 창에서 로그인 폼 열기
+     ============================================= -->
+
+<h1>📌 새 창 팝업 로그인 (기출 17번)</h1>
+
+<pre class="code">
+&lt;!-- 메인 페이지: 로그인 클릭 → 새 창 --&gt;
+&lt;a href="login.html" target="_blank"&gt;로그인&lt;/a&gt;
+
+&lt;!-- === login.html (별도 파일) === --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;회원 로그인&lt;/title&gt;
+    &lt;link rel="stylesheet" href="common.css"&gt;  &lt;!-- ★ 2개 html이 같은 css 공유 --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="login-box"&gt;
+    &lt;h2&gt;회원 로그인&lt;/h2&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;
+                &lt;input type="text" placeholder="아이디 입력" class="login-input"&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;
+                &lt;input type="password" placeholder="비밀번호" class="login-input"&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;input type="checkbox"&gt; 아이디 저장&lt;/td&gt;
+            &lt;td&gt;&lt;a href="#"&gt;아이디 찾기&lt;/a&gt; | &lt;a href="#"&gt;비밀번호 찾기&lt;/a&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;
+                &lt;button class="btn-login"&gt;로그인&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<pre class="code">
+/* 로그인 팝업 CSS */
+.login-box {
+    width: 320px;
+    margin: 30px auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.login-box h2 { text-align: center; margin-bottom: 15px; }
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+}
+
+/* ★ 입력 상자 포커스 시 배경 변경 */
+.login-input:focus {
+    background-color: lightyellow;
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;  /* 초록 */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ★ 로그인 버튼 hover */
+.btn-login:hover {
+    background-color: blue;
+    color: white;
+}
+</pre>
+
+</body>
+</html>

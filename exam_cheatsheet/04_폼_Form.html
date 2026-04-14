@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>04 폼(Form) 완전 정복</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 모든 입력 요소 총정리
+     - 시험에서 form은 거의 매회 출제
+     ============================================= -->
+
+<h1>📌 폼 입력 요소 총정리</h1>
+
+<pre class="code">
+&lt;!-- ★ 텍스트 입력 --&gt;
+&lt;input type="text" placeholder="영/숫자 6-10자" size="15"&gt;
+
+&lt;!-- ★ 비밀번호 --&gt;
+&lt;input type="password" placeholder="영 대소문자/숫자 6-15자"&gt;
+
+&lt;!-- ★ 라디오 버튼 - name이 같으면 하나만 선택 --&gt;
+&lt;input type="radio" name="gender" value="m"&gt; 남성
+&lt;input type="radio" name="gender" value="f" checked&gt; 여성  &lt;!-- checked: 기본 선택 --&gt;
+
+&lt;!-- ★ 체크박스 - 여러 개 선택 가능 --&gt;
+&lt;input type="checkbox" name="agree" value="1"&gt; 휴대전화
+&lt;input type="checkbox" name="agree" value="2" checked&gt; 이메일
+
+&lt;!-- ★ 콤보박스(드롭다운) --&gt;
+&lt;select name="phone"&gt;
+    &lt;option value="010" selected&gt;010&lt;/option&gt;
+    &lt;option value="017"&gt;017&lt;/option&gt;
+    &lt;option value="019"&gt;019&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- ★ 날짜 선택 --&gt;
+&lt;input type="date" value="2022-04-01"&gt;
+
+&lt;!-- ★ 여러 줄 텍스트 --&gt;
+&lt;textarea rows="5" cols="40" placeholder="내용 입력"&gt;&lt;/textarea&gt;
+
+&lt;!-- ★ 버튼 --&gt;
+&lt;button type="reset"&gt;처음으로&lt;/button&gt;     &lt;!-- 초기화 --&gt;
+&lt;button type="submit"&gt;확인&lt;/button&gt;       &lt;!-- 전송 --&gt;
+&lt;input type="button" value="닫기"&gt;        &lt;!-- 일반 버튼 --&gt;
+
+&lt;!-- fieldset으로 입력 그룹 묶기 --&gt;
+&lt;fieldset&gt;
+    &lt;legend&gt;회원정보&lt;/legend&gt;
+    &lt;input type="checkbox"&gt; 개인정보 이용 동의(필수)&lt;br&gt;
+    &lt;input type="checkbox"&gt; 서비스 이용 약관 동의(필수)&lt;br&gt;
+    &lt;input type="checkbox"&gt; 제3자 정보제공 동의(선택)
+&lt;/fieldset&gt;
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 기출 2번: 회원 가입 폼 (table로 정렬)
+     ============================================= -->
+
+<h1>📌 회원가입 폼 - table로 정렬 (기출 mid-2번 유형)</h1>
+
+<pre class="code">
+&lt;h2&gt;회원가입 메뉴&lt;/h2&gt;
+
+&lt;!-- ★ table을 이용하면 정렬하기 편리함 (힌트에서 매번 언급) --&gt;
+&lt;table id="202001234"&gt;  &lt;!-- ★ id에 학번 사용 --&gt;
+    &lt;tr&gt;
+        &lt;td&gt;ID&lt;/td&gt;
+        &lt;td&gt;&lt;input type="text" placeholder="영/숫자 6-10자"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;비밀번호&lt;/td&gt;
+        &lt;td&gt;&lt;input type="password" placeholder="영 대소문자/숫자 6-15자"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;휴대전화&lt;/td&gt;
+        &lt;td&gt;
+            &lt;select name="phone"&gt;
+                &lt;option&gt;010&lt;/option&gt;
+                &lt;option&gt;017&lt;/option&gt;
+                &lt;option&gt;019&lt;/option&gt;
+            &lt;/select&gt;
+            - &lt;input type="text" placeholder="12345678"&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;이메일&lt;/td&gt;
+        &lt;td&gt;&lt;input type="email" placeholder="id@domain"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;연락방법&lt;/td&gt;
+        &lt;td&gt;
+            &lt;input type="checkbox" name="contact" value="phone"&gt; 휴대전화
+            &lt;input type="checkbox" name="contact" value="email"&gt; 이메일
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;개인정보&lt;/td&gt;
+        &lt;td&gt;
+            &lt;input type="radio" name="privacy" value="agree" checked&gt; 동의
+            &lt;input type="radio" name="privacy" value="disagree"&gt; 비동의
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td colspan="2" style="text-align:center"&gt;
+            &lt;button type="reset"&gt;처음으로&lt;/button&gt;
+            &lt;button type="submit"&gt;확인&lt;/button&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<pre class="code">
+/* 회원가입 폼 CSS */
+
+/* ★ 입력 상자에 마우스 올리면 테두리 빨간색 (5곳) */
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover,
+input[type="tel"]:hover,
+select:hover {
+    border: 1px solid red;
+}
+
+/* ★ 입력 상자에 포커스(클릭)하면 배경색 변경 */
+input:focus {
+    background-color: lightyellow;
+    outline: none;
+}
+
+/* ★ 버튼에 마우스 올리면 글씨 1.1배 */
+button:hover {
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+/* 제출 버튼 스타일 */
+button[type="submit"] {
+    background-color: blue;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="reset"] {
+    background-color: #555;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 폼 테이블 정렬 */
+table { border-collapse: collapse; }
+table td { padding: 8px 12px; vertical-align: middle; }
+table td:first-child { text-align: right; width: 100px; } /* 왼쪽 레이블 */
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 간편인증 폼 (기출 mid-2번 유형)
+     - 라디오 버튼 + 이미지 + 체크박스
+     ============================================= -->
+
+<h1>📌 간편인증 폼 (이미지 선택 + 라디오버튼)</h1>
+
+<pre class="code">
+&lt;h2&gt;간편인증&lt;/h2&gt;
+
+&lt;table&gt;
+    &lt;!-- 이미지 행 --&gt;
+    &lt;tr&gt;
+        &lt;td style="text-align:center"&gt;카카오톡&lt;/td&gt;
+        &lt;td style="text-align:center"&gt;삼성패스&lt;/td&gt;
+        &lt;td style="text-align:center"&gt;통신사인증서&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;img src="img/kakao.png" width="80"&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;img src="img/samsung.png" width="80"&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;img src="img/telecom.png" width="80"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- ★ 라디오 버튼 행 --&gt;
+    &lt;tr&gt;
+        &lt;td style="text-align:center"&gt;
+            &lt;input type="radio" name="auth" value="kakao"&gt;
+        &lt;/td&gt;
+        &lt;td style="text-align:center"&gt;
+            &lt;input type="radio" name="auth" value="samsung"&gt;
+        &lt;/td&gt;
+        &lt;td style="text-align:center"&gt;
+            &lt;input type="radio" name="auth" value="telecom" checked&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- 구분선 --&gt;
+    &lt;tr&gt;&lt;td colspan="3"&gt;&lt;hr&gt;&lt;/td&gt;&lt;/tr&gt;
+    &lt;!-- 이름 입력 --&gt;
+    &lt;tr&gt;
+        &lt;td&gt;이름&lt;/td&gt;
+        &lt;td colspan="2"&gt;
+            &lt;input type="text" placeholder="홍길동"&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- 생년월일 --&gt;
+    &lt;tr&gt;
+        &lt;td&gt;생년월일&lt;/td&gt;
+        &lt;td colspan="2"&gt;
+            &lt;input type="text" placeholder="19900101"&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- 휴대폰 (콤보박스 + 텍스트) --&gt;
+    &lt;tr&gt;
+        &lt;td&gt;휴대폰&lt;/td&gt;
+        &lt;td colspan="2"&gt;
+            &lt;select&gt;
+                &lt;option&gt;010&lt;/option&gt;
+                &lt;option&gt;017&lt;/option&gt;
+                &lt;option&gt;019&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;input type="text" placeholder="12341234"&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- fieldset으로 회원정보 그룹 --&gt;
+    &lt;tr&gt;
+        &lt;td colspan="3"&gt;
+            &lt;fieldset style="font-size:13px"&gt;
+                &lt;legend&gt;회원정보&lt;/legend&gt;
+                &lt;input type="checkbox"&gt; 개인정보 이용 동의(필수)&lt;br&gt;
+                &lt;input type="checkbox"&gt; 서비스 이용 약관 동의(필수)&lt;br&gt;
+                &lt;input type="checkbox"&gt; 제3자 정보제공 동의(선택)
+            &lt;/fieldset&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- 버튼 --&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;button type="reset"&gt;닫기&lt;/button&gt;&lt;/td&gt;
+        &lt;td colspan="2"&gt;&lt;button type="submit"&gt;인증 요청&lt;/button&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<pre class="code">
+/* 간편인증 폼 CSS */
+/* ★ 입력 상자 포커스 시 배경색 변경 */
+input[type="text"]:focus {
+    background-color: lightyellow;
+    outline: none;
+}
+
+/* ★ 버튼에 마우스 올리면 커서 손 모양 */
+button:hover { cursor: pointer; }
+
+/* 인증요청 버튼 */
+button[type="submit"] {
+    background-color: dodgerblue;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+}
+</pre>
+
+</body>
+</html>

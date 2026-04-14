@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>06 Position & Float 심화</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<h1>📌 position 완전 정복</h1>
+
+<pre class="code">
+/* position 4가지 */
+
+/* 1. static - 기본값 (평소대로) */
+div { position: static; }
+
+/* 2. relative - 원래 위치 기준으로 이동 */
+div { position: relative; top: 10px; left: 20px; }
+
+/* ★ 3. absolute - 가장 가까운 position:relative 부모 기준 */
+/*    → 부모에 position:relative 필수! */
+.parent { position: relative; }
+.child  { position: absolute; top: 0; right: 0; }
+
+/* ★ 4. fixed - 브라우저 화면 기준 고정 */
+/*    → 스크롤해도 항상 같은 위치 (TOP 버튼, 빠른 메뉴 등) */
+#top-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 자주 출제되는 position 패턴들
+     ============================================= -->
+
+<h1>📌 position 출제 패턴</h1>
+
+<pre class="code">
+/* ──────────────────────────────
+   패턴 1: 빵부스러기(경로) 표시
+   예: 홈 > 안전신고 > 신고하기
+   position: absolute로 구현
+   ────────────────────────────── */
+
+.page-title { position: relative; } /* 기준 부모 */
+
+.breadcrumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 13px;
+    color: gray;
+}
+
+/* ──────────────────────────────
+   패턴 2: 이미지 위에 텍스트 올리기
+   투명도 70% (기출 17번 유형)
+   ────────────────────────────── */
+
+.banner { position: relative; }
+
+.banner img { width: 100%; display: block; }
+
+.banner-text {
+    position: absolute;
+    top: 50%;                    /* 세로 중앙 */
+    left: 50%;                   /* 가로 중앙 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 */
+    color: white;
+    opacity: 0.7;                /* ★ 투명도 70% */
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* ──────────────────────────────
+   패턴 3: 라디오/콤보박스 절대 위치
+   (기출 17번 유형)
+   ────────────────────────────── */
+
+.form-area { position: relative; }
+
+.radio-group {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* ──────────────────────────────
+   패턴 4: 박스 안 로고 이미지 절대 위치
+   (기출 17번 유형)
+   ────────────────────────────── */
+
+.card {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    border: 1px solid lightgray;
+    overflow: auto;             /* ★ 스크롤 자동 */
+}
+
+.card-logo {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ float 완전 정복
+     ============================================= -->
+
+<h1>📌 float 완전 정복</h1>
+
+<pre class="code">
+/* ★ float 기본 */
+.left  { float: left; }
+.right { float: right; }
+
+/* ★ float 해제 방법들 */
+/* 방법 1: clear:both (다음 요소에 적용) */
+footer { clear: both; }
+
+/* 방법 2: clearfix (부모에 적용) */
+.parent::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* 방법 3: overflow:hidden (부모에 적용) */
+.parent { overflow: hidden; }
+</pre>
+
+<pre class="code">
+/* ──────────────────────────────
+   자주 출제되는 float 패턴
+   ────────────────────────────── */
+
+/* 패턴 1: 로고(왼쪽) + 메뉴(오른쪽) */
+.logo { float: left; }
+.gnb  { float: right; }
+
+/* 패턴 2: 로그인/회원가입 버튼 오른쪽 */
+.login-btns { float: right; }
+
+/* 패턴 3: 카드 박스 여러 개 나란히 */
+.card { float: left; width: 200px; margin: 10px; }
+
+/* 패턴 4: nav 왼쪽 + section 오른쪽 */
+nav     { float: left; width: 200px; }
+section { float: left; width: 800px; }
+footer  { clear: both; }
+
+/* 패턴 5: 가로 메뉴 */
+nav ul li { float: left; }
+nav ul::after { content: ""; display: block; clear: both; }
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 한 줄에 3개씩 자동 정렬 (flexbox)
+     - 기출 6번 사진첩, 11번 강남대 프로그램
+     ============================================= -->
+
+<h1>📌 한 줄에 N개씩 자동 정렬 (flexbox)</h1>
+
+<pre class="code">
+/* ★ 3개씩 자동 정렬 */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;     /* ★ 자동 줄바꿈 */
+    gap: 15px;
+}
+
+.card {
+    /* 3개씩: (100% - gap 2개) / 3 */
+    width: calc(33.33% - 10px);
+    border: 1px solid lightgray;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* 또는 고정 너비 */
+.card { width: 200px; }
+
+/* ★ 사진 박스 hover 시 그림자 */
+.card:hover {
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+</pre>
+
+<pre class="code">
+/* 사진첩 이미지 스타일 (기출 6번) */
+.photo-box {
+    display: inline-block;  /* 가로 정렬 */
+    text-align: center;
+    margin: 5px;
+    border: 1px solid #ddd;
+}
+
+.photo-box img {
+    width: 200px;           /* ★ 이미지 가로 200픽셀 */
+    display: block;
+}
+
+.photo-box a {
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+    color: blue;
+}
+
+/* hover 시 박스 그림자 */
+.photo-box:hover {
+    box-shadow: 5px 5px 10px #888;
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ transition (이미지 확대 애니메이션)
+     - 기출 13번 네이버웹툰 유형
+     ============================================= -->
+
+<h1>📌 이미지 hover 확대 애니메이션 (기출 13번)</h1>
+
+<pre class="code">
+/* ★ 이미지에 마우스 올리면 0.5초 동안 1.1배 확대 */
+.webtoon-img {
+    transition: transform 0.5s;  /* ★ 0.5초 동안 transform 변화 */
+    overflow: hidden;
+}
+
+.webtoon-img img:hover {
+    transform: scale(1.1);       /* ★ 1.1배 확대 */
+}
+
+/* 전체 이미지에 적용 */
+img {
+    transition: all 0.5s;
+}
+img:hover {
+    transform: scale(1.1);
+}
+</pre>
+
+</body>
+</html>

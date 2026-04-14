@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>03 표(Table) 완전 정복</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<!-- =============================================
+     ★ 표 기본 구조
+     - thead, tbody, tfoot 시맨틱 구조
+     - colspan(열 합치기), rowspan(행 합치기)
+     ============================================= -->
+
+<h1>📌 표(Table) 기본 구조</h1>
+
+<pre class="code">
+&lt;table&gt;
+    &lt;!-- colgroup: 컬럼 너비 일괄 설정 ★ --&gt;
+    &lt;colgroup&gt;
+        &lt;col style="width: 100px"&gt;   &lt;!-- 1열: 100px --&gt;
+        &lt;col style="width: 150px"&gt;   &lt;!-- 2열: 150px --&gt;
+        &lt;col style="width: 150px"&gt;   &lt;!-- 3열: 150px --&gt;
+    &lt;/colgroup&gt;
+
+    &lt;thead&gt;  &lt;!-- 표 머리 --&gt;
+        &lt;tr&gt;
+            &lt;th rowspan="2"&gt;학년&lt;/th&gt;       &lt;!-- rowspan: 아래로 2칸 합치기 --&gt;
+            &lt;th colspan="2"&gt;학기&lt;/th&gt;        &lt;!-- colspan: 오른쪽으로 2칸 합치기 --&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;1&lt;/th&gt;
+            &lt;th&gt;2&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+
+    &lt;tbody&gt;  &lt;!-- 표 본문 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;SW&lt;/td&gt;
+            &lt;td&gt;VR&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;4&lt;/td&gt;
+            &lt;td colspan="2"&gt;AI&lt;/td&gt;  &lt;!-- AI는 2칸 합치기 --&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+
+<pre class="code">
+/* 표 CSS - 기출 4번 유형 (시맨틱 테이블) */
+
+table {
+    border-collapse: collapse;  /* ★ 필수: 셀 사이 간격 없애기 */
+    width: 100%;                /* 또는 고정 너비 */
+}
+
+/* thead 스타일 - 배경색, 글씨 굵게 */
+thead {
+    background-color: steelblue;
+    color: white;
+    font-weight: bold;          /* ★ 글씨 진하게 */
+}
+
+/* thead의 th */
+thead th {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+/* tbody의 td */
+tbody td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: lightcyan; /* 본문 배경색 */
+}
+
+/* ★ 셀에 마우스 올리면 색 반전 + 커서 변경 */
+tbody td:hover {
+    background-color: #555;    /* 진한색으로 */
+    color: white;
+    cursor: pointer;           /* 손 모양 */
+}
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ 기출 1번: ICT 교과과정 표
+     - rowspan, colspan 복합 사용
+     ============================================= -->
+
+<h1>📌 ICT 교과과정 표 (기출 1번 E번 유형)</h1>
+
+<pre class="code">
+&lt;table&gt;
+    &lt;colgroup&gt;
+        &lt;col style="width:15%"&gt;
+        &lt;col style="width:15%"&gt;
+        &lt;col style="width:35%"&gt;
+        &lt;col style="width:35%"&gt;
+    &lt;/colgroup&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th rowspan="2"&gt;학년&lt;/th&gt;
+            &lt;th rowspan="2"&gt;학기&lt;/th&gt;
+            &lt;th colspan="2"&gt;전공과목&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;소프트웨어전공&lt;/th&gt;
+            &lt;th&gt;가상현실전공&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;1학년&lt;/td&gt;  &lt;!-- 1학년은 1학기,2학기 두 줄 --&gt;
+            &lt;td&gt;1학기&lt;/td&gt;
+            &lt;td&gt;소프트웨어개론&lt;/td&gt;
+            &lt;td&gt;가상현실개론&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2학기&lt;/td&gt;
+            &lt;td&gt;C프로그래밍&lt;/td&gt;
+            &lt;td&gt;가상현실콘텐츠기초&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;2학년&lt;/td&gt;
+            &lt;td&gt;1학기&lt;/td&gt;
+            &lt;td&gt;자료구조&lt;br&gt;디지털회로&lt;/td&gt;
+            &lt;td&gt;웹개발기초&lt;br&gt;3D모델링&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2학기&lt;/td&gt;
+            &lt;td&gt;정보보호개론&lt;br&gt;모바일프로그래밍&lt;/td&gt;
+            &lt;td&gt;가상현실프로그래밍&lt;br&gt;딥러닝기초&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+
+<pre class="code">
+/* 교과과정 표 CSS */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+}
+
+thead tr { background-color: #888; color: white; }
+thead th { padding: 8px; border: 1px solid #ccc; text-align: center; }
+
+tbody td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background-color: cyan;     /* 시험 결과 색상에 맞게 */
+}
+
+/* ★ 짝수/홀수 행 배경색 다르게 */
+tbody tr:nth-child(even) { background-color: #e0ffff; }
+tbody tr:nth-child(odd)  { background-color: cyan; }
+</pre>
+
+<hr>
+
+<!-- =============================================
+     ★ header를 table로 구현
+     - 기출 2번 유형
+     ============================================= -->
+
+<h1>📌 header를 table로 구현 (기출 2번 B번 유형)</h1>
+
+<pre class="code">
+&lt;header&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td style="width:30%"&gt;
+                &lt;!-- 클릭하면 새 창에서 kangnam.ac.kr 열기 --&gt;
+                &lt;a href="http://kangnam.ac.kr" target="_blank"&gt;
+                    &lt;img src="img/kangnam.gif" alt="강남대"&gt;
+                &lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="text-align:center"&gt;
+                &lt;h1&gt;Basic Web programming&lt;/h1&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/header&gt;
+</pre>
+
+<pre class="code">
+/* header table CSS */
+header table { width: 100%; border-collapse: collapse; }
+header table td { padding: 10px; vertical-align: middle; }
+header img { border: none; }  /* ★ 이미지 테두리 제거 */
+</pre>
+
+</body>
+</html>

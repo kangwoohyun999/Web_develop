@@ -1,0 +1,286 @@
+/* =============================================
+   웹개발기초 시험 CSS 치트시트
+   ★ 표시: 자주 출제되는 핵심 속성
+   ============================================= */
+
+
+/* ──────────────────────────────
+   1. 기본 초기화 & 공통 설정
+   ────────────────────────────── */
+
+/* 기본 여백 초기화 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-size: 15px;       /* ★ 모든 문서 기본 15px */
+}
+
+/* 중앙 정렬 컨테이너 */
+#wrap {
+    width: 1000px;         /* 문제에서 주어진 너비 */
+    margin: 0 auto;        /* ★ 브라우저 가로 중앙 정렬 */
+}
+
+
+/* ──────────────────────────────
+   2. ★ 링크(a 태그) 스타일 제거
+   - 항상 시험에서 "링크 속성 none으로 설정" 요구
+   ────────────────────────────── */
+
+a {
+    text-decoration: none; /* ★ 밑줄 제거 */
+    color: inherit;        /* 부모 색상 상속 */
+}
+
+/* 이미지 링크 테두리 제거 */
+a img { border: none; }
+
+
+/* ──────────────────────────────
+   3. ★ hover (마우스 올렸을 때)
+   - 시험 단골 출제
+   ────────────────────────────── */
+
+/* 배경색 변경 */
+nav li a:hover { background-color: skyblue; }
+
+/* 글자색 변경 */
+nav li a:hover { color: blue; }
+
+/* 글자색 + 배경색 동시 변경 */
+nav li a:hover {
+    color: dodgerblue;
+    background-color: aliceblue;
+}
+
+/* 배경색과 글자색 반전 (표 셀 hover) */
+td:hover {
+    background-color: #555;  /* 원래 글자색으로 */
+    color: white;            /* 원래 배경색으로 */
+    cursor: pointer;         /* ★ 손 모양 커서 */
+}
+
+/* ★ 커서 손 모양으로 변경 */
+a:hover, button:hover, li:hover { cursor: pointer; }
+
+
+/* ──────────────────────────────
+   4. ★ focus (클릭/포커스 시)
+   - 입력 상자 클릭 시 효과
+   ────────────────────────────── */
+
+input:focus {
+    border: 2px solid red;    /* ★ 테두리 빨간색 */
+    background-color: lightyellow; /* 배경색 변경 */
+    outline: none;            /* 기본 파란 테두리 제거 */
+}
+
+/* placeholder 사라지기 (기본 동작이라 별도 CSS 불필요,
+   하지만 placeholder 색 조절할 때) */
+input::placeholder { color: #aaa; }
+
+
+/* ──────────────────────────────
+   5. ★ 목록(ul/li) - nav 메뉴
+   ────────────────────────────── */
+
+ul { list-style: none; }  /* 마커 제거 */
+ul { list-style-type: disc; }   /* 기본 원형 마커 */
+ul { list-style-type: circle; } /* 빈 원 마커 */
+ol { list-style-type: decimal; } /* 숫자 */
+ol { list-style-type: upper-alpha; } /* 대문자 알파벳 */
+
+/* 가로 메뉴 (float 방식) */
+nav ul li { float: left; }
+
+/* 가로 메뉴 (flex 방식 - 더 쉬움) */
+nav ul { display: flex; }
+
+/* 세로 목록 메뉴 */
+nav ul li a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: black;
+}
+
+
+/* ──────────────────────────────
+   6. ★ float - 요소 나란히 배치
+   ────────────────────────────── */
+
+/* 왼쪽으로 정렬 */
+.left { float: left; }
+
+/* 오른쪽으로 정렬 */
+.right { float: right; }
+
+/* float 해제 (footer, 다음 블록에 필수!) */
+footer { clear: both; }
+.clearfix::after { content: ""; display: block; clear: both; }
+
+
+/* ──────────────────────────────
+   7. ★ position - 절대/고정 배치
+   ────────────────────────────── */
+
+/* 부모 기준 절대 위치 */
+.parent { position: relative; } /* 부모에 relative 필수! */
+.child {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* 화면 고정 (스크롤해도 고정) - TOP 버튼 등 */
+#top-btn {
+    position: fixed;
+    right: 30px;     /* ★ 오른쪽에서 30px */
+    bottom: 30px;    /* ★ 아래에서 30px */
+}
+
+/* 빵부스러기(경로) - 절대 위치 */
+.breadcrumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+/* ──────────────────────────────
+   8. ★ 박스 모델
+   ────────────────────────────── */
+
+div {
+    width: 300px;
+    height: 150px;
+    margin: 10px;          /* 바깥 여백 */
+    padding: 15px;         /* 안쪽 여백 */
+    border: 1px solid gray; /* 테두리 */
+    border-radius: 10px;   /* ★ 둥근 모서리 */
+    background-color: #eee;
+    box-shadow: 3px 3px 5px gray; /* ★ 박스 그림자 */
+}
+
+/* 테두리 스타일 */
+/* solid, dotted, dashed, double, none */
+border: 2px solid lightgray;
+
+
+/* ──────────────────────────────
+   9. ★ 폰트 & 텍스트
+   ────────────────────────────── */
+
+p {
+    font-size: 16px;         /* 크기 */
+    font-weight: bold;       /* ★ 굵게 */
+    font-style: italic;      /* 이탤릭 */
+    color: darkblue;         /* 글자색 */
+    text-align: center;      /* center / left / right / justify */
+    text-decoration: none;   /* none / underline / line-through */
+    line-height: 1.6;        /* 줄 간격 */
+}
+
+/* display: inline-block - ★ article 제목에 자주 출제 */
+h2 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/* ──────────────────────────────
+   10. ★ 한 줄에 박스 3개씩 자동 정렬
+   - 기출 3번, 6번 유형 (사진첩, 채용정보 박스)
+   ────────────────────────────── */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;          /* ★ 자동 줄바꿈 */
+    gap: 10px;
+}
+
+.box {
+    width: calc(33.33% - 10px); /* 3개씩: 33% */
+    /* 또는 고정 너비 */
+    width: 200px;
+    box-sizing: border-box;
+}
+
+/* hover 시 박스 쉐도우 */
+.box:hover {
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.4); /* ★ 박스 그림자 */
+}
+
+/* 사진첩 이미지 크기 고정 */
+.box img { width: 200px; } /* ★ 이미지 가로 200픽셀 */
+
+
+/* ──────────────────────────────
+   11. ★ 표(table) 스타일
+   ────────────────────────────── */
+
+table {
+    border-collapse: collapse; /* ★ 셀 간격 합치기 */
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid gray;
+    padding: 8px;
+    text-align: center;
+}
+
+/* thead 배경색 */
+thead { background-color: steelblue; color: white; }
+
+/* tbody 홀수행 배경색 */
+tbody tr:nth-child(odd) { background-color: #f0f0f0; }
+
+/* 컬럼 너비 */
+col:nth-child(1) { width: 15%; }
+col:nth-child(2) { width: 15%; }
+col:nth-child(3) { width: 35%; }
+col:nth-child(4) { width: 35%; }
+
+/* ★ 셀 hover - 색 반전 */
+td:hover {
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* ──────────────────────────────
+   12. ★ 애니메이션 (transition)
+   - 이미지 hover 시 1.1배 확대
+   ────────────────────────────── */
+
+img {
+    transition: transform 0.5s; /* ★ 0.5초 동안 변환 */
+}
+img:hover {
+    transform: scale(1.1);      /* ★ 1.1배 확대 */
+}
+
+/* 버튼 hover 글씨 1.1배 */
+button:hover { font-size: 1.1em; }
+
+
+/* ──────────────────────────────
+   13. ★ 자주 쓰는 색상 참고
+   ────────────────────────────── */
+
+/*
+white, black, gray, lightgray, darkgray
+red, blue, green, yellow, orange, purple, pink
+navy, darkblue, royalblue, dodgerblue, deepskyblue, skyblue, aliceblue
+darkgreen, olivedrab, lightgreen
+brown, peru, tan
+lightgray, gainsboro, ghostwhite, whitesmoke
+gold, goldenrod, khaki
+teal, darkcyan
+fuchsia, magenta
+coral, salmon, darkorange
+*/
+

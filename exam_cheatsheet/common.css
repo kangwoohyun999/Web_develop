@@ -1,0 +1,80 @@
+/* =============================================
+   exam_cheatsheet 공통 CSS
+   ============================================= */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    font-size: 14px;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 18px;
+    color: #89dceb;
+    border-left: 5px solid #89dceb;
+    padding: 6px 12px;
+    margin: 25px 0 10px;
+    background-color: #181825;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #45475a;
+    margin: 25px 0;
+}
+
+p {
+    color: #bac2de;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+/* 코드 블록 */
+pre.code {
+    background-color: #11111b;
+    border: 1px solid #313244;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 8px 0 18px;
+    overflow-x: auto;
+    font-family: 'Courier New', 'D2Coding', monospace;
+    font-size: 13px;
+    color: #cdd6f4;
+    line-height: 1.7;
+    white-space: pre;
+}
+
+/* HTML 태그 색상 */
+pre.code { color: #a6e3a1; }  /* 기본: 초록 (태그) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+th {
+    background-color: #313244;
+    color: #cba6f7;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #313244;
+    font-size: 13px;
+    color: #cdd6f4;
+    vertical-align: top;
+}
+
+td:first-child {
+    color: #89dceb;
+    font-weight: bold;
+}

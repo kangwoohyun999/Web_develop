@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹개발기초 시험 치트시트 - 목차</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 30px;
+        }
+        h1 {
+            font-size: 26px;
+            color: #cba6f7;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #6c7086;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #181825;
+            border: 1px solid #313244;
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .card a {
+            text-decoration: none;
+            color: #89dceb;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .card a:hover { color: #f5c2e7; }
+        .card p {
+            color: #6c7086;
+            font-size: 12px;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+        .card .tag {
+            display: inline-block;
+            background: #313244;
+            color: #a6e3a1;
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-top: 6px;
+            margin-right: 3px;
+        }
+        .tip-box {
+            max-width: 900px;
+            margin: 25px auto 0;
+            background: #11111b;
+            border: 1px solid #f38ba8;
+            border-radius: 8px;
+            padding: 15px 20px;
+        }
+        .tip-box h2 { color: #f38ba8; font-size: 14px; margin-bottom: 10px; }
+        .tip-box ul { list-style: none; }
+        .tip-box ul li { color: #fab387; font-size: 13px; padding: 3px 0; }
+        .tip-box ul li::before { content: "★ "; color: #f38ba8; }
+    </style>
+</head>
+<body>
+
+<h1>📚 웹개발기초 시험 치트시트</h1>
+<p class="subtitle">오픈북 시험용 · 기출문제 분석 기반 · 클릭하면 해당 파일 열림</p>
+
+<div class="grid">
+
+    <div class="card">
+        <a href="00_빠른참조_한눈에보기.html" target="_blank">⭐ 00. 빠른 참조표 (시험장 필수)</a>
+        <p>CSS 속성 전체 표, 선택자, 체크리스트, 자주 쓰는 색상, HTML 태그 참조를 한 페이지에 압축</p>
+        <span class="tag">CSS 속성표</span>
+        <span class="tag">체크리스트</span>
+        <span class="tag">색상 참조</span>
+    </div>
+
+    <div class="card">
+        <a href="01_기본구조_레이아웃.html" target="_blank">📐 01. 기본 구조 & 레이아웃</a>
+        <p>HTML 기본 뼈대, 세로 배치(기출 1번), iframe 배치(기출 2번), nav+section 좌우 배치(기출 8번)</p>
+        <span class="tag">시맨틱 태그</span>
+        <span class="tag">레이아웃 3패턴</span>
+        <span class="tag">float</span>
+    </div>
+
+    <div class="card">
+        <a href="02_CSS_핵심속성.css" target="_blank">🎨 02. CSS 핵심 속성 (주석 달린 CSS)</a>
+        <p>링크, hover, focus, float, position, 박스모델, 폰트, 표, 애니메이션, 색상 전부 주석 포함</p>
+        <span class="tag">hover</span>
+        <span class="tag">focus</span>
+        <span class="tag">position</span>
+        <span class="tag">transition</span>
+    </div>
+
+    <div class="card">
+        <a href="03_표_Table.html" target="_blank">📊 03. 표(Table) 완전 정복</a>
+        <p>thead/tbody/colgroup 시맨틱 구조, rowspan/colspan 합치기, ICT 교과과정 표, header를 table로 구현</p>
+        <span class="tag">rowspan</span>
+        <span class="tag">colspan</span>
+        <span class="tag">colgroup</span>
+    </div>
+
+    <div class="card">
+        <a href="04_폼_Form.html" target="_blank">📝 04. 폼(Form) 완전 정복</a>
+        <p>text/password/radio/checkbox/select/date 모든 입력 요소, 회원가입 table 정렬, 간편인증 폼</p>
+        <span class="tag">input 모든 type</span>
+        <span class="tag">select</span>
+        <span class="tag">fieldset</span>
+    </div>
+
+    <div class="card">
+        <a href="05_링크_앵커_iframe.html" target="_blank">🔗 05. 링크 & 앵커 & iframe</a>
+        <p>새창/현재창 열기, 페이지 내 앵커 이동(#id), top.png 클릭 → 상단 이동, iframe target 연결</p>
+        <span class="tag">target="_blank"</span>
+        <span class="tag">앵커 #id</span>
+        <span class="tag">iframe name</span>
+    </div>
+
+    <div class="card">
+        <a href="06_Position_Float_심화.html" target="_blank">📍 06. Position & Float 심화</a>
+        <p>absolute(경로 표시, 이미지 위 텍스트), fixed(TOP 버튼), float 패턴 5가지, flex 3개씩 정렬, 이미지 확대 애니메이션</p>
+        <span class="tag">position 4가지</span>
+        <span class="tag">clearfix</span>
+        <span class="tag">scale(1.1)</span>
+    </div>
+
+    <div class="card">
+        <a href="07_실전_완성코드.html" target="_blank">💻 07. 실전 완성 코드</a>
+        <p>기출 1번 ICT공학부 페이지 HTML+CSS 완성본, 기출 2번 iframe 레이아웃 완성본 (그대로 복사해서 사용)</p>
+        <span class="tag">기출 1번 완성</span>
+        <span class="tag">기출 2번 완성</span>
+        <span class="tag">복사 사용 가능</span>
+    </div>
+
+    <div class="card">
+        <a href="08_사진첩_카드레이아웃.html" target="_blank">🖼️ 08. 사진첩 & 카드 레이아웃</a>
+        <p>사진첩(이미지 클릭 → 새 창, hover 그림자), 카드 3개씩 자동 정렬, 음악 카드(멜론), 검색바</p>
+        <span class="tag">flex-wrap</span>
+        <span class="tag">box-shadow</span>
+        <span class="tag">사진첩 완성</span>
+    </div>
+
+    <div class="card">
+        <a href="09_고급레이아웃_은행_포털.html" target="_blank">🏦 09. 고급 레이아웃 (은행/포털)</a>
+        <p>KB국민은행 GNB+LNB+fixed TOP, 웹툰 1500px 레이아웃, 강남대 배너 투명도 70%, 팝업 로그인창</p>
+        <span class="tag">GNB+LNB</span>
+        <span class="tag">1500px 레이아웃</span>
+        <span class="tag">position fixed</span>
+    </div>
+
+</div>
+
+<!-- 시험 직전 체크 -->
+<div class="tip-box">
+    <h2>🚨 시험 직전 반드시 확인</h2>
+    <ul>
+        <li>body { font-size: 15px; } — 기본 폰트 꼭 설정</li>
+        <li>a { text-decoration: none; } — 링크 밑줄 제거 꼭 설정</li>
+        <li>table { border-collapse: collapse; } — 표 쓸 때 꼭 설정</li>
+        <li>ul { list-style: none; } — 목록 마커 제거</li>
+        <li>float 쓰면 반드시 footer { clear: both; } 또는 overflow: hidden</li>
+        <li>iframe 연결: a의 target 값 = iframe의 name 값 일치시키기</li>
+        <li>앵커 이동: href="#아이디" ↔ id="아이디" 짝 맞추기</li>
+        <li>position: absolute 쓰면 부모에 position: relative 꼭 설정</li>
+        <li>학번을 id 또는 class 이름으로 사용 (예: id="202001234")</li>
+        <li>이미지는 img/ 또는 image/ 폴더에 저장, 경로 정확히</li>
+        <li>외부 CSS 파일: &lt;link rel="stylesheet" href="style.css"&gt;</li>
+        <li>코딩 스타일: 블록별 주석, html↔css 순서 일치, tab 들여쓰기</li>
+    </ul>
+</div>
+
+</body>
+</html>
