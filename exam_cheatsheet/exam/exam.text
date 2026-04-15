@@ -36,6 +36,10 @@ CSS 스타일 속성
 * float: 요소를 왼쪽이나 오른쪽으로 떠 있게 배치합니다.
 * z-index: 요소들이 겹칠 때의 수직 쌓임 순서를 결정합니다.
 * flexbox, grid: 현대적인 웹 레이아웃을 구성하는 고급 기능입니다.
-  
-
-
+  <flexbox>
+  예시 1: 수평 정렬과 간격 (justify-content)
+  * 메뉴 바처럼 요소들을 가로로 나열하고 사이 간격을 일정하게 벌릴 때 사용합니다.
+  * 코드 예: .container { display: flex; justify-content: space-between; }
+  예시 2: 정중앙 배치 (align-items)
+  * 부모 박스의 한가운데에 자식 요소를 수직/수평 모두 중앙에 맞출 때 유용합니다.
+  * 코드 예: .container { display: flex; justify-content: center; align-items: center; }
