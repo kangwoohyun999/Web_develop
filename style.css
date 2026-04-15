@@ -1,0 +1,59 @@
+/* 전체 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+/* body */
+body {
+
+}
+
+/* header */
+header {
+
+}
+
+/* nav */
+nav {
+
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+
+}
+
+nav ul li a {
+    text-decoration: none;
+}
+
+/* section */
+section {
+
+}
+
+/* article */
+article {
+
+}
+
+/* footer */
+footer {
+
+}
+
+/* hover 효과 */
+a:hover {
+
+}
+
+/* top 버튼 */
+img {
+
+}
