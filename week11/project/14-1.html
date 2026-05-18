@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>14-1번: 장바구니 시뮬레이션</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 500px;
+        }
+        h2 { color: #333; }
+        .total-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #d9534f;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fdf7f7;
+            border: 1px solid #eed3d7;
+            border-radius: 4px;
+        }
+        select {
+            padding: 5px;
+            width: 100%;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px 10px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+        li input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        .item-text { flex-grow: 1; }
+    </style>
+</head>
+<body>
+
+    <h2>장바구니 시뮬레이션</h2>
+    
+    <div class="total-price">
+        총 합계 금액: <span id="totalDisplay">0</span>원
+    </div>
+
+    <label for="fruitSelect">추가할 과일을 선택하세요:</label>
+    <select id="fruitSelect" onchange="addCartItem()">
+        <option value="">-- 선택하세요 --</option>
+        <option value="사과" data-price="1500">사과 (1,500원)</option>
+        <option value="바나나" data-price="2000">바나나 (2,000원)</option>
+        <option value="포도" data-price="3500">포도 (3,500원)</option>
+        <option value="수박" data-price="12000">수박 (12,000원)</option>
+        <option value="오렌지" data-price="1800">오렌지 (1,800원)</option>
+    </select>
+
+    <h3>장바구니 목록</h3>
+    <ul id="cartList">
+        </ul>
+
+    <script>
+        // 총 금액 관리 변수
+        let totalPrice = 0;
+
+        // 콤보박스 변경(change) 이벤트 처리 함수
+        function addCartItem() {
+            const select = document.getElementById("fruitSelect");
+            const selectedOption = select.options[select.selectedIndex];
+            
+            // 기본 문구를 선택했거나 선택이 올바르지 않은 경우 무시
+            if (!selectedOption.value) return;
+
+            const itemName = selectedOption.value;
+            const itemPrice = parseInt(selectedOption.getAttribute("data-price"));
+
+            // --- 8장 강의노트 기준 표준 DOM 동적 생성 방식 ---
+            const cartList = document.getElementById("cartList");
+
+            // 1. li 엘리먼트 생성
+            const li = document.createElement("li");
+
+            // 2. 체크박스 엘리먼트 생성 및 설정
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = true; // 추가 시 기본적으로 체크 상태 [cite: 9]
+            
+            // 체크박스 클릭 시 실시간 금액 가산/차감 이벤트 리스너 연결 [cite: 10]
+            checkbox.onclick = function() {
+                if (checkbox.checked) {
+                    totalPrice += itemPrice;
+                } else {
+                    totalPrice -= itemPrice;
+                }
+                updateTotalDisplay();
+            };
+
+            // 3. 텍스트 노드 생성 (과일 이름 및 가격 표시)
+            const textSpan = document.createElement("span");
+            textSpan.className = "item-text";
+            textSpan.innerText = `${itemName} - ${itemPrice.toLocaleString()}원`;
+
+            // 4. 결합 (appendChild)
+            li.appendChild(checkbox);
+            li.appendChild(textSpan);
+            cartList.appendChild(li);
+
+            // 새 항목이 추가되었으므로 금액 가산 및 업데이트 [cite: 10]
+            totalPrice += itemPrice;
+            updateTotalDisplay();
+
+            // 선택창을 다시 기본 상태로 초기화
+            select.selectedIndex = 0;
+        }
+
+        // 상단 합계 금액 실시간 갱신 함수
+        function updateTotalDisplay() {
+            document.getElementById("totalDisplay").innerText = totalPrice.toLocaleString();
+        }
+    </script>
+</body>
+</html>
