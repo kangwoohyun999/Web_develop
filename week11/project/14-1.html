@@ -2,134 +2,157 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>14-1번: 장바구니 시뮬레이션</title>
+    <title>쇼핑 장바구니 시뮬레이션</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            max-width: 500px;
+        body { font-family: sans-serif; max-width: 500px; margin: 20px; }
+        h3 { border-bottom: 2px solid #000; padding-bottom: 5px; }
+        .product-list { margin-bottom: 15px; }
+        .product-list label { margin-right: 15px; }
+        
+        /* 버튼 공통 스타일 및 Hover 효과 (1단계 요구사항) */
+        button { padding: 5px 15px; margin-right: 5px; border: 1px solid #ccc; background-color: #eee; }
+        button:hover { background-color: blue; color: white; cursor: pointer; }
+
+        .cart-header { display: flex; border-bottom: 1px solid #000; font-weight: bold; margin-top: 20px; padding-bottom: 5px; }
+        .col-1 { flex: 1; }
+        .col-2 { width: 120px; text-align: right; }
+        
+        #cartList { list-style-type: none; padding: 0; margin: 10px 0; }
+        #cartList li { display: flex; margin-bottom: 5px; }
+        
+        .total-row { margin-top: 15px; font-weight: bold; }
+        .msg-row { margin-top: 10px; color: #333; }
+        
+        /* 결제 모달 위치 및 스타일 (구매 버튼 아래) */
+        .modal {
+            display: none; position: absolute; background: white; 
+            border: 1px solid #999; padding: 15px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            margin-top: 5px; z-index: 10;
         }
-        h2 { color: #333; }
-        .total-price {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #d9534f;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #fdf7f7;
-            border: 1px solid #eed3d7;
-            border-radius: 4px;
-        }
-        select {
-            padding: 5px;
-            width: 100%;
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            padding: 8px 10px;
-            margin-bottom: 5px;
-            background-color: #f9f9f9;
-            border: 1px solid #eee;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-        }
-        li input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
-            cursor: pointer;
-        }
-        .item-text { flex-grow: 1; }
     </style>
 </head>
 <body>
 
-    <h2>장바구니 시뮬레이션</h2>
-    
-    <div class="total-price">
-        총 합계 금액: <span id="totalDisplay">0</span>원
+    <h3>쇼핑 장바구니</h3>
+
+    <div class="product-list">
+        <label><input type="checkbox" class="item-chk" value="키보드" data-price="20000"> 키보드 (20,000원)</label>
+        <label><input type="checkbox" class="item-chk" value="마우스" data-price="10000"> 마우스 (10,000원)</label>
+        <label><input type="checkbox" class="item-chk" value="모니터" data-price="150000"> 모니터 (150,000원)</label>
     </div>
 
-    <label for="fruitSelect">추가할 과일을 선택하세요:</label>
-    <select id="fruitSelect" onchange="addCartItem()">
-        <option value="">-- 선택하세요 --</option>
-        <option value="사과" data-price="1500">사과 (1,500원)</option>
-        <option value="바나나" data-price="2000">바나나 (2,000원)</option>
-        <option value="포도" data-price="3500">포도 (3,500원)</option>
-        <option value="수박" data-price="12000">수박 (12,000원)</option>
-        <option value="오렌지" data-price="1800">오렌지 (1,800원)</option>
-    </select>
+    <div style="position: relative;">
+        <button id="btnAdd">추가</button>
+        <button id="btnBuy">구매</button>
 
-    <h3>장바구니 목록</h3>
-    <ul id="cartList">
-        </ul>
+        <div id="paymentMenu" class="modal">
+            <p style="margin-top:0;">결제 수단 선택:</p>
+            <label><input type="radio" name="payMethod" value="현금" checked> 현금</label>
+            <label><input type="radio" name="payMethod" value="카드"> 카드</label>
+            <label><input type="radio" name="payMethod" value="페이"> 페이</label>
+            <div style="margin-top: 15px;">
+                <button id="btnProceed">구매 진행</button>
+                <button id="btnCancel">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-header">
+        <div class="col-1">상품명</div>
+        <div class="col-2">금액</div>
+    </div>
+    
+    <ul id="cartList"></ul>
+
+    <div class="total-row">
+        합계: <input type="text" id="totalPrice" value="0" style="text-align: right; width: 100px;" readonly> 원
+    </div>
+    <div class="msg-row">
+        처리 메시지: <span id="sysMsg"></span>
+    </div>
 
     <script>
-        // 총 금액 관리 변수
-        let totalPrice = 0;
+        let totalSum = 0;
 
-        // 콤보박스 변경(change) 이벤트 처리 함수
-        function addCartItem() {
-            const select = document.getElementById("fruitSelect");
-            const selectedOption = select.options[select.selectedIndex];
+        // [추가] 버튼 클릭 이벤트
+        document.getElementById('btnAdd').addEventListener('click', function() {
+            const checks = document.querySelectorAll('.item-chk:checked');
             
-            // 기본 문구를 선택했거나 선택이 올바르지 않은 경우 무시
-            if (!selectedOption.value) return;
+            // 유효성 검사
+            if (checks.length === 0) {
+                alert("상품을 선택한 후 추가 버튼을 클릭하세요.");
+                return;
+            }
 
-            const itemName = selectedOption.value;
-            const itemPrice = parseInt(selectedOption.getAttribute("data-price"));
+            const cartList = document.getElementById('cartList');
 
-            // --- 8장 강의노트 기준 표준 DOM 동적 생성 방식 ---
-            const cartList = document.getElementById("cartList");
+            checks.forEach(function(chk) {
+                const itemName = chk.value;
+                const itemPrice = parseInt(chk.getAttribute('data-price'));
 
-            // 1. li 엘리먼트 생성
-            const li = document.createElement("li");
+                // DOM 동적 생성 (<li> 태그 내부에 <span> 2개) - 강의자료 8-10 참조
+                const li = document.createElement("li");
 
-            // 2. 체크박스 엘리먼트 생성 및 설정
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = true; // 추가 시 기본적으로 체크 상태 [cite: 9]
+                const spanName = document.createElement("span");
+                spanName.className = "col-1";
+                spanName.innerHTML = itemName;
+
+                const spanPrice = document.createElement("span");
+                spanPrice.className = "col-2";
+                spanPrice.innerHTML = itemPrice.toLocaleString() + "원";
+
+                li.appendChild(spanName);
+                li.appendChild(spanPrice);
+                cartList.appendChild(li);
+
+                // 합계 계산
+                totalSum += itemPrice;
+                
+                // 장바구니에 담은 후 체크박스 해제 (선택 사항)
+                chk.checked = false; 
+            });
+
+            // 합계 및 메시지 갱신
+            document.getElementById('totalPrice').value = totalSum.toLocaleString();
+            document.getElementById('sysMsg').innerText = "상품이 장바구니에 추가되었습니다.";
+        });
+
+        // [구매] 버튼 클릭 이벤트
+        document.getElementById('btnBuy').addEventListener('click', function() {
+            if (totalSum === 0) {
+                alert("상품을 추가한 후 구매 버튼을 클릭하세요.");
+                return;
+            }
+            // 결제 창 나타나기
+            document.getElementById('paymentMenu').style.display = "block";
+        });
+
+        // [취소] 버튼 클릭 이벤트
+        document.getElementById('btnCancel').addEventListener('click', function() {
+            // 결제 창 사라지기
+            document.getElementById('paymentMenu').style.display = "none";
+        });
+
+        // [구매 진행] 버튼 클릭 이벤트
+        document.getElementById('btnProceed').addEventListener('click', function() {
+            const method = document.querySelector('input[name="payMethod"]:checked').value;
             
-            // 체크박스 클릭 시 실시간 금액 가산/차감 이벤트 리스너 연결 [cite: 10]
-            checkbox.onclick = function() {
-                if (checkbox.checked) {
-                    totalPrice += itemPrice;
-                } else {
-                    totalPrice -= itemPrice;
-                }
-                updateTotalDisplay();
-            };
-
-            // 3. 텍스트 노드 생성 (과일 이름 및 가격 표시)
-            const textSpan = document.createElement("span");
-            textSpan.className = "item-text";
-            textSpan.innerText = `${itemName} - ${itemPrice.toLocaleString()}원`;
-
-            // 4. 결합 (appendChild)
-            li.appendChild(checkbox);
-            li.appendChild(textSpan);
-            cartList.appendChild(li);
-
-            // 새 항목이 추가되었으므로 금액 가산 및 업데이트 [cite: 10]
-            totalPrice += itemPrice;
-            updateTotalDisplay();
-
-            // 선택창을 다시 기본 상태로 초기화
-            select.selectedIndex = 0;
-        }
-
-        // 상단 합계 금액 실시간 갱신 함수
-        function updateTotalDisplay() {
-            document.getElementById("totalDisplay").innerText = totalPrice.toLocaleString();
-        }
+            // confirm 창 띄우기
+            const isConfirm = confirm("결제 수단을 '" + method + "'(으)로 진행하시겠습니까?");
+            
+            if (isConfirm) {
+                // 결제 완료 처리
+                document.getElementById('sysMsg').innerText = "총 " + totalSum.toLocaleString() + "원을 '" + method + "'(으)로 결제 완료했습니다.";
+                
+                // 장바구니 및 합계 초기화
+                document.getElementById('cartList').innerHTML = "";
+                totalSum = 0;
+                document.getElementById('totalPrice').value = "0";
+                
+                // 결제 창 사라지기
+                document.getElementById('paymentMenu').style.display = "none";
+            }
+        });
     </script>
 </body>
 </html>

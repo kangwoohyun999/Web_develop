@@ -2,152 +2,252 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>3-1번: 은행 계좌 시뮬레이션</title>
+    <title>은행 계좌 시뮬레이션</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+        }
+
+        .wrap {
+            width: 600px;
+            border: 1px solid #000;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            max-width: 500px;
         }
-        h2 { color: #333; }
-        .input-group { margin-bottom: 15px; }
-        .radio-group { margin-bottom: 15px; }
-        label { margin-right: 10px; }
-        button {
-            padding: 5px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
         }
-        button:hover { background-color: #0056b3; }
-        #messageBox {
-            margin-top: 20px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid #999;
             padding: 10px;
-            background-color: #f8f9fa;
-            border-left: 5px solid #28a745;
-            min-height: 50px;
-            white-space: pre-line;
+        }
+
+        .menu-area label {
+            margin-right: 10px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        input[type="text"] {
+            width: 100px;
+            text-align: right;
+            padding: 3px;
+        }
+
+        button {
+            padding: 3px 15px;
         }
     </style>
 </head>
+
 <body>
 
-    <h2>은행 계좌 시뮬레이션</h2>
-    
-    <div class="radio-group">
-        <input type="radio" id="checkBal" name="menu" value="check" checked onclick="toggleInput(false)">
-        <label for="checkBal">잔액 확인</label>
-        
-        <input type="radio" id="deposit" name="menu" value="deposit" onclick="toggleInput(true)">
-        <label for="deposit">저금</label>
-        
-        <input type="radio" id="withdraw" name="menu" value="withdraw" onclick="toggleInput(true)">
-        <label for="withdraw">인출</label>
-        
-        <input type="radio" id="interest" name="menu" value="interest" onclick="toggleInput(false)">
-        <label for="interest">이자 계산</label>
-    </div>
+<div class="wrap">
 
-    <div class="input-group" id="amountSection" style="display: none;">
-        <label for="amount">금액 입력 (원):</label>
-        <input type="text" id="amount" placeholder="금액을 입력하세요">
-    </div>
+    <h3>은행 계좌 시뮬레이션</h3>
 
-    <button onclick="processTransaction()">실행</button>
+    <table>
 
-    <h3>처리 결과</h3>
-    <div id="messageBox">시스템이 준비되었습니다.</div>
+        <tr class="menu-area">
+            <td colspan="4">
 
-    <script>
-        // 초기 잔액 및 이율 설정
-        let balance = 10000;
-        const interestRate = 0.02; // 2%
-        
-        // 처리 메시지를 저장할 배열
-        let logMessages = ["고객 계좌가 정상 개설되었습니다. (초기 잔액: 10,000원)"];
+                <label>
+                    <input type="radio" name="menu" value="check" checked>
+                    잔액 확인
+                </label>
 
-        // 라디오 버튼 선택에 따라 금액 입력창 숨김/보임 처리
-        function toggleInput(show) {
-            const amountSection = document.getElementById("amountSection");
-            if (show) {
-                amountSection.style.display = "block";
-            } else {
-                amountSection.style.display = "none";
-                document.getElementById("amount").value = ""; // 입력창 초기화
-            }
-        }
+                <label>
+                    <input type="radio" name="menu" value="deposit">
+                    저금
+                </label>
 
-        // 트랜잭션 실행 함수
-        function processTransaction() {
-            const menus = document.getElementsByName("menu");
-            let selectedMenu = "";
-            
-            for (let i = 0; i < menus.length; i++) {
-                if (menus[i].checked) {
-                    selectedMenu = menus[i].value;
-                    break;
+                <label>
+                    <input type="radio" name="menu" value="withdraw">
+                    인출
+                </label>
+
+                <label>
+                    <input type="radio" name="menu" value="interest">
+                    이자 지급
+                </label>
+
+                <button onclick="execute()">실행</button>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>저금/인출 금액</td>
+
+            <td>
+                <input type="text" id="amount"> 원
+            </td>
+
+            <td>잔액</td>
+
+            <td class="right">
+                <span id="balanceText">10000</span> 원
+            </td>
+        </tr>
+
+        <tr>
+            <td>이율</td>
+
+            <td>2%</td>
+
+            <td>이자</td>
+
+            <td class="right">
+                <span id="interestText"></span> 원
+            </td>
+        </tr>
+
+        <tr>
+            <td>처리 메시지</td>
+
+            <td colspan="3">
+                <span id="messageText">
+                    10000원 잔액 확인 완료
+                </span>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<script>
+
+    // 초기 잔액
+    let balance = 10000;
+
+    // 이율
+    const interestRate = 0.02;
+
+    // 메시지 배열
+    const messages = [
+        "잔액 확인 완료",
+        "저금 완료",
+        "인출 완료",
+        "이자 지급 완료",
+        "저금 금액 오류",
+        "인출 금액 오류",
+        "인출 불가(잔액 부족)"
+    ];
+
+    function execute() {
+
+        // 선택 메뉴
+        const menu =
+            document.querySelector(
+                'input[name="menu"]:checked'
+            ).value;
+
+        // 입력 금액
+        const amountInput =
+            document.getElementById("amount").value;
+
+        // 숫자 변환
+        const amount = parseInt(amountInput);
+
+        // 요소 가져오기
+        const balElement =
+            document.getElementById("balanceText");
+
+        const intElement =
+            document.getElementById("interestText");
+
+        const msgElement =
+            document.getElementById("messageText");
+
+        // 이자칸 초기화
+        intElement.innerText = "";
+
+        switch(menu) {
+
+            // 잔액 확인
+            case "check":
+
+                balElement.innerText = balance;
+
+                msgElement.innerText =
+                    balance + "원 " + messages[0];
+
+                break;
+
+            // 저금
+            case "deposit":
+
+                if (isNaN(amount) || amount < 0) {
+
+                    msgElement.innerText = messages[4];
+
+                } else {
+
+                    balance += amount;
+
+                    balElement.innerText = balance;
+
+                    msgElement.innerText =
+                        amount + "원 " + messages[1];
                 }
-            }
 
-            const amountInput = document.getElementById("amount").value.trim();
-            const amount = Number(amountInput);
-            let currentMessage = "";
+                break;
 
-            switch (selectedMenu) {
-                case "check":
-                    currentMessage = `현재 잔액은 ${balance.toLocaleString()}원입니다.`;
-                    break;
+            // 인출
+            case "withdraw":
 
-                case "deposit":
-                    // 예외 처리: 숫자가 아니거나 음수일 때
-                    if (amountInput === "" || isNaN(amount) || amount <= 0) {
-                        currentMessage = "오류: 저금할 금액을 올바른 양의 숫자로 입력해 주세요.";
-                    } else {
-                        balance += amount;
-                        currentMessage = `${amount.toLocaleString()}원이 저금되었습니다. (현재 잔액: ${balance.toLocaleString()}원)`;
-                    }
-                    break;
+                if (isNaN(amount) || amount < 0) {
 
-                case "withdraw":
-                    // 예외 처리: 숫자가 아니거나 음수일 때
-                    if (amountInput === "" || isNaN(amount) || amount <= 0) {
-                        currentMessage = "오류: 인출할 금액을 올바른 양의 숫자로 입력해 주세요.";
-                    } else if (amount > balance) {
-                        // 예외 처리: 잔액 부족
-                        currentMessage = `오류: 잔액이 부족합니다. (현재 잔액: ${balance.toLocaleString()}원 / 인출 시도: ${amount.toLocaleString()}원)`;
-                    } else {
-                        balance -= amount;
-                        currentMessage = `${amount.toLocaleString()}원이 인출되었습니다. (현재 잔액: ${balance.toLocaleString()}원)`;
-                    }
-                    break;
+                    msgElement.innerText = messages[5];
 
-                case "interest":
-                    let interest = Math.floor(balance * interestRate);
-                    balance += interest;
-                    currentMessage = `이자가 계산되었습니다. (이율: 2%, 추가 이자: ${interest.toLocaleString()}원, 현재 잔액: ${balance.toLocaleString()}원)`;
-                    break;
-            }
+                } else if (amount > balance) {
 
-            // 메시지 배열에 저장 후 조건에 맞게 출력
-            logMessages.push(currentMessage);
-            updateMessageBox();
+                    msgElement.innerText = messages[6];
+
+                } else {
+
+                    balance -= amount;
+
+                    balElement.innerText = balance;
+
+                    msgElement.innerText =
+                        amount + "원 " + messages[2];
+                }
+
+                break;
+
+            // 이자 지급
+            case "interest":
+
+                let interest =
+                    balance * interestRate;
+
+                intElement.innerText = interest;
+
+                balance += interest;
+
+                balElement.innerText = balance;
+
+                msgElement.innerText =
+                    interest + "원 " + messages[3];
+
+                break;
         }
+    }
 
-        // 메시지 창 업데이트 (최신 메시지가 가장 위에 보이도록 혹은 누적 출력)
-        function updateMessageBox() {
-            const messageBox = document.getElementById("messageBox");
-            // 최근 5개의 기록만 모아서 보여주기 (누적 방식 확장 가능)
-            const displayList = logMessages.slice(-5).reverse();
-            messageBox.innerText = displayList.join("\n---------------------------\n");
-        }
-        
-        // 초기 실행 화면 세팅
-        updateMessageBox();
-    </script>
+</script>
+
 </body>
 </html>
