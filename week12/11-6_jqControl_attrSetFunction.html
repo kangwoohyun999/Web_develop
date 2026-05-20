@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery Basic</title>
+<script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+$(document).ready(function () {
+$('img').attr({ // 속성을 지정합니다.
+alt: 'jQuery 라이브러리를 사용한 속성 지정',
+src: function (index) {
+var size = (index + 1) * 100; // 변수 선언
+return 'https://loremflickr.com/' + size + '/' + size; // 반환
+}
+});
+});
+</script>
+</head>
+<body>
+<img><img><img>
+</body>
+</html>
