@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><title>jQuery</title>
+<script src="http://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+$(document).ready( function() {
+$('p.b').find('span.ip').css('font-size','2em'); // $('p.b span.ip').css('font-size','2em');
+} );
+</script>
+</head>
+<body>
+<p class="a">
+<span class="lo">Lorem</span>
+<span class="ip">Ipsum</span>
+<span class="do">Dolor</span>
+</p>
+<p class="b">
+<span class="lo">Lorem</span>
+<span class="ip">Ipsum</span>
+<span class="do">Dolor</span>
+</p>
+</body></html>

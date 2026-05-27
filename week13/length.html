@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><title>jQuery</title>
+<script src="http://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+$(document).ready( function() {
+$('button').click( function() {
+let n = $('li').length;
+$('#list').after('<p>There are ' + n + ' lis.</p>');
+} );
+} );
+</script>
+</head>
+<body>
+<button>Click To Count</button>
+<ul id="list">
+<li>Lorem</li>
+<li>Ipsum</li>
+<li>Dolor</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><title>empty_remove</title>
+<style>
+#result1 {
+width: 200px; height: 130px;
+border: 1px solid blue; }
+#result2 {
+width: 200px; height: 130px;
+border: 1px solid red; }
+</style>
+<script src="http://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+$("document").ready(function () {
+$('#btn1').on('click', function () {
+$('#result1').empty(); // result1의 내용(내부) 삭제
+});
+$('#btn2').on('click', function () {
+$('#result2').remove(); // result2 (자체를) 삭제
+});
+$('#btn3').on('click', function () {
+$('#result1 p').remove(); // result1 밑 p 태그 전체 삭제
+});
+// result2 밑 p 태그 중 id="p1" 삭제
+$('#btn4').on('click', function () {
+$('#result2 p').remove('#p1');
+});
+});
+</script></head>
+<body>
+<h3>empty(), remove() 예제</h3>
+<div class="box">
+<input type="button" value="empty" id="btn1">
+<input type="button" value="remove" id="btn2">
+<input type="button" value="remove_p" id="btn3">
+<input type="button" value="remove_p_id" id="btn4">
+<br><br>
+<div id="result1">
+<p>무궁화 꽃이 피었습니다.1</p>
+<p>무궁화 꽃이 피었습니다.2</p>
+<p>무궁화 꽃이 피었습니다.3</p>
+</div>
+<hr color="red">
+<div id="result2">
+<p id="p1">무궁화 꽃이 피었습니다.1</p>
+<p id="p2">무궁화 꽃이 피었습니다.2</p>
+<p id="p3">무궁화 꽃이 피었습니다.3</p>
+</div>
+</div>
+</body>
+</html>
