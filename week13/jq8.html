@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="ko"> <meta charset="UTF-8"><title>제이쿼리 실습8</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+.box {
+width: 100px; height: 100px; background-color: green;
+};
+</style>
+</head>
+<body>
+<div class="box">green</div>
+<script>
+$(document).ready(function(){
+$(".box").hover(
+function() { // 엘리먼트에 마우스 포인트가 위치할 때
+$(this).css("background-color", "red");
+$(this).html("red");
+}, function() { // 엘리먼트에서 마우스 포인트가 빠져나왔을 때
+$(this).css("background-color", "blue");
+$(this).html("blue");
+}
+);
+});
+</script>
+</body></html>
