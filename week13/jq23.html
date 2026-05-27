@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>체크 박스</title>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+<form>
+<label><input type="checkbox" name="items" value="10000">모자 1만원</label>
+<label><input type="checkbox" name="items" value="30000">구두 3만원</label>
+<label><input type="checkbox" name="items" value="80000">가방 8만원</label><br>
+<label><input type="button" id="calc" value="계산"></label>
+</form>
+<div>지불하실 금액 <input type="text" id="sumText" value="0" size="10"></div>
+<script>
+$(document).ready(function () {
+$("#calc").click(function () {
+let sum = 0;
+$("input:checkbox[name='items']").each(function() { // 전체 순회하면서 체크
+if (this.checked) // check되어 있으면 true
+sum += parseInt(this.value);
+});
+$("#sumText").val(sum);
+});
+});
+</script>
+</body></html>

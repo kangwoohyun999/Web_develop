@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="ko">
+<meta charset="UTF-8">
+<title>JSON</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+<button>JSON 처리</button>
+<div id="result"><div>
+</div>
+<script>
+$(document).ready(function(){
+$("button").click(function(){
+let data = {'name':'jamie', 'job': 'programmer', 'company': 'snowkiwi'}; // JSON
+let result = "name: " + data.name + "<br>" + "job: " + data.job + "<br>" + "company: " + data.company;
+$("#result").html(result);
+// alert(data.name);
+// alert(data.job);
+// alert(data.company);
+});
+});
+</script>
+</body>
+</html>

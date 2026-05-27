@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="ko"><meta charset="UTF-8"><title>AJAX 실습1</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<div><button>서버에서 가져오기</button></div>
+<div>아이디</div><div><input type="text" id="userid"></div>
+<div>비밀번호</div><div><input type="text" id="pass"></div>
+<div id="label"><!-- 결과 표시 --></div>
+<script>
+$(document).ready(function(){
+$("button").click(function(){
+var userid = $("#userid"); var pass = $("#pass");
+$.ajax({
+url: "http://www.abcds.kr/study/s3.php",
+type: "GET",
+data : { id : userid.val(), pass : pass.val() }, // 아이디와 비밀번호를 서버로 전달
+success : function(data) { // 서버에서 응답을 받으면 실행되는 콜백 함수
+var obj = $.parseJSON(data); // 서버에서 받은 data를 JSON 객체로 변환
+$("#label").html("입력하신 아이디는 "+obj.id+" 이고"+" 비밀번호는 "+obj.pass+" 입니다. ");
+alert("정상적으로 로그인 되셨습니다.");
+}
+});
+});
+});
+</script></body></html>

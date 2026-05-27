@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>라디오 버튼</title>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+<form id="myForm">
+<input type="radio" name="city" value="seoul">서울<br>
+<input type="radio" name="city" value="pusan">부산<br>
+<input type="radio" name="city" value="daegu">대구<br>
+</form>
+<div>선택된 도시 : <span id="result"></span></div>
+<script>
+$(document).ready(function () {
+$("#myForm").on('change', function() {
+let selVal = $("input[name='city']:checked").val();
+$("#result").text(selVal);
+});
+});
+</script>
+</body>
+</html>
