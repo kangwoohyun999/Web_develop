@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>쇼핑 장바구니 (jQuery) - 14-2번</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    /* ── 기본 ─────────────────────────────────── */
+    body {
+      font-family: "맑은 고딕", Arial, sans-serif;
+      font-size: 13px;
+      padding: 16px;
+      background: #fff;
+      max-width: 420px;
+    }
+
+    /* ── 제목 ────────────────────────────────── */
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 0 10px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 6px;
+    }
+
+    /* ── 체크박스 행: 가로 한 줄 ─────────────── */
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .checkbox-row label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* ── 버튼 행 ──────────────────────────────── */
+    .btn-row { margin-bottom: 10px; }
+    button {
+      padding: 4px 16px;
+      font-size: 13px;
+      border: 1px solid #999;
+      background: #e8e8e8;
+      cursor: pointer;
+      margin-right: 4px;
+    }
+    /* 버튼 hover: 파란 배경 + 흰 글씨 + pointer */
+    button:hover {
+      background: blue;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ── 결재 수단 선택 (초기 숨김) ────────────── */
+    #payArea {
+      display: none;
+      border: 1px solid #bbb;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    #payArea p { margin: 0 0 5px; font-weight: bold; }
+    #payArea label { display: inline; margin-right: 12px; cursor: pointer; }
+
+    /* ── 장바구니 헤더 ────────────────────────── */
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+      padding-bottom: 4px;
+      margin-bottom: 2px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    /* ── 장바구니 목록 ────────────────────────── */
+    #cartList {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 8px;
+      min-height: 4px;
+    }
+    #cartList li {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 4px;
+      border-bottom: 1px dotted #ddd;
+    }
+
+    /* ── 합계 행 ──────────────────────────────── */
+    .total-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    #totalInput {
+      width: 70px;
+      font-size: 13px;
+      border: 1px solid #999;
+      padding: 2px 4px;
+      text-align: right;
+    }
+
+    /* ── 처리 메시지 ──────────────────────────── */
+    #msgArea {
+      color: blue;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<!--
+  [HTML/CSS 제공 구조 - 시험에서 주어지는 부분]
+
+  쇼핑 장바구니
+  ─────────────────────────────────
+  □ 키보드 (20,000원)  □ 마우스 (10,000원)  □ 모니터 (150,000원)
+  [추가] [구매]
+
+  ┌결재 수단 선택 (display:none)──────────────┐
+  │ ○ 신용카드  ○ 계좌이체  ○ 카카오페이      │
+  │ [구매 진행] [취소]                        │
+  └───────────────────────────────────────────┘
+
+    상품명                금액
+  ─────────────────────────────────
+  (장바구니 li 목록)
+
+  합계: [   0  ] 원
+  처리 메시지:
+-->
+
+<h2>쇼핑 장바구니</h2>
+
+<!-- 체크박스: 가로 한 줄 (이미지 그대로) -->
+<div class="checkbox-row">
+  <label><input type="checkbox" name="item" value="20000" data-name="키보드"> 키보드 (20,000원)</label>
+  <label><input type="checkbox" name="item" value="10000" data-name="마우스"> 마우스 (10,000원)</label>
+  <label><input type="checkbox" name="item" value="150000" data-name="모니터"> 모니터 (150,000원)</label>
+</div>
+
+<!-- 추가 / 구매 버튼 -->
+<div class="btn-row">
+  <button id="btnAdd">추가</button>
+  <button id="btnBuy">구매</button>
+</div>
+
+<!-- 결재 수단 선택 (display:none 초기 숨김) -->
+<div id="payArea">
+  <p>결재 수단 선택</p>
+  <label><input type="radio" name="pay" value="신용카드"> 신용카드</label>
+  <label><input type="radio" name="pay" value="계좌이체"> 계좌이체</label>
+  <label><input type="radio" name="pay" value="카카오페이"> 카카오페이</label><br><br>
+  <button id="btnPayGo">구매 진행</button>
+  <button id="btnCancel">취소</button>
+</div>
+
+<!-- 장바구니 헤더 -->
+<div class="cart-header">
+  <span>상품명</span>
+  <span>금액</span>
+</div>
+
+<!-- 장바구니 목록 (<ul> → jQuery로 <li> 동적 추가) -->
+<ul id="cartList"></ul>
+
+<!-- 합계 -->
+<div class="total-row">
+  <span>합계:</span>
+  <input type="text" id="totalInput" value="0" readonly>
+  <span>원</span>
+</div>
+
+<!-- 처리 메시지 -->
+<div id="msgArea">처리 메시지:</div>
+
+<!-- ══════════════════════════════════════════
+     [jQuery 구현 부분 - 시험에서 작성하는 부분]
+     ══════════════════════════════════════════ -->
+<script>
+$(function () {
+
+  var total = 0;  // 합계 금액
+
+  /* ① [추가] 버튼: 체크된 상품 → li 동적 추가 */
+  $("#btnAdd").on("click", function () {
+
+    /* 체크박스 선택 여부 확인 (jq23 패턴) */
+    var checked = $("input[name='item']:checked");
+    if (checked.length === 0) {
+      alert("상품을 선택한 후 추가 버튼을 클릭하세요.");
+      return;
+    }
+
+    /* 체크된 항목 순회 → li 생성 후 append */
+    checked.each(function () {
+      var name  = $(this).data("name");          // data-name 속성 읽기
+      var price = parseInt($(this).val());        // 가격 읽기
+
+      /* <li> 내부에 <span> 2개 (문제 Hint: li 태그 내부에 span 2개) */
+      var $li = $("<li>");
+      $li.append($("<span>").text(name));
+      $li.append($("<span>").text(price.toLocaleString() + "원"));
+      $("#cartList").append($li);                 // 동적 추가 (14주차 p.33 append)
+
+      total += price;
+      $(this).prop("checked", false);             // 체크 해제
+    });
+
+    /* 합계 자동 갱신 */
+    $("#totalInput").val(total.toLocaleString());
+    $("#msgArea").text("처리 메시지:");
+  });
+
+  /* ② [구매] 버튼: 장바구니 비었으면 오류 / 아니면 결재 수단 show */
+  $("#btnBuy").on("click", function () {
+    if ($("#cartList li").length === 0) {
+      alert("상품을 추가한 후 구매 버튼을 클릭하세요.");
+      return;
+    }
+    /* 결재 수단 선택 메뉴 보이기 (13주차 p.27 show) */
+    $("#payArea").show();
+  });
+
+  /* ③ [구매 진행] 버튼: 결재 수단 confirm → 완료 후 초기화 */
+  $("#btnPayGo").on("click", function () {
+
+    /* 라디오 버튼 선택값 읽기 (jq22 패턴) */
+    var pay = $("input[name='pay']:checked").val();
+    if (!pay) { alert("결재 수단을 선택하세요."); return; }
+
+    /* 결재 수단 확인 창 */
+    var ok = confirm(pay + "(으)로 결재하시겠습니까?\n합계: " + total.toLocaleString() + "원");
+    if (ok) {
+      $("#payArea").hide();                              // 결재 수단 메뉴 사라지기
+      $("input[name='pay']").prop("checked", false);
+      $("#cartList").empty();                            // 장바구니 항목 초기화 (14주차 p.35 empty)
+      total = 0;
+      $("#totalInput").val("0");
+      $("#msgArea").text("처리 메시지: 결재가 완료되었습니다.");
+    }
+  });
+
+  /* ④ [취소] 버튼: 결재 수단 선택 메뉴 사라지기 */
+  $("#btnCancel").on("click", function () {
+    $("#payArea").hide();                                // 결재 수단 선택 숨기기 (13주차 p.27 hide)
+    $("input[name='pay']").prop("checked", false);
+  });
+
+});
+</script>
+</body>
+</html>

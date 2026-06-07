@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>은행 계좌 시뮬레이션 (jQuery) - 3-2번</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    /* ── 기본 ─────────────────────────────────── */
+    body {
+      font-family: "맑은 고딕", Arial, sans-serif;
+      font-size: 13px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    /* ── 테이블 ───────────────────────────────── */
+    table {
+      border-collapse: collapse;
+      border: 1px solid #999;
+    }
+    td {
+      border: 1px solid #999;
+      padding: 5px 8px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    /* 라디오 행 */
+    .td-radio { padding: 5px 10px; }
+    input[type="radio"] { margin-right: 2px; }
+    label { margin-right: 10px; cursor: pointer; }
+
+    /* 실행 버튼 */
+    #btnRun {
+      padding: 3px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+
+    /* 텍스트 입력 상자 */
+    .inp {
+      width: 110px;
+      font-size: 13px;
+      border: 1px solid #999;
+      padding: 2px 4px;
+    }
+
+    /* 고정 레이블 셀 (회색 배경 없음 - 이미지 그대로) */
+    .lbl { color: #333; }
+
+    /* "원" 단위 셀 */
+    .unit { padding: 5px 6px; }
+
+    /* 이율 값 셀 */
+    .rate-val { text-align: center; }
+
+    /* 처리 메시지 행 */
+    #msgRow td { border: none; padding-top: 4px; color: #333; }
+  </style>
+</head>
+<body>
+
+<!--
+  [HTML/CSS 제공 구조 - 시험에서 주어지는 부분]
+  ┌────────────────────────────────────────────────────────────────┐
+  │ ● 잔액 확인  ○ 저금  ○ 인출  ○ 이자 지급        [실행]       │
+  ├──────────────┬──────────┬──┬──────────┬──────────┬──┤
+  │ 저금/인출 금액 │ [      ] │원│  잔액    │ [      ] │원│
+  ├──────────────┴──────────┴──┼──────────┼──────────┴──┤
+  │ 이율          │    2%      │  이자    │ [      ] │원│
+  └────────────────────────────┴──────────┴─────────────┘
+  처리 메시지:
+-->
+
+<table>
+  <!-- 1행: 라디오 + 실행 버튼 -->
+  <tr>
+    <td colspan="6" class="td-radio">
+      <label><input type="radio" name="action" value="check" checked>잔액 확인</label>
+      <label><input type="radio" name="action" value="save">저금</label>
+      <label><input type="radio" name="action" value="withdraw">인출</label>
+      <label><input type="radio" name="action" value="interest">이자 지급</label>
+      <button id="btnRun">실행</button>
+    </td>
+  </tr>
+
+  <!-- 2행: 저금/인출 금액 | 잔액 -->
+  <tr>
+    <td class="lbl">저금/인출 금액</td>
+    <td><input type="text" id="amount" class="inp"></td>
+    <td class="unit">원</td>
+    <td class="lbl">잔액</td>
+    <td><input type="text" id="outBalance" class="inp" readonly></td>
+    <td class="unit">원</td>
+  </tr>
+
+  <!-- 3행: 이율 | 이자 -->
+  <tr>
+    <td class="lbl">이율</td>
+    <td class="rate-val">2%</td>
+    <td></td>
+    <td class="lbl">이자</td>
+    <td><input type="text" id="outInterest" class="inp" readonly></td>
+    <td class="unit">원</td>
+  </tr>
+</table>
+
+<!-- 처리 메시지 -->
+<p>처리 메시지: <span id="msg"></span></p>
+
+<!-- ══════════════════════════════════════════
+     [jQuery 구현 부분 - 시험에서 작성하는 부분]
+     ══════════════════════════════════════════ -->
+<script>
+$(function () {
+
+  /* 상태 변수 */
+  var balance = 10000;  // 초기 잔액 10000원
+  var rate    = 0.02;   // 이율 2%
+
+  /* 처리 메시지 배열 */
+  var MSG = [
+    "잔액 확인 완료",       // 0
+    "저금 완료",            // 1
+    "인출 완료",            // 2
+    "이자 지급 완료",       // 3
+    "저금 금액 오류",       // 4
+    "인출 금액 오류",       // 5
+    "인출 불가(잔액 부족)"  // 6
+  ];
+
+  /* [실행] 버튼 클릭 */
+  $("#btnRun").on("click", function () {
+
+    /* 라디오 버튼 선택값 읽기 (jq22 패턴) */
+    var action = $("input[name='action']:checked").val();
+    var amt    = parseFloat($("#amount").val());
+
+    /* 결과 초기화 */
+    $("#msg").text("");
+    $("#outInterest").val("");
+
+    if (action === "check") {
+      /* 잔액 확인 */
+      $("#outBalance").val(balance);
+      $("#msg").text(MSG[0]);
+
+    } else if (action === "save") {
+      /* 저금 */
+      if (isNaN(amt) || amt < 0) { $("#msg").text(MSG[4]); return; }
+      balance += amt;
+      $("#outBalance").val(balance);
+      $("#msg").text(MSG[1]);
+
+    } else if (action === "withdraw") {
+      /* 인출 */
+      if (isNaN(amt) || amt < 0) { $("#msg").text(MSG[5]); return; }
+      if (amt > balance)          { $("#msg").text(MSG[6]); return; }
+      balance -= amt;
+      $("#outBalance").val(balance);
+      $("#msg").text(MSG[2]);
+
+    } else if (action === "interest") {
+      /* 이자 지급 */
+      var interest = balance * rate;
+      balance += interest;
+      $("#outInterest").val(interest);
+      $("#outBalance").val(balance);
+      $("#msg").text(MSG[3]);
+    }
+  });
+
+});
+</script>
+</body>
+</html>
