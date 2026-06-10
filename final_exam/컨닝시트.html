@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웹개발기초 기말고사 컨닝시트</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #4f8ef7;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --code-bg: #0d1117;
+    --code-border: #30363d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ── 상단 헤더 ─── */
+  .site-header {
+    background: linear-gradient(135deg, #1e2a4a 0%, #0f1117 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 18px 24px 14px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .site-header h1 { font-size: 16px; color: var(--accent); letter-spacing: .5px; }
+  .site-header .badge {
+    background: var(--accent); color: #fff;
+    font-size: 11px; font-weight: 700; border-radius: 4px;
+    padding: 2px 8px; white-space: nowrap;
+  }
+  .site-header .sub { color: var(--muted); font-size: 11px; }
+
+  /* ── 탭 네비 ─── */
+  .tab-nav {
+    display: flex; gap: 0; overflow-x: auto;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--muted);
+    padding: 10px 14px; font-size: 12px; cursor: pointer;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: color .15s, border-color .15s;
+    font-family: inherit;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── 레이아웃 ─── */
+  .container { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* ── 탭 패널 ─── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── 섹션 카드 ─── */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .section-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  .section-head:hover { background: #282d42; }
+  .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+  .section-head h2 { font-size: 13px; font-weight: 600; flex: 1; }
+  .section-head .star { color: var(--yellow); font-size: 12px; }
+  .section-head .ref { color: var(--muted); font-size: 11px; }
+  .chevron { color: var(--muted); font-size: 12px; transition: transform .2s; }
+  .section.collapsed .chevron { transform: rotate(-90deg); }
+  .section-body { padding: 14px; }
+  .section.collapsed .section-body { display: none; }
+
+  /* ── 코드 블록 ─── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 8px 0;
+    position: relative;
+  }
+  code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #c9d1d9;
+  }
+  .kw  { color: #ff7b72; }   /* 키워드 */
+  .fn  { color: #d2a8ff; }   /* 함수 */
+  .str { color: #a5d6ff; }   /* 문자열 */
+  .cm  { color: #6a737d; font-style: italic; } /* 주석 */
+  .num { color: #79c0ff; }   /* 숫자 */
+  .jq  { color: #ffa657; }   /* jQuery */
+
+  /* 복사 버튼 */
+  .copy-btn {
+    position: absolute; top: 6px; right: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--muted); font-size: 11px; padding: 2px 8px;
+    border-radius: 4px; cursor: pointer;
+    font-family: inherit;
+  }
+  .copy-btn:hover { color: var(--text); background: var(--border); }
+  .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+  /* ── 인라인 코드 ─── */
+  p code, li code, td code {
+    background: #21262d; border: 1px solid #30363d;
+    padding: 1px 5px; border-radius: 3px;
+    font-family: 'Consolas', monospace; font-size: 11.5px;
+    color: #ff7b72;
+  }
+
+  /* ── 테이블 ─── */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th {
+    background: var(--surface2); color: var(--accent);
+    padding: 7px 10px; text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  td { padding: 6px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: #1e2130; }
+  .tag-jq  { color: var(--accent);  font-weight: 600; }
+  .tag-hot { color: var(--yellow); }
+
+  /* ── 2열 그리드 ─── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:640px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* ── 체크리스트 ─── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 5px 0; border-bottom: 1px solid var(--border);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type=checkbox] { margin-top: 2px; accent-color: var(--accent); }
+
+  /* ── 배지 ─── */
+  .badge-green { background: #064e3b; color: var(--green); padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+  .badge-blue  { background: #1e3a5f; color: var(--accent); padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+  .badge-red   { background: #450a0a; color: var(--red); padding: 2px 7px; border-radius: 3px; font-size: 11px; }
+
+  /* ── 알림 박스 ─── */
+  .alert {
+    border-radius: 6px; padding: 10px 14px; margin-bottom: 12px;
+    font-size: 12px; display: flex; gap: 8px; align-items: flex-start;
+  }
+  .alert.tip  { background: #0d2137; border-left: 3px solid var(--accent); }
+  .alert.warn { background: #2d1b00; border-left: 3px solid var(--yellow); }
+  .alert .icon { font-size: 14px; line-height: 1.4; flex-shrink: 0; }
+
+  p { margin-bottom: 8px; }
+  ul, ol { padding-left: 18px; margin-bottom: 8px; }
+  li { margin-bottom: 3px; }
+  strong { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <h1>📋 웹개발기초 기말고사 컨닝시트</h1>
+    <div class="sub">HTML·CSS 제공 → JS / jQuery 코드만 작성</div>
+  </div>
+  <span class="badge">Open-book 90분</span>
+</header>
+
+<!-- 탭 네비 -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('basic')">기본 패턴</button>
+  <button class="tab-btn" onclick="switchTab('form')">폼 읽기</button>
+  <button class="tab-btn" onclick="switchTab('dom')">DOM 조작</button>
+  <button class="tab-btn" onclick="switchTab('advanced')">고급 패턴</button>
+  <button class="tab-btn" onclick="switchTab('table')">메서드 표</button>
+  <button class="tab-btn" onclick="switchTab('history')">기출 요약</button>
+</nav>
+
+<div class="container">
+
+<!-- ══ 기본 패턴 탭 ══ -->
+<div id="tab-basic" class="tab-panel active">
+
+  <div class="section" id="s1">
+    <div class="section-head" onclick="toggleSection('s1')">
+      <span class="section-num">①</span>
+      <h2>jQuery 기본 뼈대 — 항상 이걸로 시작</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="alert tip"><span class="icon">💡</span><span>모든 jQuery 코드는 <code>$(function(){});</code> 안에 작성. CDN은 &lt;head&gt; 또는 &lt;body&gt; 맨 아래에 삽입.</span></div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="cm">&lt;!-- head 안에 CDN 삽입 --&gt;</span>
+<span class="str">&lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;</span>
+
+<span class="str">&lt;script&gt;</span>
+<span class="jq">$</span>(<span class="kw">function</span> () {
+
+  <span class="cm">/* 여기에 코드 작성 */</span>
+
+});
+<span class="str">&lt;/script&gt;</span></code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-head" onclick="toggleSection('s7')">
+      <span class="section-num">⑦</span>
+      <h2>숫자 검증 — 단골 패턴</h2>
+      <span class="star">★</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="kw">var</span> amt = <span class="fn">parseFloat</span>(<span class="jq">$("#amount")</span>.<span class="fn">val</span>());
+<span class="kw">if</span> (<span class="fn">isNaN</span>(amt) || amt &lt; <span class="num">0</span>) { <span class="jq">$("#msg")</span>.<span class="fn">text</span>(<span class="str">"금액 오류"</span>); <span class="kw">return</span>; }
+<span class="kw">if</span> (amt &gt; balance)           { <span class="jq">$("#msg")</span>.<span class="fn">text</span>(<span class="str">"잔액 부족"</span>); <span class="kw">return</span>; }</code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s10">
+    <div class="section-head" onclick="toggleSection('s10')">
+      <span class="section-num">⑩</span>
+      <h2>배열 — MSG 배열 + 콤보박스 인덱스</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="cm">/* 처리 메시지 배열 (은행 문제 필수) */</span>
+<span class="kw">var</span> MSG = [<span class="str">"잔액 확인 완료"</span>,<span class="str">"저금 완료"</span>,<span class="str">"인출 완료"</span>,<span class="str">"이자 지급 완료"</span>,
+           <span class="str">"저금 금액 오류"</span>,<span class="str">"인출 금액 오류"</span>,<span class="str">"인출 불가(잔액 부족)"</span>];
+<span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">1</span>]);
+
+<span class="cm">/* 콤보박스 인덱스로 배열 참조 (환율 문제 패턴) */</span>
+<span class="kw">var</span> names = [<span class="str">"미국"</span>,<span class="str">"일본"</span>,<span class="str">"중국"</span>];
+<span class="kw">var</span> rates = [<span class="num">1300</span>, <span class="num">1000</span>, <span class="num">200</span>];
+<span class="kw">var</span> idx   = <span class="jq">$("#sel")</span>.<span class="fn">prop</span>(<span class="str">"selectedIndex"</span>);
+<span class="kw">var</span> rate  = rates[idx];</code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s11">
+    <div class="section-head" onclick="toggleSection('s11')">
+      <span class="section-num">⑪</span>
+      <h2>문자열 / 숫자 변환</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="fn">parseInt</span>(<span class="str">"123"</span>)              <span class="cm">// → 123</span>
+<span class="fn">parseFloat</span>(<span class="str">"3.14"</span>)           <span class="cm">// → 3.14</span>
+(<span class="num">3.14159</span>).<span class="fn">toFixed</span>(<span class="num">2</span>)         <span class="cm">// → "3.14"  (소수점 n자리)</span>
+(<span class="num">10000</span>).<span class="fn">toLocaleString</span>()     <span class="cm">// → "10,000"</span>
+<span class="fn">String</span>(<span class="num">123</span>)                    <span class="cm">// → "123"</span>
+
+<span class="cm">/* 날짜 파싱: "2024-06-07" → "2024년 6월 7일" */</span>
+<span class="kw">var</span> parts = <span class="jq">$("#date")</span>.<span class="fn">val</span>().<span class="fn">split</span>(<span class="str">"-"</span>);
+<span class="kw">var</span> str   = parts[<span class="num">0</span>] + <span class="str">"년 "</span> + <span class="fn">parseInt</span>(parts[<span class="num">1</span>]) + <span class="str">"월 "</span> + <span class="fn">parseInt</span>(parts[<span class="num">2</span>]) + <span class="str">"일"</span>;</code></pre>
+    </div>
+  </div>
+
+</div><!-- /tab-basic -->
+
+<!-- ══ 폼 읽기 탭 ══ -->
+<div id="tab-form" class="tab-panel">
+
+  <div class="section" id="s2">
+    <div class="section-head" onclick="toggleSection('s2')">
+      <span class="section-num">②</span>
+      <h2>폼 요소 값 읽기</h2>
+      <span class="star">★★★</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="cm">/* 텍스트 상자 */</span>
+<span class="kw">var</span> val = <span class="jq">$("#id")</span>.<span class="fn">val</span>();                   <span class="cm">// 읽기</span>
+<span class="jq">$("#id")</span>.<span class="fn">val</span>(<span class="str">"새값"</span>);                       <span class="cm">// 쓰기</span>
+
+<span class="cm">/* 라디오 — 선택된 값 (jq22) ★★★ */</span>
+<span class="kw">var</span> sel = <span class="jq">$("input[name='action']:checked")</span>.<span class="fn">val</span>();
+
+<span class="cm">/* 체크박스 — 체크된 것만 순회 (jq23) ★★★ */</span>
+<span class="jq">$("input[name='item']:checked")</span>.<span class="fn">each</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> price = <span class="fn">parseInt</span>(<span class="jq">$(this)</span>.<span class="fn">val</span>());
+  <span class="kw">var</span> name  = <span class="jq">$(this)</span>.<span class="fn">data</span>(<span class="str">"name"</span>);        <span class="cm">// data-name 속성</span>
+});
+
+<span class="cm">/* 체크박스 — 전체 순회 */</span>
+<span class="jq">$("input[name='item']")</span>.<span class="fn">each</span>(<span class="kw">function</span> () {
+  <span class="kw">if</span> (<span class="kw">this</span>.checked) { <span class="kw">var</span> v = <span class="kw">this</span>.value; }
+});
+
+<span class="cm">/* 체크박스 개수 확인 */</span>
+<span class="kw">if</span> (<span class="jq">$("input[name='item']:checked")</span>.length === <span class="num">0</span>) { <span class="fn">alert</span>(<span class="str">"선택!"</span>); }
+
+<span class="cm">/* 콤보박스 (select) */</span>
+<span class="kw">var</span> v = <span class="jq">$("#sel option:selected")</span>.<span class="fn">val</span>();
+<span class="kw">var</span> t = <span class="jq">$("#sel option:selected")</span>.<span class="fn">text</span>();
+<span class="jq">$("#sel")</span>.<span class="fn">on</span>(<span class="str">"change"</span>, <span class="kw">function</span> () { <span class="kw">var</span> v = <span class="jq">$(this)</span>.<span class="fn">val</span>(); });
+
+<span class="cm">/* 체크박스 상태 확인 / 변경 */</span>
+<span class="kw">var</span> ok = <span class="jq">$("#agree")</span>.<span class="fn">is</span>(<span class="str">":checked"</span>);       <span class="cm">// true / false</span>
+<span class="jq">$("#agree")</span>.<span class="fn">prop</span>(<span class="str">"checked"</span>, <span class="kw">false</span>);       <span class="cm">// 체크 해제</span></code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s14">
+    <div class="section-head" onclick="toggleSection('s14')">
+      <span class="section-num">⑭</span>
+      <h2>포커스 / 비활성화</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$("#inp")</span>.<span class="fn">focus</span>();                    <span class="cm">// 포커스 주기</span>
+<span class="jq">$("#inp")</span>.<span class="fn">prop</span>(<span class="str">"disabled"</span>, <span class="kw">true</span>);     <span class="cm">// 비활성화</span>
+<span class="jq">$("#inp")</span>.<span class="fn">prop</span>(<span class="str">"disabled"</span>, <span class="kw">false</span>);    <span class="cm">// 활성화</span>
+
+<span class="cm">/* 포커스 시 배경색 변경 */</span>
+<span class="jq">$("#inp")</span>.<span class="fn">on</span>(<span class="str">"focus"</span>, <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>, <span class="str">"lightyellow"</span>); });
+<span class="jq">$("#inp")</span>.<span class="fn">on</span>(<span class="str">"blur"</span>,  <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>, <span class="str">""</span>); });
+
+<span class="cm">/* blur 시 빈 값 검증 + 재포커스 */</span>
+<span class="jq">$("#inp")</span>.<span class="fn">on</span>(<span class="str">"blur"</span>, <span class="kw">function</span> () {
+  <span class="kw">if</span> (<span class="jq">$(this)</span>.<span class="fn">val</span>() === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"입력하세요"</span>); <span class="jq">$(this)</span>.<span class="fn">focus</span>(); }
+});</code></pre>
+    </div>
+  </div>
+
+</div><!-- /tab-form -->
+
+<!-- ══ DOM 조작 탭 ══ -->
+<div id="tab-dom" class="tab-panel">
+
+  <div class="section" id="s3">
+    <div class="section-head" onclick="toggleSection('s3')">
+      <span class="section-num">③</span>
+      <h2>DOM 읽기 / 쓰기</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$("#span")</span>.<span class="fn">text</span>(<span class="str">"텍스트"</span>);                 <span class="cm">// textContent</span>
+<span class="jq">$("#div")</span>.<span class="fn">html</span>(<span class="str">"&lt;b&gt;HTML&lt;/b&gt;"</span>);           <span class="cm">// innerHTML</span>
+<span class="jq">$("#input")</span>.<span class="fn">val</span>(balance);                 <span class="cm">// input 값 쓰기</span>
+<span class="jq">$("img")</span>.<span class="fn">attr</span>(<span class="str">"src"</span>, <span class="str">"new.png"</span>);         <span class="cm">// 속성 변경</span>
+<span class="jq">$("#box")</span>.<span class="fn">css</span>(<span class="str">"background"</span>, <span class="str">"blue"</span>);    <span class="cm">// 스타일</span>
+<span class="jq">$("#box")</span>.<span class="fn">css</span>({ color: <span class="str">"white"</span>, fontSize: <span class="str">"16px"</span> });</code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-head" onclick="toggleSection('s4')">
+      <span class="section-num">④</span>
+      <h2>보이기 / 숨기기</h2>
+      <span class="star">★ 13주차 p.27</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$("#div")</span>.<span class="fn">show</span>();       <span class="cm">// 보이기 (display: block)</span>
+<span class="jq">$("#div")</span>.<span class="fn">hide</span>();       <span class="cm">// 숨기기 (display: none)</span>
+<span class="jq">$("#div")</span>.<span class="fn">toggle</span>();     <span class="cm">// 토글</span>
+<span class="jq">$("#div")</span>.<span class="fn">slideDown</span>(); <span class="cm">// 슬라이드 내려오기</span>
+<span class="jq">$("#div")</span>.<span class="fn">slideUp</span>();   <span class="cm">// 슬라이드 올라가기</span></code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-head" onclick="toggleSection('s5')">
+      <span class="section-num">⑤</span>
+      <h2>동적 태그 추가 / 삭제</h2>
+      <span class="star">★ 14주차 p.33, p.35</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="cm">/* 문자열로 바로 추가 */</span>
+<span class="jq">$("ul")</span>.<span class="fn">append</span>(<span class="str">"&lt;li&gt;새 항목&lt;/li&gt;"</span>);
+<span class="jq">$("ul")</span>.<span class="fn">prepend</span>(<span class="str">"&lt;li&gt;맨 앞 항목&lt;/li&gt;"</span>);
+
+<span class="cm">/* 객체로 추가 — li 안에 span 2개 (장바구니 Hint 패턴) ★★★ */</span>
+<span class="kw">var</span> $li = <span class="jq">$("&lt;li&gt;")</span>;
+$li.<span class="fn">append</span>(<span class="jq">$("&lt;span&gt;")</span>.<span class="fn">text</span>(<span class="str">"상품명"</span>));
+$li.<span class="fn">append</span>(<span class="jq">$("&lt;span&gt;")</span>.<span class="fn">text</span>(<span class="str">"10,000원"</span>));
+<span class="jq">$("#cartList")</span>.<span class="fn">append</span>($li);
+
+<span class="cm">/* 삭제 */</span>
+<span class="jq">$("#cartList")</span>.<span class="fn">empty</span>();    <span class="cm">// 자식 전체 삭제 (태그 유지)</span>
+<span class="jq">$("#myDiv")</span>.<span class="fn">remove</span>();      <span class="cm">// 태그 자체 삭제</span>
+<span class="jq">$("li")</span>.<span class="fn">last</span>().<span class="fn">remove</span>();  <span class="cm">// 마지막 li 삭제</span>
+
+<span class="cm">/* 클릭으로 생성된 li에 이벤트 붙이기 */</span>
+<span class="kw">var</span> $li = <span class="jq">$("&lt;li&gt;")</span>.<span class="fn">text</span>(<span class="str">"항목"</span>).<span class="fn">css</span>(<span class="str">"cursor"</span>,<span class="str">"pointer"</span>);
+$li.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">remove</span>(); });
+<span class="jq">$("ul")</span>.<span class="fn">append</span>($li);</code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s13">
+    <div class="section-head" onclick="toggleSection('s13')">
+      <span class="section-num">⑬</span>
+      <h2>버튼 hover CSS — 장바구니 문제 필수</h2>
+      <span class="star">★</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code>button:hover { background: blue; color: white; cursor: pointer; }</code></pre>
+    </div>
+  </div>
+
+</div><!-- /tab-dom -->
+
+<!-- ══ 고급 패턴 탭 ══ -->
+<div id="tab-advanced" class="tab-panel">
+
+  <div class="section" id="s6">
+    <div class="section-head" onclick="toggleSection('s6')">
+      <span class="section-num">⑥</span>
+      <h2>이벤트 등록</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$("#btn")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { });      <span class="cm">// 클릭</span>
+<span class="jq">$("#btn")</span>.<span class="fn">click</span>(<span class="kw">function</span> () { });             <span class="cm">// 단축형</span>
+<span class="jq">$("#sel")</span>.<span class="fn">on</span>(<span class="str">"change"</span>, <span class="kw">function</span> () { });    <span class="cm">// 변경 (select, radio)</span>
+<span class="jq">$("#inp")</span>.<span class="fn">on</span>(<span class="str">"focus"</span>, <span class="kw">function</span> () {         <span class="cm">// 포커스</span>
+  <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>, <span class="str">"lightyellow"</span>);
+});
+<span class="jq">$("#inp")</span>.<span class="fn">on</span>(<span class="str">"blur"</span>, <span class="kw">function</span> () {          <span class="cm">// 포커스 해제</span>
+  <span class="kw">if</span> (<span class="jq">$(this)</span>.<span class="fn">val</span>() === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"입력하세요"</span>); <span class="jq">$(this)</span>.<span class="fn">focus</span>(); }
+});
+<span class="jq">$("#inp")</span>.<span class="fn">on</span>(<span class="str">"input"</span>, <span class="kw">function</span> () { });     <span class="cm">// 입력 즉시 (oninput)</span></code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-head" onclick="toggleSection('s8')">
+      <span class="section-num">⑧</span>
+      <h2>타이머 — setInterval / clearInterval</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="cm">/* 기본 */</span>
+<span class="kw">var</span> tid = <span class="fn">setInterval</span>(<span class="kw">function</span> () {
+  <span class="cm">/* 1초마다 실행 */</span>
+}, <span class="num">1000</span>);
+<span class="fn">clearInterval</span>(tid);   <span class="cm">// 타이머 해제</span>
+
+<span class="cm">/* 10초 카운트다운 패턴 (ID 찾기 문제) */</span>
+<span class="kw">var</span> count = <span class="num">10</span>;
+<span class="kw">var</span> tid = <span class="fn">setInterval</span>(<span class="kw">function</span> () {
+  count--;
+  <span class="jq">$("#time")</span>.<span class="fn">text</span>(count + <span class="str">"초"</span>);
+  <span class="kw">if</span> (count &lt;= <span class="num">0</span>) { <span class="fn">clearInterval</span>(tid); <span class="jq">$("#msg")</span>.<span class="fn">text</span>(<span class="str">"타임아웃!"</span>); }
+}, <span class="num">1000</span>);
+
+<span class="cm">/* 재클릭 시 리셋 패턴 */</span>
+<span class="kw">if</span> (tid) <span class="fn">clearInterval</span>(tid);  <span class="cm">// 기존 타이머 해제 후</span>
+count = <span class="num">10</span>;                   <span class="cm">// 초기화</span>
+tid = <span class="fn">setInterval</span>(...);       <span class="cm">// 새로 시작</span></code></pre>
+    </div>
+  </div>
+
+  <div class="section" id="s9">
+    <div class="section-head" onclick="toggleSection('s9')">
+      <span class="section-num">⑨</span>
+      <h2>난수 발생</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="kw">var</span> n    = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * 범위);            <span class="cm">// 0 ~ 범위-1</span>
+<span class="kw">var</span> code = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="num">9000</span>) + <span class="num">1000</span>;   <span class="cm">// 1000~9999 (4자리)</span>
+<span class="kw">var</span> idx  = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * arr.length);     <span class="cm">// 배열 인덱스</span></code></pre>
+    </div>
+  </div>
+
+</div><!-- /tab-advanced -->
+
+<!-- ══ 메서드 표 탭 ══ -->
+<div id="tab-table" class="tab-panel">
+  <div class="grid2">
+    <div>
+      <div class="section" id="s15a">
+        <div class="section-head" onclick="toggleSection('s15a')">
+          <span class="section-num">⑮</span>
+          <h2>jQuery 메서드 한눈에 보기</h2>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="section-body">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>메서드</th><th>기능</th></tr>
+              <tr><td><code>.val()</code></td><td>input 값 읽기/쓰기</td></tr>
+              <tr><td><code>.text()</code></td><td>텍스트 읽기/쓰기</td></tr>
+              <tr><td><code>.html()</code></td><td>HTML 읽기/쓰기</td></tr>
+              <tr><td><code>.attr("src","...")</code></td><td>속성 변경</td></tr>
+              <tr><td><code>.prop("checked",false)</code></td><td>상태 변경</td></tr>
+              <tr><td><code>.css("color","red")</code></td><td>스타일 변경</td></tr>
+              <tr><td><code class="tag-hot">.show()</code> / <code class="tag-hot">.hide()</code></td><td>보이기/숨기기</td></tr>
+              <tr><td><code class="tag-hot">.append($li)</code></td><td>자식 끝에 추가</td></tr>
+              <tr><td><code>.prepend(...)</code></td><td>자식 앞에 추가</td></tr>
+              <tr><td><code class="tag-hot">.empty()</code></td><td>자식 전체 삭제</td></tr>
+              <tr><td><code>.remove()</code></td><td>태그 자체 삭제</td></tr>
+              <tr><td><code class="tag-hot">.each(fn)</code></td><td>반복 순회</td></tr>
+              <tr><td><code>.length</code></td><td>선택 개수</td></tr>
+              <tr><td><code>.is(":checked")</code></td><td>체크 여부</td></tr>
+              <tr><td><code>.data("name")</code></td><td>data-* 속성</td></tr>
+              <tr><td><code>.on("click",fn)</code></td><td>이벤트 등록</td></tr>
+              <tr><td><code>.focus()</code></td><td>포커스 주기</td></tr>
+              <tr><td><code>.on("change",fn)</code></td><td>select/radio 변경</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section" id="s_jsvsjq">
+        <div class="section-head" onclick="toggleSection('s_jsvsjq')">
+          <span class="section-num" style="background:var(--accent2)">JS</span>
+          <h2>JS ↔ jQuery 대조</h2>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="section-body">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>기능</th><th>jQuery</th></tr>
+              <tr><td>요소 선택</td><td><code>$("#id")</code></td></tr>
+              <tr><td>텍스트 쓰기</td><td><code>.text("값")</code></td></tr>
+              <tr><td>input 값</td><td><code>.val()</code> / <code>.val("값")</code></td></tr>
+              <tr><td>라디오 읽기</td><td><code>$("[name]:checked").val()</code></td></tr>
+              <tr><td>숨기기</td><td><code>.hide()</code></td></tr>
+              <tr><td>보이기</td><td><code>.show()</code></td></tr>
+              <tr><td>태그 생성</td><td><code>$("&lt;li&gt;")</code></td></tr>
+              <tr><td>자식 추가</td><td><code>.append($li)</code></td></tr>
+              <tr><td>자식 삭제</td><td><code>.empty()</code></td></tr>
+              <tr><td>태그 삭제</td><td><code>.remove()</code></td></tr>
+              <tr><td>이벤트</td><td><code>.on("click", fn)</code></td></tr>
+              <tr><td>포커스</td><td><code>.focus()</code></td></tr>
+              <tr><td>비활성화</td><td><code>.prop("disabled", true)</code></td></tr>
+              <tr><td>oninput</td><td><code>.on("input", fn)</code></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-table -->
+
+<!-- ══ 기출 요약 탭 ══ -->
+<div id="tab-history" class="tab-panel">
+  <div class="section" id="s12">
+    <div class="section-head" onclick="toggleSection('s12')">
+      <span class="section-num">⑫</span>
+      <h2>기출문제별 핵심 패턴 요약 (2021~2025)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>연도</th><th>문제</th><th>JS 핵심</th><th>jQuery 핵심</th></tr>
+          <tr><td>2021-2</td><td>계산기</td><td><code>input.value</code>, <code>eval()</code>, isNew 상태</td><td><code>.val()</code></td></tr>
+          <tr><td>2021-2</td><td>회원 폼</td><td>라디오, select, 문자열 조합</td><td><code>$(...:checked).val()</code></td></tr>
+          <tr><td>2022-1</td><td class="tag-hot">은행 계좌 ★</td><td>라디오, MSG[], isNaN</td><td><code>$(...:checked).val()</code>, MSG[]</td></tr>
+          <tr><td>2022-1</td><td>성적처리</td><td>라디오, 배열, toFixed(1), 함수 분리</td><td><code>.text()</code></td></tr>
+          <tr><td>2023-1</td><td>상품 콤보+장바구니</td><td>onchange, createElement</td><td><code>.on("change")</code>, <code>.append()</code></td></tr>
+          <tr><td>2023-1</td><td>랜덤 이미지</td><td>setInterval, Math.random()</td><td><code>setInterval</code>, <code>.attr("src")</code></td></tr>
+          <tr><td>2023-1</td><td>로드맵 추가/삭제</td><td>prepend/append, removeChild</td><td><code>.prepend()</code>, <code>.remove()</code></td></tr>
+          <tr><td>2023-1</td><td>행정구역 조회</td><td>라디오, 체크박스, 오류배열</td><td><code>.is(":checked")</code></td></tr>
+          <tr><td>2024-1</td><td>환율 계산</td><td>oninput, 배열 인덱스</td><td><code>.on("input")</code></td></tr>
+          <tr><td>2024-1</td><td>신청양식</td><td>date, select, disabled, focus</td><td><code>.prop("disabled")</code></td></tr>
+          <tr><td>2024-1</td><td>ID 찾기</td><td>setInterval 카운트다운, 난수 4자리</td><td><code>setInterval</code></td></tr>
+          <tr><td>2025-1</td><td class="tag-hot">장바구니 ★</td><td>체크박스, createElement+span2개</td><td><code>.each()</code>, <code>.append()</code>, <code>.show()/.hide()</code></td></tr>
+          <tr><td>2025-1</td><td>To-do List</td><td>라디오+콤보, append/remove</td><td><code>.append()</code>, <code>.remove()</code>, <code>.show()/.hide()</code></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 최종 체크리스트 -->
+  <div class="section" id="s_check">
+    <div class="section-head" onclick="toggleSection('s_check')">
+      <span class="section-num" style="background:var(--green);color:#000">✓</span>
+      <h2>시험 직전 체크리스트</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="grid2">
+        <div>
+          <p><strong>공통</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>jQuery CDN <code>&lt;script&gt;</code> 삽입</span></li>
+            <li><input type="checkbox"><span>코드 전체 <code>$(function(){});</code> 안에 작성</span></li>
+            <li><input type="checkbox"><span>CSS / JS 모두 html 내부에 작성</span></li>
+          </ul>
+          <p style="margin-top:10px"><strong>폼 읽기</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>라디오: <code>$("input[name='...']:checked").val()</code></span></li>
+            <li><input type="checkbox"><span>체크박스: <code>.each()</code> 또는 <code>:checked</code></span></li>
+            <li><input type="checkbox"><span>콤보박스: <code>.val()</code> 또는 <code>option:selected</code></span></li>
+          </ul>
+        </div>
+        <div>
+          <p><strong>DOM 조작</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>보이기/숨기기: <code>.show()</code> / <code>.hide()</code></span></li>
+            <li><input type="checkbox"><span>동적 추가: <code>.append()</code> / <code>.prepend()</code></span></li>
+            <li><input type="checkbox"><span>초기화: <code>.empty()</code></span></li>
+          </ul>
+          <p style="margin-top:10px"><strong>검증</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>빈 값: <code>if (val === "")</code></span></li>
+            <li><input type="checkbox"><span>숫자: <code>isNaN(amt) || amt &lt; 0</code></span></li>
+            <li><input type="checkbox"><span>오류 후 포커스: <code>$("#inp").focus()</code></span></li>
+            <li><input type="checkbox"><span>버튼 hover CSS 작성</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-history -->
+
+</div><!-- /container -->
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+function copyCode(btn) {
+  var pre = btn.parentElement;
+  var text = pre.innerText.replace(/^복사\n/, '');
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = '✓ 복사됨';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

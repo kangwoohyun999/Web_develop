@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웹개발기초 기말고사 요약본</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #4f8ef7;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --code-bg: #0d1117;
+    --code-border: #30363d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  /* ── 헤더 ─── */
+  .site-header {
+    background: linear-gradient(135deg, #1a2540 0%, #0f1117 100%);
+    border-bottom: 2px solid var(--accent2);
+    padding: 18px 24px 14px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .site-header h1 { font-size: 16px; color: var(--accent2); }
+  .site-header .sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .site-header .badge {
+    background: var(--accent2); color: #fff;
+    font-size: 11px; font-weight: 700; border-radius: 4px; padding: 2px 8px;
+  }
+
+  /* ── 탭 ─── */
+  .tab-nav {
+    display: flex; overflow-x: auto; gap: 0;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--muted);
+    padding: 10px 13px; font-size: 12px; cursor: pointer;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: color .15s, border-color .15s; font-family: inherit;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent2); border-bottom-color: var(--accent2); }
+
+  /* ── 레이아웃 ─── */
+  .container { max-width: 1020px; margin: 0 auto; padding: 20px 16px 60px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── 카드 ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .card-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  .card-head:hover { background: #282d42; }
+  .year-badge {
+    font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .y21 { background: #0a2a1a; color: var(--green); }
+  .y22 { background: #1a1a0a; color: var(--yellow); }
+  .y23 { background: #1a0a2a; color: var(--accent2); }
+  .y24 { background: #0a1a2a; color: var(--accent); }
+  .y25 { background: #2a0a0a; color: var(--red); }
+  .hot { color: var(--red); font-weight: 700; font-size: 12px; }
+  .card-head h2 { font-size: 13px; font-weight: 600; flex: 1; }
+  .chevron { color: var(--muted); font-size: 12px; transition: transform .2s; }
+  .card.collapsed .chevron { transform: rotate(-90deg); }
+  .card-body { padding: 14px; }
+  .card.collapsed .card-body { display: none; }
+
+  /* ── 코드 ─── */
+  pre {
+    background: var(--code-bg); border: 1px solid var(--code-border);
+    border-radius: 6px; padding: 12px 14px; overflow-x: auto;
+    font-size: 12px; line-height: 1.7; margin: 8px 0; position: relative;
+  }
+  code { font-family: 'Consolas','Courier New',monospace; color: #c9d1d9; }
+  .kw  { color: #ff7b72; }
+  .fn  { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+  .cm  { color: #6a737d; font-style: italic; }
+  .num { color: #79c0ff; }
+  .jq  { color: #ffa657; }
+
+  .copy-btn {
+    position: absolute; top: 6px; right: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--muted); font-size: 11px; padding: 2px 8px;
+    border-radius: 4px; cursor: pointer; font-family: inherit;
+  }
+  .copy-btn:hover { color: var(--text); }
+  .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+  /* ── 인라인 코드 ─── */
+  p code, li code, td code {
+    background: #21262d; border: 1px solid #30363d;
+    padding: 1px 5px; border-radius: 3px;
+    font-family: 'Consolas',monospace; font-size: 11.5px; color: #ff7b72;
+  }
+
+  /* ── 핵심 포인트 박스 ─── */
+  .point-box {
+    background: #0d1f2d; border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0; padding: 9px 12px; margin: 10px 0;
+    font-size: 12px;
+  }
+  .point-box strong { color: var(--accent); }
+
+  /* ── 테이블 ─── */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th {
+    background: var(--surface2); color: var(--accent2);
+    padding: 7px 10px; text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  td { padding: 6px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: #1e2130; }
+
+  /* ── 체크리스트 ─── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type=checkbox] { margin-top: 2px; accent-color: var(--accent); }
+
+  /* ── 2열 ─── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:640px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* ── 전략 스텝 ─── */
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: step;
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px;
+  }
+  .steps li::before {
+    content: counter(step);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent2); color: #fff;
+    font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+  strong { color: var(--yellow); }
+  p { margin-bottom: 8px; }
+  ul, ol { padding-left: 18px; margin-bottom: 8px; }
+  li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <h1>📖 웹개발기초 기말고사 요약본</h1>
+    <div class="sub">HTML·CSS 제공 → JS / jQuery 코드만 작성 | JS 1문제 + jQuery 1문제</div>
+  </div>
+  <span class="badge">Open-book 90분</span>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('strategy')">시험 전략</button>
+  <button class="tab-btn" onclick="switchTab('y2021')">2021-2</button>
+  <button class="tab-btn" onclick="switchTab('y2022')">2022-1</button>
+  <button class="tab-btn" onclick="switchTab('y2023')">2023-1</button>
+  <button class="tab-btn" onclick="switchTab('y2024')">2024-1</button>
+  <button class="tab-btn" onclick="switchTab('y2025')">2025-1 ★</button>
+  <button class="tab-btn" onclick="switchTab('ref')">대조표 &amp; 스니펫</button>
+  <button class="tab-btn" onclick="switchTab('check')">체크리스트</button>
+</nav>
+
+<div class="container">
+
+<!-- ══ 시험 전략 ══ -->
+<div id="tab-strategy" class="tab-panel active">
+  <div class="card" id="c_strat">
+    <div class="card-head" onclick="toggleCard('c_strat')">
+      <span class="year-badge y25">전략</span>
+      <h2>문제 받으면 가장 먼저 할 것</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <ol class="steps">
+        <li><strong>어떤 id / name 속성이 HTML에 있는지</strong> 확인 → 그걸 그대로 <code>$("#id")</code> 로 사용</li>
+        <li><strong>어떤 이벤트가 필요한지</strong> 파악 — 클릭? 변경? 포커스?</li>
+        <li><strong>데이터 흐름</strong> 파악 — 값 읽기 → 계산 → 결과 출력</li>
+      </ol>
+    </div>
+  </div>
+  <div class="card" id="c_cond">
+    <div class="card-head" onclick="toggleCard('c_cond')">
+      <span class="year-badge y24">조건</span>
+      <h2>시험 작성 조건</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <ul class="checklist">
+        <li><input type="checkbox"><span>jQuery CDN <code>&lt;script src="..."&gt;</code> 삽입했는가</span></li>
+        <li><input type="checkbox"><span>모든 코드를 <code>$(function () { ... });</code> 안에 작성했는가</span></li>
+        <li><input type="checkbox"><span>CSS와 jQuery를 <strong>html 파일 내부</strong>에 작성했는가 (외부 파일 금지)</span></li>
+        <li><input type="checkbox"><span>버튼 hover CSS: <code>button:hover { background: blue; color: white; cursor: pointer; }</code></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2021-2 ══ -->
+<div id="tab-y2021" class="tab-panel">
+  <div class="card" id="c21_1">
+    <div class="card-head" onclick="toggleCard('c21_1')">
+      <span class="year-badge y21">2021-2 ①</span>
+      <h2>계산기 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> <code>isNew</code> 플래그로 초기/이어서 구분, <code>eval()</code>로 수식 계산, C 클릭 시 <code>"0"</code>으로 초기화</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> expr  = <span class="str">""</span>;
+  <span class="kw">var</span> isNew = <span class="kw">true</span>;
+
+  <span class="jq">$(".btn-num, .btn-op")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> v = <span class="jq">$(this)</span>.<span class="fn">data</span>(<span class="str">"val"</span>);
+    <span class="kw">if</span> (isNew) { expr = v; isNew = <span class="kw">false</span>; }
+    <span class="kw">else</span>       { expr += v; }
+    <span class="jq">$("#display")</span>.<span class="fn">val</span>(expr);
+  });
+
+  <span class="jq">$("#btnEq")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">try</span> {
+      <span class="kw">var</span> result = <span class="fn">eval</span>(expr);
+      <span class="jq">$("#display")</span>.<span class="fn">val</span>(result);
+      expr = <span class="fn">String</span>(result);
+    } <span class="kw">catch</span>(e) { <span class="jq">$("#display")</span>.<span class="fn">val</span>(<span class="str">"오류"</span>); }
+  });
+
+  <span class="jq">$("#btnC")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    expr = <span class="str">""</span>; isNew = <span class="kw">true</span>;
+    <span class="jq">$("#display")</span>.<span class="fn">val</span>(<span class="str">"0"</span>);
+  });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c21_2">
+    <div class="card-head" onclick="toggleCard('c21_2')">
+      <span class="year-badge y21">2021-2 ②</span>
+      <h2>회원 폼 — 성명 + 성별 + 휴대전화 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 텍스트 + 라디오 + 콤보박스 읽어서 문자열 조합 후 출력</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="jq">$("#btnResult")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> name   = <span class="jq">$("#name")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> gender = <span class="jq">$("input[name='gender']:checked")</span>.<span class="fn">val</span>();  <span class="cm">// 남/여</span>
+    <span class="kw">var</span> tel1   = <span class="jq">$("#tel1 option:selected")</span>.<span class="fn">val</span>();          <span class="cm">// 콤보: 010</span>
+    <span class="kw">var</span> tel2   = <span class="jq">$("#tel2")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> tel3   = <span class="jq">$("#tel3")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> result = <span class="str">"당신은 "</span> + name + <span class="str">", "</span> + gender + <span class="str">"자이며, 전화번호는 "</span>
+               + tel1 + <span class="str">"-"</span> + tel2 + <span class="str">"-"</span> + tel3 + <span class="str">"입니다."</span>;
+    <span class="jq">$("#output")</span>.<span class="fn">text</span>(result);
+  });
+});</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2022-1 ══ -->
+<div id="tab-y2022" class="tab-panel">
+  <div class="card" id="c22_1">
+    <div class="card-head" onclick="toggleCard('c22_1')">
+      <span class="year-badge y22">2022-1 ①</span>
+      <h2>은행 계좌 시뮬레이션 (jQuery)</h2>
+      <span class="hot">★ 이번 시험 유력</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> MSG 배열(7개), 라디오로 action 읽기, isNaN+음수 검증, 이자 = balance × 0.02</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> balance = <span class="num">10000</span>;
+  <span class="kw">var</span> rate    = <span class="num">0.02</span>;
+  <span class="kw">var</span> MSG = [
+    <span class="str">"잔액 확인 완료"</span>, <span class="str">"저금 완료"</span>, <span class="str">"인출 완료"</span>, <span class="str">"이자 지급 완료"</span>,
+    <span class="str">"저금 금액 오류"</span>, <span class="str">"인출 금액 오류"</span>, <span class="str">"인출 불가(잔액 부족)"</span>
+  ];
+
+  <span class="jq">$("#btnRun")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> action = <span class="jq">$("input[name='action']:checked")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> amt    = <span class="fn">parseFloat</span>(<span class="jq">$("#amount")</span>.<span class="fn">val</span>());
+    <span class="jq">$("#outInterest")</span>.<span class="fn">val</span>(<span class="str">""</span>);
+
+    <span class="kw">if</span> (action === <span class="str">"check"</span>) {
+      <span class="jq">$("#outBalance")</span>.<span class="fn">val</span>(balance);  <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">0</span>]);
+
+    } <span class="kw">else if</span> (action === <span class="str">"save"</span>) {
+      <span class="kw">if</span> (<span class="fn">isNaN</span>(amt) || amt &lt; <span class="num">0</span>) { <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">4</span>]); <span class="kw">return</span>; }
+      balance += amt;
+      <span class="jq">$("#outBalance")</span>.<span class="fn">val</span>(balance);  <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">1</span>]);
+
+    } <span class="kw">else if</span> (action === <span class="str">"withdraw"</span>) {
+      <span class="kw">if</span> (<span class="fn">isNaN</span>(amt) || amt &lt; <span class="num">0</span>) { <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">5</span>]); <span class="kw">return</span>; }
+      <span class="kw">if</span> (amt &gt; balance)          { <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">6</span>]); <span class="kw">return</span>; }
+      balance -= amt;
+      <span class="jq">$("#outBalance")</span>.<span class="fn">val</span>(balance);  <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">2</span>]);
+
+    } <span class="kw">else if</span> (action === <span class="str">"interest"</span>) {
+      <span class="kw">var</span> interest = balance * rate;
+      balance += interest;
+      <span class="jq">$("#outInterest")</span>.<span class="fn">val</span>(interest);
+      <span class="jq">$("#outBalance")</span>.<span class="fn">val</span>(balance);  <span class="jq">$("#msg")</span>.<span class="fn">text</span>(MSG[<span class="num">3</span>]);
+    }
+  });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c22_2">
+    <div class="card-head" onclick="toggleCard('c22_2')">
+      <span class="year-badge y22">2022-1 ②</span>
+      <h2>성적처리 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 등급/평점 함수 분리, <code>toFixed(1)</code>, 평균평점 = Σ(학점×평점) / Σ학점</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> credits     = [<span class="num">3</span>, <span class="num">3</span>];
+  <span class="kw">var</span> attendScore = [<span class="num">0</span>, -<span class="num">1</span>, -<span class="num">2</span>];  <span class="cm">// 출석/지각/결석</span>
+
+  <span class="kw">function</span> <span class="fn">getGrade</span>(total) {
+    <span class="kw">if</span> (total >= <span class="num">90</span>) <span class="kw">return</span> <span class="str">"A"</span>;
+    <span class="kw">if</span> (total >= <span class="num">80</span>) <span class="kw">return</span> <span class="str">"B"</span>;
+    <span class="kw">if</span> (total >= <span class="num">70</span>) <span class="kw">return</span> <span class="str">"C"</span>;
+    <span class="kw">if</span> (total >= <span class="num">60</span>) <span class="kw">return</span> <span class="str">"D"</span>;
+    <span class="kw">return</span> <span class="str">"F"</span>;
+  }
+  <span class="kw">function</span> <span class="fn">getPoint</span>(grade) {
+    <span class="kw">var</span> map = { A:<span class="num">4.0</span>, B:<span class="num">3.0</span>, C:<span class="num">2.0</span>, D:<span class="num">1.0</span>, F:<span class="num">0.0</span> };
+    <span class="kw">return</span> map[grade];
+  }
+
+  <span class="jq">$("#btnCalc")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> totalCredit = <span class="num">0</span>, sumPoint = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">0</span>; i &lt; <span class="num">2</span>; i++) {
+      <span class="kw">var</span> attIdx = <span class="fn">parseInt</span>(<span class="jq">$("input[name='att"+i+"']:checked")</span>.<span class="fn">val</span>());
+      <span class="kw">var</span> exam   = <span class="fn">parseInt</span>(<span class="jq">$("#exam"+i)</span>.<span class="fn">val</span>());
+      <span class="kw">var</span> total  = exam + attendScore[attIdx];
+      <span class="kw">var</span> grade  = <span class="fn">getGrade</span>(total);
+      <span class="kw">var</span> point  = <span class="fn">getPoint</span>(grade);
+      <span class="jq">$("#total"+i)</span>.<span class="fn">text</span>(total);
+      <span class="jq">$("#grade"+i)</span>.<span class="fn">text</span>(grade);
+      <span class="jq">$("#point"+i)</span>.<span class="fn">text</span>(point.<span class="fn">toFixed</span>(<span class="num">1</span>));
+      sumPoint    += credits[i] * point;
+      totalCredit += credits[i];
+    }
+    <span class="jq">$("#avgPoint")</span>.<span class="fn">text</span>(<span class="str">"평균평점: "</span> + (sumPoint / totalCredit).<span class="fn">toFixed</span>(<span class="num">1</span>));
+  });
+});</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2023-1 ══ -->
+<div id="tab-y2023" class="tab-panel">
+  <div class="card" id="c23_1">
+    <div class="card-head" onclick="toggleCard('c23_1')">
+      <span class="year-badge y23">2023-1 ①</span>
+      <h2>상품 콤보 + 장바구니 (JS)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> <code>onchange</code> 이벤트, 객체로 가격 관리, <code>createElement</code> + <code>appendChild</code></div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> prices = { <span class="str">"바나나"</span>:<span class="num">1000</span>, <span class="str">"사과"</span>:<span class="num">1500</span>, <span class="str">"포도"</span>:<span class="num">2000</span>, <span class="str">"딸기"</span>:<span class="num">2500</span> };
+  <span class="kw">var</span> total  = <span class="num">0</span>;
+
+  <span class="jq">$("#productSel")</span>.<span class="fn">on</span>(<span class="str">"change"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> name  = <span class="jq">$(this)</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (name === <span class="str">"과일 선택"</span>) <span class="kw">return</span>;
+    <span class="kw">var</span> price = prices[name];
+    total += price;
+    <span class="kw">var</span> $li = <span class="jq">$("&lt;li&gt;")</span>.<span class="fn">text</span>(name + <span class="str">" : "</span> + price.<span class="fn">toLocaleString</span>() + <span class="str">"원"</span>);
+    <span class="jq">$("#cartList")</span>.<span class="fn">append</span>($li);
+    <span class="jq">$("#totalAmt")</span>.<span class="fn">text</span>(<span class="str">"합계: "</span> + total.<span class="fn">toLocaleString</span>() + <span class="str">"원"</span>);
+  });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c23_2">
+    <div class="card-head" onclick="toggleCard('c23_2')">
+      <span class="year-badge y23">2023-1 ②</span>
+      <h2>랜덤 이미지 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 이미지 배열 preload, <code>setInterval</code>, <code>Math.random()</code>, 이미지 클릭 → 정지</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> images = [<span class="str">"img1.jpg"</span>,<span class="str">"img2.jpg"</span>,<span class="str">"img3.jpg"</span>,<span class="str">"img4.jpg"</span>,<span class="str">"img5.jpg"</span>];
+  <span class="kw">var</span> tid = <span class="kw">null</span>;
+  <span class="kw">var</span> preload = [];
+  <span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">0</span>; i &lt; images.length; i++) {
+    preload[i] = <span class="kw">new</span> Image(); preload[i].src = images[i];
+  }
+  <span class="jq">$("#btnStart")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">if</span> (tid) <span class="fn">clearInterval</span>(tid);
+    tid = <span class="fn">setInterval</span>(<span class="kw">function</span> () {
+      <span class="kw">var</span> idx = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * images.length);
+      <span class="jq">$("#photo")</span>.<span class="fn">attr</span>(<span class="str">"src"</span>, images[idx]);
+      <span class="jq">$("#status")</span>.<span class="fn">text</span>(<span class="str">"Status: "</span> + idx);
+    }, <span class="num">1000</span>);
+  });
+  <span class="jq">$("#photo")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="fn">clearInterval</span>(tid); tid = <span class="kw">null</span>;
+    <span class="jq">$("#status")</span>.<span class="fn">text</span>(<span class="str">"Status: Stopped."</span>);
+  });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c23_3">
+    <div class="card-head" onclick="toggleCard('c23_3')">
+      <span class="year-badge y23">2023-1 ③</span>
+      <h2>로드맵 — 앞/뒤 추가, 클릭 삭제 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">function</span> <span class="fn">addItem</span>(isPrepend) {
+    <span class="kw">var</span> name = <span class="jq">$("#subjectInput")</span>.<span class="fn">val</span>().<span class="fn">trim</span>();
+    <span class="kw">if</span> (name === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"과목명 입력"</span>); <span class="jq">$("#subjectInput")</span>.<span class="fn">focus</span>(); <span class="kw">return</span>; }
+    <span class="kw">var</span> $li = <span class="jq">$("&lt;li&gt;")</span>.<span class="fn">text</span>(name).<span class="fn">css</span>(<span class="str">"cursor"</span>,<span class="str">"pointer"</span>);
+    $li.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">remove</span>(); });
+    isPrepend ? <span class="jq">$("#roadmap")</span>.<span class="fn">prepend</span>($li) : <span class="jq">$("#roadmap")</span>.<span class="fn">append</span>($li);
+    <span class="jq">$("#subjectInput")</span>.<span class="fn">val</span>(<span class="str">""</span>).<span class="fn">focus</span>();
+  }
+  <span class="jq">$("#btnPre")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="fn">addItem</span>(<span class="kw">true</span>); });
+  <span class="jq">$("#btnApp")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="fn">addItem</span>(<span class="kw">false</span>); });
+  <span class="jq">$("#subjectInput")</span>.<span class="fn">on</span>(<span class="str">"focus"</span>, <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>,<span class="str">"lightskyblue"</span>); });
+  <span class="jq">$("#subjectInput")</span>.<span class="fn">on</span>(<span class="str">"blur"</span>,  <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>,<span class="str">""</span>); });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c23_4">
+    <div class="card-head" onclick="toggleCard('c23_4')">
+      <span class="year-badge y23">2023-1 ④</span>
+      <h2>행정구역 조회 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 오류 메시지 4개를 배열로 관리, <code>.is(":checked")</code>로 체크박스 확인</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> ERR = [<span class="str">"행정구역을 선택하세요."</span>, <span class="str">"주민등록번호를 입력하세요."</span>,
+             <span class="str">"전자납부번호를 입력하세요."</span>, <span class="str">"개인정보 수집 및 이용 동의에 체크해 주세요."</span>];
+
+  <span class="jq">$("#btnSearch")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> region = <span class="jq">$("#regionSel")</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (region === <span class="str">"행정구역"</span>) { <span class="fn">alert</span>(ERR[<span class="num">0</span>]); <span class="kw">return</span>; }
+    <span class="kw">var</span> payType = <span class="jq">$("input[name='payType']:checked")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> num = <span class="str">""</span>;
+    <span class="kw">if</span> (payType === <span class="str">"juminNo"</span>) {
+      num = <span class="jq">$("#juminInput")</span>.<span class="fn">val</span>();
+      <span class="kw">if</span> (num === <span class="str">""</span>) { <span class="fn">alert</span>(ERR[<span class="num">1</span>]); <span class="kw">return</span>; }
+    } <span class="kw">else</span> {
+      num = <span class="jq">$("#electroInput")</span>.<span class="fn">val</span>();
+      <span class="kw">if</span> (num === <span class="str">""</span>) { <span class="fn">alert</span>(ERR[<span class="num">2</span>]); <span class="kw">return</span>; }
+    }
+    <span class="kw">if</span> (!<span class="jq">$("#agree")</span>.<span class="fn">is</span>(<span class="str">":checked"</span>)) { <span class="fn">alert</span>(ERR[<span class="num">3</span>]); <span class="kw">return</span>; }
+    <span class="jq">$("#result")</span>.<span class="fn">text</span>(<span class="str">"선택 결과 : "</span> + region + <span class="str">", "</span> + num);
+  });
+});</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2024-1 ══ -->
+<div id="tab-y2024" class="tab-panel">
+  <div class="card" id="c24_1">
+    <div class="card-head" onclick="toggleCard('c24_1')">
+      <span class="year-badge y24">2024-1 ①</span>
+      <h2>환율 계산 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 나라 이름·단위·환율을 각각 배열에 저장, <code>selectedIndex</code>로 참조, <code>.on("input")</code> 즉시 계산</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> codes = [<span class="str">"USD"</span>,<span class="str">"JPY"</span>,<span class="str">"CNY"</span>];
+  <span class="kw">var</span> units = [<span class="str">"달러"</span>,<span class="str">"엔"</span>,<span class="str">"위안"</span>];
+  <span class="kw">var</span> rates = [<span class="num">1300</span>, <span class="num">1000</span>, <span class="num">200</span>];
+
+  <span class="kw">function</span> <span class="fn">calcKRW</span>() {
+    <span class="kw">var</span> idx = <span class="jq">$("#countrySel")</span>.<span class="fn">prop</span>(<span class="str">"selectedIndex"</span>);
+    <span class="kw">var</span> amt = <span class="fn">parseFloat</span>(<span class="jq">$("#foreignAmt")</span>.<span class="fn">val</span>()) || <span class="num">0</span>;
+    <span class="jq">$("#krwResult")</span>.<span class="fn">text</span>(<span class="str">"대한민국 KRW  "</span> + (amt * rates[idx]).<span class="fn">toLocaleString</span>() + <span class="str">"원"</span>);
+  }
+  <span class="jq">$("#countrySel")</span>.<span class="fn">on</span>(<span class="str">"change"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> idx = <span class="jq">$(this)</span>.<span class="fn">prop</span>(<span class="str">"selectedIndex"</span>);
+    <span class="jq">$("#countryCode")</span>.<span class="fn">text</span>(codes[idx]);
+    <span class="jq">$("#unitLabel")</span>.<span class="fn">text</span>(<span class="str">"1"</span> + units[idx]);
+    <span class="fn">calcKRW</span>();
+  });
+  <span class="jq">$("#foreignAmt")</span>.<span class="fn">on</span>(<span class="str">"input"</span>, <span class="kw">function</span> () { <span class="fn">calcKRW</span>(); });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c24_2">
+    <div class="card-head" onclick="toggleCard('c24_2')">
+      <span class="year-badge y24">2024-1 ②</span>
+      <h2>신청양식 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="jq">$("#studentId, #phone")</span>.<span class="fn">on</span>(<span class="str">"focus"</span>, <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>,<span class="str">"lightyellow"</span>); });
+  <span class="jq">$("#studentId, #phone")</span>.<span class="fn">on</span>(<span class="str">"blur"</span>,  <span class="kw">function</span> () { <span class="jq">$(this)</span>.<span class="fn">css</span>(<span class="str">"background"</span>,<span class="str">""</span>); });
+
+  <span class="jq">$("#noPhone")</span>.<span class="fn">on</span>(<span class="str">"change"</span>, <span class="kw">function</span> () {
+    <span class="jq">$("#phone")</span>.<span class="fn">prop</span>(<span class="str">"disabled"</span>, <span class="jq">$(this)</span>.<span class="fn">is</span>(<span class="str">":checked"</span>));
+  });
+
+  <span class="jq">$("#btnConfirm")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> sid  = <span class="jq">$("#studentId")</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (sid === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"학번을 입력하세요."</span>); <span class="jq">$("#studentId")</span>.<span class="fn">focus</span>(); <span class="kw">return</span>; }
+    <span class="kw">var</span> date = <span class="jq">$("#applyDate")</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (date === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"신청일자를 입력하세요."</span>); <span class="jq">$("#applyDate")</span>.<span class="fn">focus</span>(); <span class="kw">return</span>; }
+    <span class="kw">var</span> grade = <span class="jq">$("input[name='grade']:checked")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> hour  = <span class="jq">$("#timeH")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> min   = <span class="jq">$("#timeM")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> phone = <span class="jq">$("#noPhone")</span>.<span class="fn">is</span>(<span class="str">":checked"</span>) ? <span class="str">"없음"</span> : <span class="jq">$("#phone")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> parts = date.<span class="fn">split</span>(<span class="str">"-"</span>);
+    <span class="kw">var</span> dStr  = parts[<span class="num">0</span>]+<span class="str">"년 "</span>+<span class="fn">parseInt</span>(parts[<span class="num">1</span>])+<span class="str">"월 "</span>+<span class="fn">parseInt</span>(parts[<span class="num">2</span>])+<span class="str">"일"</span>;
+    <span class="jq">$("#output")</span>.<span class="fn">html</span>(sid+<span class="str">"&lt;br&gt;"</span>+grade+<span class="str">"&lt;br&gt;"</span>+dStr+<span class="str">"&lt;br&gt;"</span>+hour+<span class="str">"시 "</span>+min+<span class="str">"분&lt;br&gt;"</span>+phone);
+  });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c24_3">
+    <div class="card-head" onclick="toggleCard('c24_3')">
+      <span class="year-badge y24">2024-1 ③</span>
+      <h2>ID 찾기 — 카운트다운 (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 4자리 난수 = <code>Math.floor(Math.random()*9000)+1000</code>, 재클릭 시 <code>clearInterval</code> 후 리셋</div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> authCode = <span class="str">""</span>, tid = <span class="kw">null</span>, timeLeft = <span class="num">10</span>;
+
+  <span class="jq">$("#btnAuth")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> name  = <span class="jq">$("#name")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> phone = <span class="jq">$("#phone")</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (name === <span class="str">""</span>)  { <span class="fn">alert</span>(<span class="str">"이름 입력"</span>); <span class="jq">$("#name")</span>.<span class="fn">focus</span>(); <span class="kw">return</span>; }
+    <span class="kw">if</span> (phone === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"전화번호 입력"</span>); <span class="jq">$("#phone")</span>.<span class="fn">focus</span>(); <span class="kw">return</span>; }
+    authCode = <span class="fn">String</span>(Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="num">9000</span>) + <span class="num">1000</span>);
+    <span class="fn">alert</span>(<span class="str">"인증번호는 "</span> + authCode + <span class="str">"입니다."</span>);
+    <span class="kw">if</span> (tid) <span class="fn">clearInterval</span>(tid);
+    timeLeft = <span class="num">10</span>; <span class="jq">$("#timeLeft")</span>.<span class="fn">text</span>(<span class="num">10</span> + <span class="str">"초"</span>);
+    tid = <span class="fn">setInterval</span>(<span class="kw">function</span> () {
+      timeLeft--;
+      <span class="jq">$("#timeLeft")</span>.<span class="fn">text</span>(timeLeft + <span class="str">"초"</span>);
+      <span class="kw">if</span> (timeLeft &lt;= <span class="num">0</span>) { <span class="fn">clearInterval</span>(tid); tid = <span class="kw">null</span>; <span class="fn">alert</span>(<span class="str">"타임아웃!"</span>); }
+    }, <span class="num">1000</span>);
+  });
+
+  <span class="jq">$("#btnConfirm")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">if</span> (timeLeft &lt;= <span class="num">0</span>) { <span class="fn">alert</span>(<span class="str">"시간 초과"</span>); <span class="kw">return</span>; }
+    <span class="kw">var</span> input = <span class="jq">$("#authInput")</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (input === authCode) {
+      <span class="fn">clearInterval</span>(tid); tid = <span class="kw">null</span>;
+      <span class="fn">alert</span>(<span class="str">"귀하의 ID는 'kangnam'입니다."</span>);
+    } <span class="kw">else</span> {
+      <span class="fn">alert</span>(<span class="str">"실패! 다시 시도하세요."</span>);
+      <span class="jq">$("#authInput")</span>.<span class="fn">val</span>(<span class="str">""</span>).<span class="fn">focus</span>();
+    }
+  });
+});</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2025-1 ══ -->
+<div id="tab-y2025" class="tab-panel">
+  <div class="card" id="c25_1">
+    <div class="card-head" onclick="toggleCard('c25_1')">
+      <span class="year-badge y25">2025-1 ①</span>
+      <h2>장바구니 시뮬레이션 (jQuery)</h2>
+      <span class="hot">★ 이번 시험 유력</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 체크박스 <code>.each()</code>, <code>$("&lt;li&gt;")</code>+span 2개+<code>.append()</code>, 구매→<code>.show()</code>, 완료→<code>.empty()</code></div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">var</span> total = <span class="num">0</span>;
+
+  <span class="cm">/* [추가] 버튼 */</span>
+  <span class="jq">$("#btnAdd")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> checked = <span class="jq">$("input[name='item']:checked")</span>;
+    <span class="kw">if</span> (checked.length === <span class="num">0</span>) { <span class="fn">alert</span>(<span class="str">"상품을 선택한 후 추가 버튼을 클릭하세요."</span>); <span class="kw">return</span>; }
+    checked.<span class="fn">each</span>(<span class="kw">function</span> () {
+      <span class="kw">var</span> name  = <span class="jq">$(this)</span>.<span class="fn">data</span>(<span class="str">"name"</span>);
+      <span class="kw">var</span> price = <span class="fn">parseInt</span>(<span class="jq">$(this)</span>.<span class="fn">val</span>());
+      <span class="kw">var</span> $li   = <span class="jq">$("&lt;li&gt;")</span>;
+      $li.<span class="fn">append</span>(<span class="jq">$("&lt;span&gt;")</span>.<span class="fn">text</span>(name));
+      $li.<span class="fn">append</span>(<span class="jq">$("&lt;span&gt;")</span>.<span class="fn">text</span>(price.<span class="fn">toLocaleString</span>() + <span class="str">"원"</span>));
+      <span class="jq">$("#cartList")</span>.<span class="fn">append</span>($li);
+      total += price;
+      <span class="jq">$(this)</span>.<span class="fn">prop</span>(<span class="str">"checked"</span>, <span class="kw">false</span>);
+    });
+    <span class="jq">$("#totalInput")</span>.<span class="fn">val</span>(total.<span class="fn">toLocaleString</span>());
+    <span class="jq">$("#msgArea")</span>.<span class="fn">text</span>(<span class="str">"처리 메시지: 상품이 장바구니에 추가되었습니다."</span>);
+  });
+
+  <span class="cm">/* [구매] 버튼 */</span>
+  <span class="jq">$("#btnBuy")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">if</span> (<span class="jq">$("#cartList li")</span>.length === <span class="num">0</span>) { <span class="fn">alert</span>(<span class="str">"상품을 추가한 후 구매 버튼을 클릭하세요."</span>); <span class="kw">return</span>; }
+    <span class="jq">$("#payArea")</span>.<span class="fn">show</span>();
+  });
+
+  <span class="cm">/* [구매 진행] 버튼 */</span>
+  <span class="jq">$("#btnPayGo")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> pay = <span class="jq">$("input[name='pay']:checked")</span>.<span class="fn">val</span>();
+    <span class="kw">if</span> (!pay) { <span class="fn">alert</span>(<span class="str">"결재 수단을 선택하세요."</span>); <span class="kw">return</span>; }
+    <span class="kw">if</span> (<span class="fn">confirm</span>(pay + <span class="str">"(으)로 진행하시겠습니까?"</span>)) {
+      <span class="jq">$("#payArea")</span>.<span class="fn">hide</span>();
+      <span class="jq">$("input[name='pay']")</span>.<span class="fn">prop</span>(<span class="str">"checked"</span>, <span class="kw">false</span>);
+      <span class="jq">$("#cartList")</span>.<span class="fn">empty</span>();
+      total = <span class="num">0</span>; <span class="jq">$("#totalInput")</span>.<span class="fn">val</span>(<span class="str">"0"</span>);
+      <span class="jq">$("#msgArea")</span>.<span class="fn">text</span>(<span class="str">"처리 메시지: \""</span> + pay + <span class="str">"\"(으)로 결제완료."</span>);
+    }
+  });
+
+  <span class="cm">/* [취소] 버튼 */</span>
+  <span class="jq">$("#btnCancel")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="jq">$("#payArea")</span>.<span class="fn">hide</span>(); });
+});</code></pre>
+    </div>
+  </div>
+
+  <div class="card" id="c25_2">
+    <div class="card-head" onclick="toggleCard('c25_2')">
+      <span class="year-badge y25">2025-1 ②</span>
+      <h2>To-do List (jQuery)</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="point-box"><strong>핵심:</strong> 라디오+콤보로 옵션 읽기, 클릭 시 할일→완료 이동(<code>.clone()</code>), 완료 클릭 시 <code>.remove()</code></div>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="jq">$</span>(<span class="kw">function</span> () {
+  <span class="kw">function</span> <span class="fn">bindTodo</span>($li) {
+    $li.<span class="fn">css</span>(<span class="str">"cursor"</span>,<span class="str">"pointer"</span>).<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+      <span class="kw">var</span> $done = <span class="jq">$(this)</span>.<span class="fn">clone</span>();
+      <span class="jq">$(this)</span>.<span class="fn">remove</span>();
+      $done.<span class="fn">css</span>(<span class="str">"background"</span>,<span class="str">"lightgreen"</span>).<span class="fn">off</span>(<span class="str">"click"</span>).<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span>(){ <span class="jq">$(this)</span>.<span class="fn">remove</span>(); });
+      <span class="jq">$("#doneList")</span>.<span class="fn">append</span>($done);
+    });
+  }
+  <span class="kw">function</span> <span class="fn">resetOptions</span>() {
+    <span class="jq">$("input[name='priority'][value='normal']")</span>.<span class="fn">prop</span>(<span class="str">"checked"</span>, <span class="kw">true</span>);
+    <span class="jq">$("#urgency")</span>.<span class="fn">val</span>(<span class="str">"보통"</span>);
+  }
+  <span class="jq">$("#btnAdd")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () {
+    <span class="kw">var</span> text = <span class="jq">$("#todoInput")</span>.<span class="fn">val</span>().<span class="fn">trim</span>();
+    <span class="kw">if</span> (text === <span class="str">""</span>) { <span class="fn">alert</span>(<span class="str">"할 일을 입력하세요."</span>); <span class="kw">return</span>; }
+    <span class="kw">var</span> priority = <span class="jq">$("input[name='priority']:checked")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> urgency  = <span class="jq">$("#urgency")</span>.<span class="fn">val</span>();
+    <span class="kw">var</span> $li = <span class="jq">$("&lt;li&gt;")</span>.<span class="fn">text</span>(<span class="str">"["</span>+priority+<span class="str">"/"</span>+urgency+<span class="str">"] "</span>+text).<span class="fn">css</span>(<span class="str">"background"</span>,<span class="str">"#ddd"</span>);
+    <span class="fn">bindTodo</span>($li); <span class="jq">$("#todoList")</span>.<span class="fn">append</span>($li);
+    <span class="jq">$("#todoInput")</span>.<span class="fn">val</span>(<span class="str">""</span>).<span class="fn">focus</span>(); <span class="fn">resetOptions</span>();
+  });
+  <span class="jq">$("#btnMenu")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="jq">$("#funcMenu")</span>.<span class="fn">show</span>(); });
+  <span class="jq">$("#btnClear")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="jq">$("#doneList")</span>.<span class="fn">empty</span>(); <span class="jq">$("#funcMenu")</span>.<span class="fn">hide</span>(); });
+  <span class="jq">$("#btnMenuCancel")</span>.<span class="fn">on</span>(<span class="str">"click"</span>, <span class="kw">function</span> () { <span class="jq">$("#funcMenu")</span>.<span class="fn">hide</span>(); });
+});</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대조표 & 스니펫 ══ -->
+<div id="tab-ref" class="tab-panel">
+  <div class="card" id="c_ref1">
+    <div class="card-head" onclick="toggleCard('c_ref1')">
+      <span class="year-badge y24">대조</span>
+      <h2>JavaScript ↔ jQuery 대조표</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>기능</th><th>JavaScript</th><th>jQuery</th></tr>
+          <tr><td>요소 선택</td><td><code>document.getElementById("id")</code></td><td><code>$("#id")</code></td></tr>
+          <tr><td>텍스트 쓰기</td><td><code>el.textContent = "값"</code></td><td><code>$("#id").text("값")</code></td></tr>
+          <tr><td>HTML 쓰기</td><td><code>el.innerHTML = "..."</code></td><td><code>$("#id").html("...")</code></td></tr>
+          <tr><td>input 값 읽기</td><td><code>el.value</code></td><td><code>$("#id").val()</code></td></tr>
+          <tr><td>라디오 읽기</td><td><code>for r of radios: if(r.checked)</code></td><td><code>$("[name]:checked").val()</code></td></tr>
+          <tr><td>체크박스 순회</td><td><code>cbs.forEach(cb => ...)</code></td><td><code>$("input:checked").each(fn)</code></td></tr>
+          <tr><td>숨기기</td><td><code>el.style.display = "none"</code></td><td><code>$("#id").hide()</code></td></tr>
+          <tr><td>보이기</td><td><code>el.style.display = "block"</code></td><td><code>$("#id").show()</code></td></tr>
+          <tr><td>태그 생성</td><td><code>document.createElement("li")</code></td><td><code>$("&lt;li&gt;")</code></td></tr>
+          <tr><td>자식 추가</td><td><code>parent.appendChild(child)</code></td><td><code>$("ul").append($li)</code></td></tr>
+          <tr><td>자식 전체 삭제</td><td><code>el.innerHTML = ""</code></td><td><code>$("ul").empty()</code></td></tr>
+          <tr><td>태그 자체 삭제</td><td><code>el.parentNode.removeChild(el)</code></td><td><code>$(el).remove()</code></td></tr>
+          <tr><td>이벤트 등록</td><td><code>el.addEventListener("click", fn)</code></td><td><code>$("#id").on("click", fn)</code></td></tr>
+          <tr><td>포커스</td><td><code>el.focus()</code></td><td><code>$("#id").focus()</code></td></tr>
+          <tr><td>비활성화</td><td><code>el.disabled = true</code></td><td><code>$("#id").prop("disabled", true)</code></td></tr>
+          <tr><td>oninput</td><td><code>el.oninput = fn</code></td><td><code>$("#id").on("input", fn)</code></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="c_snip">
+    <div class="card-head" onclick="toggleCard('c_snip')">
+      <span class="year-badge y23">스니펫</span>
+      <h2>자주 쓰는 코드 패턴</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div>
+          <p><strong>배열 + 인덱스 (환율)</strong></p>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="kw">var</span> rates = [<span class="num">1300</span>,<span class="num">1000</span>,<span class="num">200</span>];
+<span class="kw">var</span> idx   = <span class="jq">$("#sel")</span>.<span class="fn">prop</span>(<span class="str">"selectedIndex"</span>);
+<span class="kw">var</span> rate  = rates[idx];</code></pre>
+          <p><strong>숫자 포맷</strong></p>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code>(<span class="num">12345</span>).<span class="fn">toLocaleString</span>()  <span class="cm">// "12,345"</span>
+(<span class="num">3.14159</span>).<span class="fn">toFixed</span>(<span class="num">1</span>)       <span class="cm">// "3.1"</span></code></pre>
+        </div>
+        <div>
+          <p><strong>날짜 파싱</strong></p>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="kw">var</span> p = <span class="jq">$("#date")</span>.<span class="fn">val</span>().<span class="fn">split</span>(<span class="str">"-"</span>);
+<span class="kw">var</span> s = p[<span class="num">0</span>]+<span class="str">"년 "</span>+<span class="fn">parseInt</span>(p[<span class="num">1</span>])+<span class="str">"월 "</span>
+      +<span class="fn">parseInt</span>(p[<span class="num">2</span>])+<span class="str">"일"</span>;</code></pre>
+          <p><strong>confirm + 처리</strong></p>
+<pre><button class="copy-btn" onclick="copyCode(this)">복사</button><code><span class="kw">if</span> (<span class="fn">confirm</span>(<span class="str">"진행하시겠습니까?"</span>)) {
+  <span class="cm">/* 확인 */</span>
+} <span class="kw">else</span> { <span class="cm">/* 취소 */</span> }</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 체크리스트 ══ -->
+<div id="tab-check" class="tab-panel">
+  <div class="card" id="c_final">
+    <div class="card-head" onclick="toggleCard('c_final')">
+      <span class="year-badge" style="background:#064e3b;color:#34d399">✓</span>
+      <h2>시험 직전 최종 체크리스트</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div>
+          <p><strong>공통</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>jQuery CDN <code>&lt;script&gt;</code> 삽입</span></li>
+            <li><input type="checkbox"><span>코드 전체 <code>$(function(){});</code> 안에 작성</span></li>
+            <li><input type="checkbox"><span>CSS / JS 모두 html 내부에 작성</span></li>
+          </ul>
+          <p style="margin-top:12px"><strong>폼 읽기</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>라디오: <code>$("input[name='...']:checked").val()</code></span></li>
+            <li><input type="checkbox"><span>체크박스: <code>.each()</code> 또는 <code>:checked</code></span></li>
+            <li><input type="checkbox"><span>콤보박스: <code>.val()</code></span></li>
+          </ul>
+          <p style="margin-top:12px"><strong>검증</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>빈 값: <code>if (val === "")</code></span></li>
+            <li><input type="checkbox"><span>숫자: <code>isNaN(amt) || amt &lt; 0</code></span></li>
+            <li><input type="checkbox"><span>잔액 부족: <code>if (amt &gt; balance)</code></span></li>
+            <li><input type="checkbox"><span>오류 후 포커스: <code>$("#inp").focus()</code></span></li>
+          </ul>
+        </div>
+        <div>
+          <p><strong>DOM 조작</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>보이기/숨기기: <code>.show()</code> / <code>.hide()</code></span></li>
+            <li><input type="checkbox"><span>동적 추가: <code>.append()</code> / <code>.prepend()</code></span></li>
+            <li><input type="checkbox"><span>초기화: <code>.empty()</code></span></li>
+            <li><input type="checkbox"><span>삭제: <code>.remove()</code></span></li>
+          </ul>
+          <p style="margin-top:12px"><strong>은행 계좌 (2022-1)</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span>MSG 배열 7개 정의</span></li>
+            <li><input type="checkbox"><span>이자 = balance * 0.02</span></li>
+            <li><input type="checkbox"><span>인출 금액 &gt; 잔액 → MSG[6]</span></li>
+          </ul>
+          <p style="margin-top:12px"><strong>장바구니 (2025-1)</strong></p>
+          <ul class="checklist">
+            <li><input type="checkbox"><span><code>$("&lt;li&gt;")</code> + span 2개 + <code>.append()</code></span></li>
+            <li><input type="checkbox"><span>구매 버튼 → <code>.show()</code></span></li>
+            <li><input type="checkbox"><span>결제 완료 → <code>.empty()</code> + total=0</span></li>
+            <li><input type="checkbox"><span>버튼 hover CSS 작성</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleCard(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+function copyCode(btn) {
+  var pre = btn.parentElement;
+  var text = pre.innerText.replace(/^복사\n/, '');
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = '✓ 복사됨';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>
